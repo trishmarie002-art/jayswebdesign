@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Send, CheckCircle, AlertCircle, Loader2, Phone, Mail, Globe, MessageSquare } from "lucide-react";
+import { useForm, ValidationError } from '@formspree/react';
 
 export default function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [state, handleSubmit] = useForm('mqegywzr');
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,27 +13,10 @@ export default function ContactForm() {
     message: "",
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus("loading");
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setStatus("success");
-        setFormData({ name: "", email: "", phone: "", website: "", message: "" });
-      } else {
-        setStatus("error");
-      }
-    } catch (error) {
-      console.error("Submission error:", error);
-      setStatus("error");
-    }
+  // Handle local state for input values while using Formspree's handleSubmit
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -117,23 +101,29 @@ export default function ContactForm() {
                   <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Full Name</label>
                   <input
                     required
+                    id="name"
+                    name="name"
                     type="text"
                     placeholder="e.g. John Smith"
                     className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all placeholder:text-gray-600"
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={handleInputChange}
                   />
+                  <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red-400 text-xs mt-1 ml-1" />
                 </div>
                 <div className="space-y-3">
                   <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Email Address</label>
                   <input
                     required
+                    id="email"
+                    name="email"
                     type="email"
                     placeholder="e.g. john@company.com"
                     className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all placeholder:text-gray-600"
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    onChange={handleInputChange}
                   />
+                  <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-xs mt-1 ml-1" />
                 </div>
               </div>
               
@@ -142,22 +132,28 @@ export default function ContactForm() {
                   <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Phone Number</label>
                   <input
                     required
+                    id="phone"
+                    name="phone"
                     type="tel"
                     placeholder="(830) 000-0000"
                     className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all placeholder:text-gray-600"
                     value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    onChange={handleInputChange}
                   />
+                  <ValidationError prefix="Phone" field="phone" errors={state.errors} className="text-red-400 text-xs mt-1 ml-1" />
                 </div>
                 <div className="space-y-3">
                   <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Current Website <span className="text-gray-600 text-[10px] ml-1">(Optional)</span></label>
                   <input
+                    id="website"
+                    name="website"
                     type="url"
                     placeholder="https://example.com"
                     className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all placeholder:text-gray-600"
                     value={formData.website}
-                    onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                    onChange={handleInputChange}
                   />
+                  <ValidationError prefix="Website" field="website" errors={state.errors} className="text-red-400 text-xs mt-1 ml-1" />
                 </div>
               </div>
 
@@ -165,20 +161,23 @@ export default function ContactForm() {
                 <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Tell us about your goals</label>
                 <textarea
                   required
+                  id="message"
+                  name="message"
                   rows={4}
                   placeholder="What are you looking to achieve with your new website?"
                   className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all resize-none placeholder:text-gray-600"
                   value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  onChange={handleInputChange}
                 />
+                <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-400 text-xs mt-1 ml-1" />
               </div>
 
               <button
-                disabled={status === "loading"}
+                disabled={state.submitting}
                 type="submit"
                 className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-800 text-white font-bold py-5 rounded-2xl transition-all flex items-center justify-center gap-3 text-xl shadow-xl shadow-blue-600/20 active:scale-[0.98]"
               >
-                {status === "loading" ? (
+                {state.submitting ? (
                   <Loader2 className="animate-spin" />
                 ) : (
                   <>
@@ -189,7 +188,7 @@ export default function ContactForm() {
               </button>
 
               <AnimatePresence>
-                {status === "success" && (
+                {state.succeeded && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -201,15 +200,24 @@ export default function ContactForm() {
                   </motion.div>
                 )}
 
-                {status === "error" && (
+                {state.errors && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
-                    className="flex items-center gap-3 text-red-400 bg-red-400/10 p-5 rounded-2xl border border-red-400/20"
+                    className="space-y-4"
                   >
-                    <AlertCircle size={24} />
-                    <span className="font-medium">Error sending message. Please call us directly.</span>
+                    <div className="flex items-center gap-3 text-red-400 bg-red-400/10 p-5 rounded-2xl border border-red-400/20">
+                      <AlertCircle size={24} />
+                      <span className="font-medium">There was an issue with your submission. Please check the fields above.</span>
+                    </div>
+                    <a 
+                      href={`mailto:jaywebdesignsa@gmail.com?subject=Project Inquiry from ${formData.name}&body=Name: ${formData.name}%0D%0APhone: ${formData.phone}%0D%0AWebsite: ${formData.website}%0D%0AMessage: ${formData.message}`}
+                      className="w-full bg-white text-black font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-3 hover:bg-gray-200"
+                    >
+                      Send via Email App
+                      <Mail size={20} />
+                    </a>
                   </motion.div>
                 )}
               </AnimatePresence>
