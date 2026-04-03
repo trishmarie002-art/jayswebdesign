@@ -1,0 +1,79 @@
+import { motion } from "motion/react";
+import { Code, Search, Settings, Wrench, Layout, Palette } from "lucide-react";
+
+const services = [
+  {
+    icon: <Layout className="w-8 h-8" />,
+    title: "Web Design",
+    description: "Custom, responsive websites designed to capture your brand's essence and convert visitors into customers.",
+  },
+  {
+    icon: <Search className="w-8 h-8" />,
+    title: "SEO Services",
+    description: "High-ranking SEO strategies to ensure your business is found by the right people in San Antonio and beyond.",
+  },
+  {
+    icon: <Settings className="w-8 h-8" />,
+    title: "Website Maintenance",
+    description: "Ongoing support to keep your site secure, updated, and performing at its peak 24/7.",
+  },
+  {
+    icon: <Wrench className="w-8 h-8" />,
+    title: "Website Repair",
+    description: "Fast and reliable fixes for broken links, slow loading times, and technical glitches.",
+  },
+  {
+    icon: <Palette className="w-8 h-8" />,
+    title: "Logos & Branding",
+    description: "Memorable visual identities that make your business stand out from the competition.",
+  },
+  {
+    icon: <Code className="w-8 h-8" />,
+    title: "Ad Flyer Design",
+    description: "Professional digital and print flyers that grab attention and drive engagement for your campaigns.",
+  },
+];
+
+export default function Services() {
+  return (
+    <section id="services" className="py-24 bg-gray-50">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="text-blue-600 font-bold tracking-widest uppercase text-sm">Our Expertise</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-black mt-3 mb-6">Comprehensive Solutions</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+              From initial concept to ongoing maintenance, we provide everything you need to succeed in the digital landscape.
+            </p>
+          </motion.div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service, index) => (
+            <motion.div
+              key={service.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="bg-white p-8 rounded-3xl border border-gray-100 hover:border-blue-500/30 hover:shadow-xl hover:shadow-blue-600/5 transition-all group"
+            >
+              <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                {service.icon}
+              </div>
+              <h3 className="text-2xl font-bold text-black mb-4">{service.title}</h3>
+              <p className="text-gray-500 leading-relaxed">
+                {service.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
