@@ -15,6 +15,22 @@ async function startServer() {
   app.use(express.json());
 
   // API routes
+  app.get("/robots.txt", (req, res) => {
+    res.sendFile(path.join(process.cwd(), "public", "robots.txt"));
+  });
+
+  app.get("/sitemap.xml", (req, res) => {
+    res.sendFile(path.join(process.cwd(), "public", "sitemap.xml"));
+  });
+
+  app.get("/google3d9d936012e1e974.html", (req, res) => {
+    res.sendFile(path.join(process.cwd(), "public", "google3d9d936012e1e974.html"));
+  });
+
+  app.get("/manifest.json", (req, res) => {
+    res.sendFile(path.join(process.cwd(), "public", "manifest.json"));
+  });
+
   app.post("/api/contact", async (req, res) => {
     const { name, email, phone, website, message } = req.body;
 
