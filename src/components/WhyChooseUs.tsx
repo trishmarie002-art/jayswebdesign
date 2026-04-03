@@ -86,7 +86,7 @@ export default function WhyChooseUs() {
                 Best in Texas
               </div>
             </motion.div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-600/10 blur-[120px] rounded-full -z-0" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-blue-600/10 blur-[120px] rounded-full -z-0" />
           </div>
         </div>
       </div>

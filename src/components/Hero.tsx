@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { Phone, ChevronRight } from "lucide-react";
 
 const images = [
   "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
@@ -37,7 +37,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
       </div>
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
+      <div className="container mx-auto px-4 md:px-6 relative z-10 pt-24 sm:pt-0">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -48,8 +48,8 @@ export default function Hero() {
             <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-blue-400 uppercase bg-blue-400/10 rounded-full border border-blue-400/20">
               San Antonio's Premier Web Agency
             </span>
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-white leading-tight mb-6 px-4">
-              Elevating Brands with <br className="hidden sm:block" />
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-6 px-4">
+              Elevating Brands with <br className="hidden lg:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
                 Cutting-Edge Design
               </span>
@@ -60,11 +60,11 @@ export default function Hero() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="#contact"
+                href="tel:8302905856"
                 className="group flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-xl shadow-blue-600/30"
               >
                 Start Your Project
-                <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
+                <Phone className="group-hover:scale-110 transition-transform" size={20} />
               </a>
               <a
                 href="#portfolio"

@@ -25,7 +25,7 @@ export default function About() {
                 <p className="text-blue-100 font-medium">Years Experience</p>
               </div>
             </motion.div>
-            <div className="absolute -top-10 -left-10 w-64 h-64 bg-blue-50 rounded-full -z-0" />
+            <div className="absolute -top-10 -left-10 w-64 h-64 bg-blue-50 rounded-full -z-0 hidden lg:block" />
           </div>
 
           <div className="lg:w-1/2">

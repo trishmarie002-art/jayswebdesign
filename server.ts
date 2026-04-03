@@ -16,7 +16,7 @@ async function startServer() {
 
   // API routes
   app.post("/api/contact", async (req, res) => {
-    const { name, email, phone, message } = req.body;
+    const { name, email, phone, website, message } = req.body;
 
     if (!process.env.RESEND_API_KEY) {
       return res.status(500).json({ error: "Resend API key not configured" });
@@ -32,6 +32,7 @@ async function startServer() {
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
           <p><strong>Phone:</strong> ${phone}</p>
+          ${website ? `<p><strong>Website:</strong> ${website}</p>` : ""}
           <p><strong>Message:</strong></p>
           <p>${message}</p>
         `,
