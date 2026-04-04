@@ -5,9 +5,10 @@ import { cn } from "@/src/lib/utils";
 
 const navLinks = [
   { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
   { name: "Services", href: "#services" },
   { name: "Portfolio", href: "#portfolio" },
+  { name: "Reviews", href: "#reviews" },
+  { name: "FAQ", href: "#faq" },
   { name: "Contact", href: "#contact" },
 ];
 
@@ -30,13 +31,13 @@ export default function Header() {
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
-          <a href="#home" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white text-xl">
-              J
-            </div>
-            <span className="text-xl font-bold text-white tracking-tight">
-              Jay's <span className="text-blue-500">Web Design</span>
-            </span>
+          <a href="#home" className="flex items-center gap-3">
+            <img 
+              src="/logo.png" 
+              alt="Jay's Web Design Services" 
+              className="h-12 w-auto object-contain"
+              referrerPolicy="no-referrer"
+            />
           </a>
 
           {/* Desktop Nav */}

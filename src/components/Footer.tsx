@@ -8,13 +8,13 @@ export default function Footer() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="space-y-6">
-            <a href="#home" className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white text-xl">
-                J
-              </div>
-              <span className="text-xl font-bold tracking-tight">
-                Jay's <span className="text-blue-500">Web Design</span>
-              </span>
+            <a href="#home" className="flex items-center gap-3">
+              <img 
+                src="/logo.png" 
+                alt="Jay's Web Design Services" 
+                className="h-12 w-auto object-contain"
+                referrerPolicy="no-referrer"
+              />
             </a>
             <p className="text-gray-500 leading-relaxed">
               Professional web design and SEO services based in San Antonio, Texas. We build high-performance websites for businesses nationwide.
@@ -35,7 +35,7 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-bold mb-6">Quick Links</h4>
             <ul className="space-y-4">
-              {["Home", "About Us", "Services", "Portfolio", "Contact"].map((link) => (
+              {["Home", "Services", "Portfolio", "Reviews", "FAQ", "Contact"].map((link) => (
                 <li key={link}>
                   <a
                     href={`#${link.toLowerCase().replace(" ", "")}`}
