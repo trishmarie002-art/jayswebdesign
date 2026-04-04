@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook } from "lucide-react";
 import Logo from "./Logo";
 
 export default function Footer() {
@@ -16,15 +16,14 @@ export default function Footer() {
               We don't just build pages; we build revenue-generating assets. Based in San Antonio, serving businesses that mean business nationwide.
             </p>
             <div className="flex gap-4">
-              {[Facebook, Instagram, Twitter, Linkedin].map((Icon, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  className="w-10 h-10 bg-gray-900 rounded-full flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all"
-                >
-                  <Icon size={18} />
-                </a>
-              ))}
+              <a
+                href="https://www.facebook.com/Jayswebdesign"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-900 rounded-full flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all"
+              >
+                <Facebook size={18} />
+              </a>
             </div>
           </div>
 

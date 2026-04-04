@@ -77,10 +77,10 @@ export default function Hero() {
                 <span className="text-xs text-blue-400 font-medium uppercase tracking-widest">Speak directly with the designer</span>
               </div>
               <a
-                href="sms:+18302905856?body=I'm%20ready%20for%20my%20free%20strategy%20chat"
+                href="#portfolio"
                 className="flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 text-white border border-white/10 px-8 py-4 rounded-xl font-bold text-lg transition-all backdrop-blur-sm"
               >
-                Free Strategy Chat
+                Live Projects
                 <ChevronRight size={20} />
               </a>
             </div>
