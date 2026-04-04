@@ -40,7 +40,7 @@ export default function WhyChooseUs() {
               transition={{ duration: 0.6 }}
             >
               <span className="text-blue-500 font-bold tracking-widest uppercase text-sm">Why Choose Us</span>
-              <h2 className="text-4xl md:text-5xl font-bold mt-3 mb-8 leading-tight">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mt-3 mb-8 leading-tight font-display tracking-tight">
                 Your Success is <br />
                 <span className="text-blue-500">Our Mission</span>
               </h2>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, Phone, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/src/lib/utils";
+import Logo from "./Logo";
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -32,12 +33,7 @@ export default function Header() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
           <a href="#home" className="flex items-center gap-3">
-            <img 
-              src="/logo.png" 
-              alt="Jay's Web Design Services" 
-              className="h-12 w-auto object-contain"
-              referrerPolicy="no-referrer"
-            />
+            <Logo light size="md" />
           </a>
 
           {/* Desktop Nav */}
@@ -52,10 +48,10 @@ export default function Header() {
               </a>
             ))}
             <a
-              href="#contact"
+              href="sms:+18302905856?body=I'm%20ready%20for%20my%20free%20strategy%20chat"
               className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all shadow-lg shadow-blue-600/20"
             >
-              Get a Quote
+              Free Strategy Chat
             </a>
           </nav>
 
@@ -90,11 +86,11 @@ export default function Header() {
                 </a>
               ))}
               <a
-                href="#contact"
+                href="sms:+18302905856?body=I'm%20ready%20for%20my%20free%20strategy%20chat"
                 className="bg-blue-600 text-white text-center py-3 rounded-xl font-bold mt-2"
                 onClick={() => setIsOpen(false)}
               >
-                Get a Quote
+                Free Strategy Chat
               </a>
               <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-gray-800 text-gray-400 text-sm">
                 <div className="flex items-center gap-2">

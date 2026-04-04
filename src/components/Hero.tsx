@@ -45,32 +45,42 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="flex flex-col items-center"
           >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              className="mb-8"
+            >
+            </motion.div>
             <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-blue-400 uppercase bg-blue-400/10 rounded-full border border-blue-400/20">
               San Antonio's Premier Web Agency
             </span>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-6 px-4">
-              Elevating Brands with <br className="hidden lg:block" />
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] mb-6 px-4 font-display tracking-tight">
+              High-Performance Websites for <br className="hidden lg:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
-                Cutting-Edge Design
+                Businesses That Mean Business.
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Based in San Antonio, Texas, we deliver world-class web design, SEO, and digital solutions to businesses across the U.S. Your vision, our expertise.
+            <p className="text-base md:text-lg text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed px-4">
+              We don't just build pages; we build revenue-generating assets. Stop settling for "good enough" and get a professional digital presence designed to convert visitors into customers.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <div className="flex flex-col items-center gap-2">
+                <a
+                  href="tel:8302905856"
+                  className="group flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-xl shadow-blue-600/30"
+                >
+                  Tap to Talk to a Local Expert
+                  <Phone className="group-hover:scale-110 transition-transform" size={20} />
+                </a>
+                <span className="text-xs text-blue-400 font-medium uppercase tracking-widest">Speak directly with the designer</span>
+              </div>
               <a
-                href="tel:8302905856"
-                className="group flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-xl shadow-blue-600/30"
-              >
-                Start Your Project
-                <Phone className="group-hover:scale-110 transition-transform" size={20} />
-              </a>
-              <a
-                href="#portfolio"
+                href="sms:+18302905856?body=I'm%20ready%20for%20my%20free%20strategy%20chat"
                 className="flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 text-white border border-white/10 px-8 py-4 rounded-xl font-bold text-lg transition-all backdrop-blur-sm"
               >
-                View Portfolio
+                Free Strategy Chat
                 <ChevronRight size={20} />
               </a>
             </div>

@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import Logo from "./Logo";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -9,15 +10,10 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="space-y-6">
             <a href="#home" className="flex items-center gap-3">
-              <img 
-                src="/logo.png" 
-                alt="Jay's Web Design Services" 
-                className="h-12 w-auto object-contain"
-                referrerPolicy="no-referrer"
-              />
+              <Logo light size="md" />
             </a>
             <p className="text-gray-500 leading-relaxed">
-              Professional web design and SEO services based in San Antonio, Texas. We build high-performance websites for businesses nationwide.
+              We don't just build pages; we build revenue-generating assets. Based in San Antonio, serving businesses that mean business nationwide.
             </p>
             <div className="flex gap-4">
               {[Facebook, Instagram, Twitter, Linkedin].map((Icon, i) => (

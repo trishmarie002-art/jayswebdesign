@@ -32,10 +32,10 @@ export default function ContactForm() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <span className="text-blue-500 font-bold tracking-widest uppercase text-sm">Get In Touch</span>
-            <h2 className="text-4xl md:text-6xl font-bold text-white mt-3 mb-6">Ready to Scale?</h2>
+            <span className="text-blue-500 font-bold tracking-widest uppercase text-sm">Free Site Review</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mt-3 mb-6 font-display tracking-tight leading-tight">Ready for a Strategy Chat?</h2>
             <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-              Stop settling for average. Let's build a digital presence that actually moves the needle for your business.
+              Stop settling for average. Speak directly with the designer and let's build a digital presence that actually moves the needle for your business.
             </p>
           </motion.div>
         </div>
@@ -181,7 +181,7 @@ export default function ContactForm() {
                   <Loader2 className="animate-spin" />
                 ) : (
                   <>
-                    Launch Project
+                    Submit Form
                     <Send size={22} />
                   </>
                 )}

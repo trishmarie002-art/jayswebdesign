@@ -43,7 +43,7 @@ export default function FAQ() {
             transition={{ duration: 0.6 }}
           >
             <span className="text-blue-600 font-bold tracking-widest uppercase text-sm">Got Questions?</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-black mt-3 mb-6">Frequently Asked Questions</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-black mt-3 mb-6 font-display tracking-tight leading-tight">Frequently Asked Questions</h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
               Everything you need to know about working with Jay's Web Design.
             </p>

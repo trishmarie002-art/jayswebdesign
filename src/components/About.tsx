@@ -36,7 +36,7 @@ export default function About() {
               transition={{ duration: 0.6 }}
             >
               <span className="text-blue-600 font-bold tracking-widest uppercase text-sm">About Us</span>
-              <h2 className="text-4xl md:text-5xl font-bold text-black mt-3 mb-6">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-black mt-3 mb-6 font-display tracking-tight leading-tight">
                 Jay's Web Design: <br />
                 <span className="text-blue-600">San Antonio's Best</span>
               </h2>

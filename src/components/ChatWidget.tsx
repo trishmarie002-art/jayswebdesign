@@ -17,9 +17,11 @@ export default function ChatWidget() {
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             className="absolute bottom-20 right-0 w-64 bg-black border border-white/10 rounded-2xl shadow-2xl overflow-hidden"
           >
-            <div className="bg-blue-600 p-4 text-white">
-              <h4 className="font-bold">How can we help?</h4>
-              <p className="text-xs text-blue-100">Contact Jay's Web Design directly</p>
+            <div className="bg-blue-600 p-4 text-white flex items-center gap-3">
+              <div>
+                <h4 className="font-bold">How can we help?</h4>
+                <p className="text-xs text-blue-100">Contact Jay's Web Design directly</p>
+              </div>
             </div>
             <div className="p-4 space-y-3">
               <a
@@ -35,7 +37,7 @@ export default function ChatWidget() {
                 </div>
               </a>
               <a
-                href={`sms:${phoneNumber}`}
+                href={`sms:${phoneNumber}?body=I'm%20ready%20for%20my%20free%20strategy%20chat`}
                 className="flex items-center gap-3 p-3 bg-white/5 hover:bg-white/10 rounded-xl transition-colors text-white group"
               >
                 <div className="w-10 h-10 bg-green-600/20 rounded-full flex items-center justify-center text-green-500 group-hover:bg-green-600 group-hover:text-white transition-all">
