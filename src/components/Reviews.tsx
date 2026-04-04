@@ -3,25 +3,32 @@ import { Star, Facebook, Quote } from "lucide-react";
 
 const reviews = [
   {
-    name: "Sarah Miller",
-    date: "2 months ago",
-    text: "Jay's Web Design transformed our business online! Our new site is fast, beautiful, and we're already seeing more leads from Google. Highly recommend for anyone in San Antonio!",
+    name: "Leo Martinez",
+    date: "Recent Review",
+    text: "Jay went above and beyond my expectations for an amazing price he is really sent by God to me to help me. My website looks amazing I am so grateful for his services. I would definitely recommend him to anyone who needs an honest web designer and SEO for your SEO services.",
     rating: 5,
-    avatar: "https://i.pravatar.cc/150?u=sarah",
+    avatar: "https://i.pravatar.cc/150?u=leo",
   },
   {
-    name: "David Rodriguez",
-    date: "4 months ago",
-    text: "Professional, responsive, and extremely talented. They fixed our broken website and optimized it for SEO. The results have been incredible. Best web designer in Texas!",
+    name: "Katrell Mack",
+    date: "Recent Review",
+    text: "Very quick and efficient work, great customer service and the product came out amazing! I would 100% recommend going to this man for your web designs, Ik if I ever need a new one this is where I’ll be coming!",
     rating: 5,
-    avatar: "https://i.pravatar.cc/150?u=david",
+    avatar: "https://i.pravatar.cc/150?u=katrell",
   },
   {
-    name: "Amanda Chen",
-    date: "1 month ago",
-    text: "The team at Jay's is amazing. They really took the time to understand our brand and delivered a website that exceeded our expectations. Great communication throughout the process.",
+    name: "Alex Deleon",
+    date: "Recent Review",
+    text: "Justin is the best!!! He was professional and always kept us updated and an open line of communication with us throughout the whole process. We couldn't be happier with our website. He even went above and beyond and gave us some logo ideas which we decided to go with in the end. He really gave our company the professional look that we wanted. Highly recommend to anyone looking for any web design services.",
     rating: 5,
-    avatar: "https://i.pravatar.cc/150?u=amanda",
+    avatar: "https://i.pravatar.cc/150?u=alex",
+  },
+  {
+    name: "Uli Perez",
+    date: "Recent Review",
+    text: "One week is all it took for this co to make my dream come true! He asked all the right questions and completed as he said he would. My logo is perfect! And he put me in maps!! I am from San Antonio tx landscaping co. Alamo Ranch area! Ty again I highly recommend!",
+    rating: 5,
+    avatar: "https://i.pravatar.cc/150?u=uli",
   },
 ];
 
@@ -63,8 +70,8 @@ export default function Reviews() {
               <Quote className="absolute top-6 right-8 text-blue-600/10 group-hover:text-blue-600/20 transition-colors" size={60} />
               
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-blue-50">
-                  <img src={review.avatar} alt={review.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                <div className="w-12 h-12 bg-blue-600/10 rounded-full flex items-center justify-center text-blue-600">
+                  <span className="text-xl font-bold">{review.name.charAt(0)}</span>
                 </div>
                 <div>
                   <h4 className="font-bold text-black">{review.name}</h4>
