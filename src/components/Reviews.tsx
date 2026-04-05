@@ -81,7 +81,7 @@ export default function Reviews() {
   };
 
   return (
-    <section id="reviews" className="py-24 bg-gray-50 overflow-hidden relative">
+    <section id="reviews" className="py-20 md:py-24 bg-gray-50 overflow-hidden relative">
       {/* Background Decorative Elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl" />
@@ -89,35 +89,35 @@ export default function Reviews() {
       </div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 md:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="flex flex-col items-center mb-8">
+            <div className="flex flex-col items-center mb-6 md:mb-8">
               <div className="flex items-center justify-center gap-2">
-                <Facebook className="text-blue-600" size={24} />
-                <span className="text-blue-600 font-bold tracking-widest uppercase text-sm">Facebook Reviews</span>
+                <Facebook className="text-blue-600 w-5 h-5 md:w-6 md:h-6" />
+                <span className="text-blue-600 font-bold tracking-widest uppercase text-xs md:text-sm">Facebook Reviews</span>
               </div>
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-black mt-3 mb-6 font-display tracking-tight leading-tight">What Our Clients Say</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-black mt-3 mb-6 font-display tracking-tight leading-tight">What My Clients Say</h2>
             <div className="flex items-center justify-center gap-1 text-yellow-500 mb-6">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} fill="currentColor" size={20} />
+                <Star key={i} fill="currentColor" className="w-[18px] h-[18px] md:w-5 md:h-5" />
               ))}
-              <span className="ml-2 text-black font-bold">5.0 Rating</span>
+              <span className="ml-2 text-black font-bold text-sm md:text-base">5.0 Rating</span>
             </div>
           </motion.div>
         </div>
 
         <div 
-          className="relative max-w-4xl mx-auto px-4 md:px-12"
+          className="relative max-w-4xl mx-auto px-2 md:px-12"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          <div className="relative min-h-[450px] md:min-h-[380px] flex items-center justify-center">
+          <div className="relative min-h-[480px] sm:min-h-[450px] md:min-h-[380px] flex items-center justify-center">
             <AnimatePresence initial={false} custom={direction} mode="popLayout">
               <motion.div
                 key={currentIndex}
@@ -145,43 +145,43 @@ export default function Reviews() {
                 }}
                 className="w-full cursor-grab active:cursor-grabbing"
               >
-                <div className="bg-white p-8 md:p-12 rounded-[2rem] shadow-2xl shadow-blue-600/10 border border-gray-100 relative group overflow-hidden">
+                <div className="bg-white p-6 md:p-12 rounded-3xl md:rounded-[2rem] shadow-2xl shadow-blue-600/10 border border-gray-100 relative group overflow-hidden">
                   {/* Decorative Quote Mark */}
-                  <Quote className="absolute -top-4 -right-4 text-blue-600/5 group-hover:text-blue-600/10 transition-colors" size={160} />
+                  <Quote className="absolute -top-4 -right-4 text-blue-600/5 group-hover:text-blue-600/10 transition-colors w-32 h-32 md:w-40 md:h-40" />
                   
                   <div className="relative z-10">
-                    <div className="flex items-center gap-6 mb-8">
+                    <div className="flex items-center gap-4 md:gap-6 mb-6 md:mb-8">
                       <div className="relative">
-                        <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-blue-600/30 transform -rotate-3 group-hover:rotate-0 transition-transform duration-300">
-                          <span className="text-2xl font-black">{reviews[currentIndex].name.charAt(0)}</span>
+                        <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl md:rounded-2xl flex items-center justify-center text-white shadow-xl shadow-blue-600/30 transform -rotate-3 group-hover:rotate-0 transition-transform duration-300">
+                          <span className="text-xl md:text-2xl font-black">{reviews[currentIndex].name.charAt(0)}</span>
                         </div>
-                        <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md">
-                          <Facebook className="text-blue-600" size={12} />
+                        <div className="absolute -bottom-1 -right-1 w-5 h-5 md:w-6 md:h-6 bg-white rounded-full flex items-center justify-center shadow-md">
+                          <Facebook className="text-blue-600 w-2.5 h-2.5 md:w-3 md:h-3" />
                         </div>
                       </div>
                       <div>
-                        <h4 className="text-xl font-bold text-black group-hover:text-blue-600 transition-colors">{reviews[currentIndex].name}</h4>
-                        <p className="text-sm text-gray-400 font-medium">{reviews[currentIndex].date}</p>
-                        <div className="flex text-yellow-400 mt-1.5">
+                        <h4 className="text-lg md:text-xl font-bold text-black group-hover:text-blue-600 transition-colors">{reviews[currentIndex].name}</h4>
+                        <p className="text-xs md:text-sm text-gray-400 font-medium">{reviews[currentIndex].date}</p>
+                        <div className="flex text-yellow-400 mt-1">
                           {[...Array(reviews[currentIndex].rating)].map((_, i) => (
-                            <Star key={i} fill="currentColor" size={16} className="drop-shadow-sm" />
+                            <Star key={i} fill="currentColor" className="w-3.5 h-3.5 md:w-4 md:h-4 drop-shadow-sm" />
                           ))}
                         </div>
                       </div>
                     </div>
 
-                    <p className="text-gray-700 text-lg md:text-xl leading-relaxed italic mb-8 relative">
-                      <span className="text-blue-600 text-4xl font-serif absolute -left-6 -top-2 opacity-20">"</span>
+                    <p className="text-gray-700 text-base md:text-xl leading-relaxed italic mb-6 md:mb-8 relative">
+                      <span className="text-blue-600 text-3xl md:text-4xl font-serif absolute -left-4 md:-left-6 -top-2 opacity-20">"</span>
                       {reviews[currentIndex].text}
-                      <span className="text-blue-600 text-4xl font-serif absolute -right-2 bottom-0 opacity-20">"</span>
+                      <span className="text-blue-600 text-3xl md:text-4xl font-serif absolute -right-2 bottom-0 opacity-20">"</span>
                     </p>
                     
                     <div className="pt-6 border-t border-gray-100 flex items-center justify-between">
                       <div className="flex items-center gap-2 text-blue-600">
-                        <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
-                          <Facebook size={16} />
+                        <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-blue-50 flex items-center justify-center">
+                          <Facebook className="w-3.5 h-3.5 md:w-4 md:h-4" />
                         </div>
-                        <span className="text-xs font-bold uppercase tracking-widest">Verified Facebook Review</span>
+                        <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest">Verified Facebook Review</span>
                       </div>
                       <div className="hidden sm:flex items-center gap-1">
                         <Star size={12} className="text-yellow-400 fill-yellow-400" />
@@ -200,17 +200,17 @@ export default function Reviews() {
           {/* Navigation Buttons - Hidden on mobile, visible on hover on desktop */}
           <button
             onClick={prevReview}
-            className="absolute -left-4 md:left-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl border border-gray-100 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all z-20 group"
+            className="absolute -left-2 md:left-0 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-xl border border-gray-100 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all z-20 group"
             aria-label="Previous review"
           >
-            <ChevronLeft size={28} className="group-hover:-translate-x-0.5 transition-transform" />
+            <ChevronLeft className="w-6 h-6 md:w-7 md:h-7 group-hover:-translate-x-0.5 transition-transform" />
           </button>
           <button
             onClick={nextReview}
-            className="absolute -right-4 md:right-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl border border-gray-100 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all z-20 group"
+            className="absolute -right-2 md:right-0 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-xl border border-gray-100 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all z-20 group"
             aria-label="Next review"
           >
-            <ChevronRight size={28} className="group-hover:translate-x-0.5 transition-transform" />
+            <ChevronRight className="w-6 h-6 md:w-7 md:h-7 group-hover:translate-x-0.5 transition-transform" />
           </button>
 
           {/* Dots & Progress Indicator */}

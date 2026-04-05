@@ -3,25 +3,38 @@ import { Menu, X, Phone, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/src/lib/utils";
 import Logo from "./Logo";
+import { Link, useLocation } from "react-router-dom";
 
 const navLinks = [
-  { name: "Home", href: "#home" },
-  { name: "Services", href: "#services" },
-  { name: "Portfolio", href: "#portfolio" },
-  { name: "Reviews", href: "#reviews" },
-  { name: "FAQ", href: "#faq" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", href: "/" },
+  { name: "Services", href: "/#services" },
+  { name: "Industries", href: "/#industries" },
+  { name: "Portfolio", href: "/#portfolio" },
+  { name: "Blog", href: "/blog" },
+  { name: "Contact", href: "/#contact" },
 ];
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
+
+  const isLinkActive = (href: string) => {
+    if (href === "/") return location.pathname === "/";
+    if (href === "/blog") return location.pathname.startsWith("/blog");
+    return false;
+  };
 
   return (
     <header
@@ -32,20 +45,23 @@ export default function Header() {
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
-          <a href="#home" className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3">
             <Logo light size="md" />
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
-                className="text-sm font-medium text-gray-300 hover:text-blue-400 transition-colors"
+                to={link.href}
+                className={cn(
+                  "text-sm font-medium transition-colors",
+                  isLinkActive(link.href) ? "text-blue-400" : "text-gray-300 hover:text-blue-400"
+                )}
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
             <a
               href="sms:+18302905856?body=I'm%20ready%20for%20my%20free%20strategy%20chat"
@@ -76,14 +92,16 @@ export default function Header() {
           >
             <div className="container mx-auto px-4 py-6 flex flex-col gap-4">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.name}
-                  href={link.href}
-                  className="text-lg font-medium text-gray-300 hover:text-blue-400 py-2"
-                  onClick={() => setIsOpen(false)}
+                  to={link.href}
+                  className={cn(
+                    "text-lg font-medium py-2 transition-colors",
+                    isLinkActive(link.href) ? "text-blue-400" : "text-gray-300 hover:text-blue-400"
+                  )}
                 >
                   {link.name}
-                </a>
+                </Link>
               ))}
               <a
                 href="sms:+18302905856?body=I'm%20ready%20for%20my%20free%20strategy%20chat"

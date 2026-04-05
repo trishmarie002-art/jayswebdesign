@@ -1,4 +1,6 @@
 import { HelmetProvider, Helmet } from "react-helmet-async";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -7,45 +9,128 @@ import WhyChooseUs from "./components/WhyChooseUs";
 import Reviews from "./components/Reviews";
 import Portfolio from "./components/Portfolio";
 import FAQ from "./components/FAQ";
+import Industries from "./components/Industries";
+import Resources from "./components/Resources";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 import ChatWidget from "./components/ChatWidget";
 
+// Pages
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
+
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const element = document.getElementById(hash.slice(1));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname, hash]);
+
+  return null;
+}
+
+function HomePage() {
+  return (
+    <>
+      <Hero />
+      <About />
+      <Services />
+      <WhyChooseUs />
+      <Reviews />
+      <Portfolio />
+      <Industries />
+      <Resources />
+      <FAQ />
+      <ContactForm />
+    </>
+  );
+}
+
 export default function App() {
   return (
     <HelmetProvider>
-      <div className="min-h-screen bg-white font-sans selection:bg-blue-600 selection:text-white overflow-x-hidden">
-        <Helmet>
-          <title>Jay's Web Design Services | San Antonio's Best Web Design & SEO</title>
-          <meta name="description" content="Professional web design, SEO, and digital marketing services in San Antonio, Texas. Serving clients nationwide with custom websites, maintenance, and branding." />
-          <meta name="keywords" content="web design San Antonio, SEO Texas, website maintenance, website repair, logo design, ad flyer design, Jay's Web Design, custom websites San Antonio, digital marketing Texas" />
-          <meta property="og:title" content="Jay's Web Design Services | San Antonio's Best Web Design & SEO" />
-          <meta property="og:description" content="Professional web design and SEO services in San Antonio, Texas. Serving clients nationwide." />
-          <meta property="og:image" content="https://jayswebdesignsa.com/logo.png" />
-          <meta property="og:type" content="website" />
-          <meta property="og:url" content="https://jayswebdesignsa.com" />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="Jay's Web Design Services | San Antonio's Best Web Design & SEO" />
-          <meta name="twitter:description" content="Professional web design and SEO services in San Antonio, Texas." />
-          <meta name="twitter:image" content="https://jayswebdesignsa.com/logo.png" />
-          <meta name="google-site-verification" content="google3d9d936012e1e974" />
-          <link rel="canonical" href="https://jayswebdesignsa.com" />
-        </Helmet>
+      <Router>
+        <ScrollToTop />
+        <div className="min-h-screen bg-white font-sans selection:bg-blue-600 selection:text-white overflow-x-hidden">
+          <Helmet>
+            <title>Professional Web Design Services | Custom Business Websites</title>
+            <meta name="description" content="Maximize your online presence with professional web design services. Jay's Web Design specializes in custom, mobile-friendly WordPress sites and SEO for small businesses." />
+            <meta name="keywords" content="professional web design services, hire wordpress developer, benefits of responsive web design, web design San Antonio, SEO Texas, website maintenance, website repair, logo design, ad flyer design, Jay's Web Design, custom websites San Antonio, digital marketing Texas" />
+            <meta property="og:title" content="Professional Web Design Services | Custom Business Websites" />
+            <meta property="og:description" content="Maximize your online presence with professional web design services. Jay's Web Design specializes in custom, mobile-friendly WordPress sites and SEO for small businesses." />
+            <meta property="og:image" content="https://jayswebdesignsa.com/logo.png" />
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content="https://jayswebdesignsa.com" />
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content="Professional Web Design Services | Custom Business Websites" />
+            <meta name="twitter:description" content="Maximize your online presence with professional web design services. Jay's Web Design specializes in custom, mobile-friendly WordPress sites and SEO for small businesses." />
+            <meta name="twitter:image" content="https://jayswebdesignsa.com/logo.png" />
+            <meta name="google-site-verification" content="google3d9d936012e1e974" />
+            <link rel="canonical" href="https://jayswebdesignsa.com" />
+            <script type="application/ld+json">
+              {`
+                {
+                  "@context": "https://schema.org",
+                  "@type": "LocalBusiness",
+                  "name": "Jay's Web Design",
+                  "image": "https://jayswebdesignsa.com/logo.png",
+                  "@id": "https://jayswebdesignsa.com",
+                  "url": "https://jayswebdesignsa.com",
+                  "telephone": "+18302905856",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "San Antonio Area",
+                    "addressLocality": "San Antonio",
+                    "addressRegion": "TX",
+                    "postalCode": "78201",
+                    "addressCountry": "US"
+                  },
+                  "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 29.4241,
+                    "longitude": -98.4936
+                  },
+                  "openingHoursSpecification": {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": [
+                      "Monday",
+                      "Tuesday",
+                      "Wednesday",
+                      "Thursday",
+                      "Friday",
+                      "Saturday",
+                      "Sunday"
+                    ],
+                    "opens": "00:00",
+                    "closes": "23:59"
+                  },
+                  "sameAs": [
+                    "https://www.facebook.com/Jayswebdesign"
+                  ]
+                }
+              `}
+            </script>
+          </Helmet>
 
-        <Header />
-        <main>
-          <Hero />
-          <About />
-          <Services />
-          <WhyChooseUs />
-          <Reviews />
-          <Portfolio />
-          <FAQ />
-          <ContactForm />
-        </main>
-        <Footer />
-        <ChatWidget />
-      </div>
+          <Header />
+          <main>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:id" element={<BlogPost />} />
+            </Routes>
+          </main>
+          <Footer />
+          <ChatWidget />
+        </div>
+      </Router>
     </HelmetProvider>
   );
 }

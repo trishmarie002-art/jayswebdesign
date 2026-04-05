@@ -26,29 +26,29 @@ const reasons = [
 
 export default function WhyChooseUs() {
   return (
-    <section id="whychooseus" className="py-24 bg-black text-white relative overflow-hidden">
+    <section id="whychooseus" className="py-20 md:py-24 bg-black text-white relative overflow-hidden">
       {/* Decorative background */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-600/5 blur-[120px] rounded-full -z-0" />
       
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-16">
-          <div className="lg:w-1/2">
+        <div className="flex flex-col lg:flex-row items-center gap-12 md:gap-16">
+          <div className="lg:w-1/2 w-full">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <span className="text-blue-500 font-bold tracking-widest uppercase text-sm">Why Choose Us</span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mt-3 mb-8 leading-tight font-display tracking-tight">
+              <span className="text-blue-500 font-bold tracking-widest uppercase text-sm">Why Choose Me</span>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mt-3 mb-6 md:mb-8 leading-tight font-display tracking-tight">
                 Your Success is <br />
                 <span className="text-blue-500">My Mission</span>
               </h2>
-              <p className="text-gray-400 text-lg mb-10 leading-relaxed">
+              <p className="text-gray-400 text-base md:text-lg mb-8 md:mb-10 leading-relaxed">
                 At Jay's Web Design, I believe every business deserves a powerful online presence. I combine creative design with technical excellence to deliver results that matter.
               </p>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 mb-10 md:mb-12">
                 {reasons.map((reason, i) => (
                   <motion.div
                     key={reason.title}
@@ -62,29 +62,29 @@ export default function WhyChooseUs() {
                       {reason.icon}
                     </div>
                     <div>
-                      <h4 className="text-xl font-bold mb-2">{reason.title}</h4>
-                      <p className="text-gray-500 text-sm">{reason.description}</p>
+                      <h4 className="text-lg md:text-xl font-bold mb-2">{reason.title}</h4>
+                      <p className="text-gray-500 text-xs md:text-sm">{reason.description}</p>
                     </div>
                   </motion.div>
                 ))}
               </div>
 
-              <div className="flex flex-wrap gap-8 pt-8 border-t border-white/10">
+              <div className="flex flex-wrap gap-6 md:gap-8 pt-8 border-t border-white/10">
                 {[
                   { label: "Projects Done", value: "150+" },
                   { label: "Happy Clients", value: "150+" },
                   { label: "Years Exp", value: "10+" },
                 ].map((stat, i) => (
                   <div key={i}>
-                    <p className="text-3xl font-bold text-white">{stat.value}</p>
-                    <p className="text-sm text-gray-500 uppercase tracking-widest font-bold">{stat.label}</p>
+                    <p className="text-2xl md:text-3xl font-bold text-white">{stat.value}</p>
+                    <p className="text-[10px] md:text-sm text-gray-500 uppercase tracking-widest font-bold">{stat.label}</p>
                   </div>
                 ))}
               </div>
             </motion.div>
           </div>
 
-          <div className="lg:w-1/2 relative">
+          <div className="lg:w-1/2 relative w-full">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -97,10 +97,10 @@ export default function WhyChooseUs() {
                   src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=2340&auto=format&fit=crop"
                   alt="Work Environment"
                   referrerPolicy="no-referrer"
-                  className="rounded-[3rem] shadow-2xl border border-white/10 relative z-10"
+                  className="rounded-3xl md:rounded-[3rem] shadow-2xl border border-white/10 relative z-10 w-full h-auto"
                 />
                 {/* Floating badge */}
-                <div className="absolute -top-6 -right-6 w-32 h-32 bg-blue-600 rounded-full flex items-center justify-center font-bold text-center p-4 shadow-xl rotate-12 z-20 border-4 border-black">
+                <div className="absolute -top-4 -right-4 md:-top-6 md:-right-6 w-24 h-24 md:w-32 md:h-32 bg-blue-600 rounded-full flex items-center justify-center font-bold text-center p-3 md:p-4 shadow-xl rotate-12 z-20 border-4 border-black text-xs md:text-base">
                   Best in Texas
                 </div>
                 {/* Decorative glow */}

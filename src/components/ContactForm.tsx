@@ -20,13 +20,13 @@ export default function ContactForm() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-black relative overflow-hidden">
+    <section id="contact" className="py-20 md:py-24 bg-black relative overflow-hidden">
       {/* Background Glows */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/20 blur-[120px] rounded-full -z-0" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-900/20 blur-[120px] rounded-full -z-0" />
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 md:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -34,58 +34,58 @@ export default function ContactForm() {
           >
             <span className="text-blue-500 font-bold tracking-widest uppercase text-sm">Free Site Review</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mt-3 mb-6 font-display tracking-tight leading-tight">Ready for a Strategy Chat?</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+            <p className="text-gray-400 max-w-2xl mx-auto text-base md:text-lg">
               Stop settling for average. Speak directly with the designer and let's build a digital presence that actually moves the needle for your business.
             </p>
           </motion.div>
         </div>
 
-        <div className="max-w-6xl mx-auto bg-gray-900/50 backdrop-blur-xl rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl flex flex-col lg:flex-row">
+        <div className="max-w-6xl mx-auto bg-gray-900/50 backdrop-blur-xl rounded-3xl md:rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl flex flex-col lg:flex-row">
           {/* Left Sidebar - Info */}
-          <div className="lg:w-1/3 bg-gradient-to-br from-blue-600 to-blue-800 p-10 md:p-12 text-white flex flex-col justify-between relative overflow-hidden">
+          <div className="lg:w-1/3 bg-gradient-to-br from-blue-600 to-blue-800 p-8 md:p-12 text-white flex flex-col justify-between relative overflow-hidden">
             <div className="relative z-10">
-              <h3 className="text-3xl font-bold mb-6">Contact Details</h3>
-              <p className="text-blue-100 mb-10">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Contact Details</h3>
+              <p className="text-blue-100 mb-8 md:mb-10 text-sm md:text-base">
                 Prefer a direct conversation? Reach out via any of these channels.
               </p>
               
-              <div className="space-y-8">
-                <a href="mailto:jaywebdesignsa@gmail.com" className="flex items-center gap-5 group">
-                  <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center group-hover:bg-white group-hover:text-blue-600 transition-all">
-                    <Mail size={22} />
+              <div className="space-y-6 md:space-y-8">
+                <a href="mailto:jaywebdesignsa@gmail.com" className="flex items-center gap-4 md:gap-5 group">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-white/10 rounded-xl md:rounded-2xl flex items-center justify-center group-hover:bg-white group-hover:text-blue-600 transition-all">
+                    <Mail size={20} />
                   </div>
                   <div>
-                    <p className="text-blue-200 text-xs font-bold uppercase tracking-wider">Email Me</p>
-                    <p className="font-bold text-lg">jaywebdesignsa@gmail.com</p>
+                    <p className="text-blue-200 text-[10px] font-bold uppercase tracking-wider">Email Me</p>
+                    <p className="font-bold text-base md:text-lg break-all">jaywebdesignsa@gmail.com</p>
                   </div>
                 </a>
-                <a href="tel:8302905856" className="flex items-center gap-5 group">
-                  <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center group-hover:bg-white group-hover:text-blue-600 transition-all">
-                    <Phone size={22} />
+                <a href="tel:8302905856" className="flex items-center gap-4 md:gap-5 group">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-white/10 rounded-xl md:rounded-2xl flex items-center justify-center group-hover:bg-white group-hover:text-blue-600 transition-all">
+                    <Phone size={20} />
                   </div>
                   <div>
-                    <p className="text-blue-200 text-xs font-bold uppercase tracking-wider">Call Me</p>
-                    <p className="font-bold text-lg">(830) 290-5856</p>
+                    <p className="text-blue-200 text-[10px] font-bold uppercase tracking-wider">Call Me</p>
+                    <p className="font-bold text-base md:text-lg">(830) 290-5856</p>
                   </div>
                 </a>
-                <div className="flex items-center gap-5">
-                  <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center">
-                    <MessageSquare size={22} />
+                <div className="flex items-center gap-4 md:gap-5">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-white/10 rounded-xl md:rounded-2xl flex items-center justify-center">
+                    <MessageSquare size={20} />
                   </div>
                   <div>
-                    <p className="text-blue-200 text-xs font-bold uppercase tracking-wider">Response Time</p>
-                    <p className="font-bold text-lg">Under 24 Hours</p>
+                    <p className="text-blue-200 text-[10px] font-bold uppercase tracking-wider">Response Time</p>
+                    <p className="font-bold text-base md:text-lg">Under 24 Hours</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="relative z-10 mt-12 pt-8 border-t border-white/10">
+            <div className="relative z-10 mt-10 md:mt-12 pt-6 md:pt-8 border-t border-white/10">
               <div className="flex items-center gap-3 mb-2">
                 <Globe size={18} className="text-blue-200" />
-                <span className="font-bold">San Antonio, Texas</span>
+                <span className="font-bold text-sm md:text-base">San Antonio, Texas</span>
               </div>
-              <p className="text-blue-100 text-sm">Serving clients across all 50 states.</p>
+              <p className="text-blue-100 text-xs md:text-sm">Serving clients across all 50 states.</p>
             </div>
 
             {/* Decorative circles */}
@@ -94,32 +94,32 @@ export default function ContactForm() {
           </div>
 
           {/* Right Side - Form */}
-          <div className="lg:w-2/3 p-10 md:p-16">
-            <form onSubmit={handleSubmit} className="space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-3">
-                  <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Full Name</label>
+          <div className="lg:w-2/3 p-8 md:p-16">
+            <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                <div className="space-y-2 md:space-y-3">
+                  <label className="text-[10px] md:text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Full Name</label>
                   <input
                     required
                     id="name"
                     name="name"
                     type="text"
                     placeholder="e.g. John Smith"
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all placeholder:text-gray-600"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl px-5 md:px-6 py-3 md:py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all placeholder:text-gray-600 text-sm md:text-base"
                     value={formData.name}
                     onChange={handleInputChange}
                   />
                   <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red-400 text-xs mt-1 ml-1" />
                 </div>
-                <div className="space-y-3">
-                  <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Email Address</label>
+                <div className="space-y-2 md:space-y-3">
+                  <label className="text-[10px] md:text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Email Address</label>
                   <input
                     required
                     id="email"
                     name="email"
                     type="email"
                     placeholder="e.g. john@company.com"
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all placeholder:text-gray-600"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl px-5 md:px-6 py-3 md:py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all placeholder:text-gray-600 text-sm md:text-base"
                     value={formData.email}
                     onChange={handleInputChange}
                   />
@@ -127,29 +127,29 @@ export default function ContactForm() {
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-3">
-                  <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Phone Number</label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                <div className="space-y-2 md:space-y-3">
+                  <label className="text-[10px] md:text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Phone Number</label>
                   <input
                     required
                     id="phone"
                     name="phone"
                     type="tel"
                     placeholder="(830) 000-0000"
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all placeholder:text-gray-600"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl px-5 md:px-6 py-3 md:py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all placeholder:text-gray-600 text-sm md:text-base"
                     value={formData.phone}
                     onChange={handleInputChange}
                   />
                   <ValidationError prefix="Phone" field="phone" errors={state.errors} className="text-red-400 text-xs mt-1 ml-1" />
                 </div>
-                <div className="space-y-3">
-                  <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Current Website <span className="text-gray-600 text-[10px] ml-1">(Optional)</span></label>
+                <div className="space-y-2 md:space-y-3">
+                  <label className="text-[10px] md:text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Current Website <span className="text-gray-600 text-[10px] ml-1">(Optional)</span></label>
                   <input
                     id="website"
                     name="website"
                     type="url"
                     placeholder="https://example.com"
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all placeholder:text-gray-600"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl px-5 md:px-6 py-3 md:py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all placeholder:text-gray-600 text-sm md:text-base"
                     value={formData.website}
                     onChange={handleInputChange}
                   />
@@ -157,15 +157,15 @@ export default function ContactForm() {
                 </div>
               </div>
 
-              <div className="space-y-3">
-                <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Tell us about your goals</label>
+              <div className="space-y-2 md:space-y-3">
+                <label className="text-[10px] md:text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Tell me about your goals</label>
                 <textarea
                   required
                   id="message"
                   name="message"
                   rows={4}
                   placeholder="What are you looking to achieve with your new website?"
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all resize-none placeholder:text-gray-600"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl px-5 md:px-6 py-3 md:py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all resize-none placeholder:text-gray-600 text-sm md:text-base"
                   value={formData.message}
                   onChange={handleInputChange}
                 />
@@ -175,7 +175,7 @@ export default function ContactForm() {
               <button
                 disabled={state.submitting}
                 type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-800 text-white font-bold py-5 rounded-2xl transition-all flex items-center justify-center gap-3 text-xl shadow-xl shadow-blue-600/20 active:scale-[0.98]"
+                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-800 text-white font-bold py-4 md:py-5 rounded-xl md:rounded-2xl transition-all flex items-center justify-center gap-3 text-lg md:text-xl shadow-xl shadow-blue-600/20 active:scale-[0.98]"
               >
                 {state.submitting ? (
                   <Loader2 className="animate-spin" />

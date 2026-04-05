@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Code, Search, Settings, Wrench, Layout, Palette } from "lucide-react";
+import { Code, Search, Settings, Wrench, Layout, Palette, ChevronRight } from "lucide-react";
 
 const services = [
   {
@@ -36,9 +36,9 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-24 bg-gray-50">
+    <section id="services" className="py-20 md:py-24 bg-gray-50">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 md:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -47,13 +47,13 @@ export default function Services() {
           >
             <span className="text-blue-600 font-bold tracking-widest uppercase text-sm">My Expertise</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-black mt-3 mb-6 font-display tracking-tight leading-tight">Comprehensive Solutions</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+            <p className="text-gray-600 max-w-2xl mx-auto text-base md:text-lg">
               From initial concept to ongoing maintenance, I provide everything you need to succeed in the digital landscape.
             </p>
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
@@ -61,15 +61,22 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white p-8 rounded-3xl border border-gray-100 hover:border-blue-500/30 hover:shadow-xl hover:shadow-blue-600/5 transition-all group"
+              className="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 hover:border-blue-500/30 hover:shadow-xl hover:shadow-blue-600/5 transition-all group"
             >
-              <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
                 {service.icon}
               </div>
-              <h3 className="text-2xl font-bold text-black mb-4">{service.title}</h3>
-              <p className="text-gray-500 leading-relaxed">
+              <h3 className="text-xl md:text-2xl font-bold text-black mb-4">{service.title}</h3>
+              <p className="text-gray-500 text-sm md:text-base leading-relaxed mb-6">
                 {service.description}
               </p>
+              <a 
+                href="#contact" 
+                className="inline-flex items-center text-sm font-bold text-blue-600 hover:text-blue-700 transition-colors group/link"
+              >
+                Request a Free Quote
+                <ChevronRight size={14} className="ml-1 group-hover/link:translate-x-1 transition-transform" />
+              </a>
             </motion.div>
           ))}
         </div>

@@ -1,17 +1,27 @@
 import { Mail, Phone, MapPin, Facebook } from "lucide-react";
 import Logo from "./Logo";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+
+  const quickLinks = [
+    { name: "Home", href: "/" },
+    { name: "Services", href: "/#services" },
+    { name: "Industries", href: "/#industries" },
+    { name: "Portfolio", href: "/#portfolio" },
+    { name: "Blog", href: "/blog" },
+    { name: "Contact", href: "/#contact" },
+  ];
 
   return (
     <footer className="bg-black text-white pt-20 pb-10 border-t border-white/5">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="space-y-6">
-            <a href="#home" className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-3">
               <Logo light size="md" />
-            </a>
+            </Link>
             <p className="text-gray-500 leading-relaxed">
               I don't just build pages; I build revenue-generating assets. Based in San Antonio, serving businesses that mean business nationwide.
             </p>
@@ -30,14 +40,14 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-bold mb-6">Quick Links</h4>
             <ul className="space-y-4">
-              {["Home", "Services", "Portfolio", "Reviews", "FAQ", "Contact"].map((link) => (
-                <li key={link}>
-                  <a
-                    href={`#${link.toLowerCase().replace(" ", "")}`}
+              {quickLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    to={link.href}
                     className="text-gray-500 hover:text-blue-500 transition-colors"
                   >
-                    {link}
-                  </a>
+                    {link.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -55,9 +65,9 @@ export default function Footer() {
                 "Ad Flyer Design",
               ].map((service) => (
                 <li key={service}>
-                  <a href="#services" className="text-gray-500 hover:text-blue-500 transition-colors">
+                  <Link to="/#services" className="text-gray-500 hover:text-blue-500 transition-colors">
                     {service}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
