@@ -19,8 +19,8 @@ export default function ChatWidget() {
           >
             <div className="bg-blue-600 p-4 text-white flex items-center gap-3">
               <div>
-                <h4 className="font-bold">How can we help?</h4>
-                <p className="text-xs text-blue-100">Contact Jay's Web Design directly</p>
+                <h4 className="font-bold">How can I help?</h4>
+                <p className="text-xs text-blue-100">Contact Jay directly</p>
               </div>
             </div>
             <div className="p-4 space-y-3">
@@ -32,7 +32,7 @@ export default function ChatWidget() {
                   <Phone size={20} />
                 </div>
                 <div>
-                  <p className="text-sm font-bold">Call Us</p>
+                  <p className="text-sm font-bold">Call Me</p>
                   <p className="text-xs text-gray-400">(830) 290-5856</p>
                 </div>
               </a>
@@ -44,7 +44,7 @@ export default function ChatWidget() {
                   <MessageSquare size={20} />
                 </div>
                 <div>
-                  <p className="text-sm font-bold">Text Us</p>
+                  <p className="text-sm font-bold">Text Me</p>
                   <p className="text-xs text-gray-400">Send an SMS</p>
                 </div>
               </a>

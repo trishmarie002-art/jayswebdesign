@@ -55,7 +55,7 @@ export default function ContactForm() {
                     <Mail size={22} />
                   </div>
                   <div>
-                    <p className="text-blue-200 text-xs font-bold uppercase tracking-wider">Email Us</p>
+                    <p className="text-blue-200 text-xs font-bold uppercase tracking-wider">Email Me</p>
                     <p className="font-bold text-lg">jaywebdesignsa@gmail.com</p>
                   </div>
                 </a>
@@ -64,7 +64,7 @@ export default function ContactForm() {
                     <Phone size={22} />
                   </div>
                   <div>
-                    <p className="text-blue-200 text-xs font-bold uppercase tracking-wider">Call Us</p>
+                    <p className="text-blue-200 text-xs font-bold uppercase tracking-wider">Call Me</p>
                     <p className="font-bold text-lg">(830) 290-5856</p>
                   </div>
                 </a>
@@ -196,7 +196,7 @@ export default function ContactForm() {
                     className="flex items-center gap-3 text-green-400 bg-green-400/10 p-5 rounded-2xl border border-green-400/20"
                   >
                     <CheckCircle size={24} />
-                    <span className="font-medium">Success! We'll be in touch within 24 hours.</span>
+                    <span className="font-medium">Success! I'll be in touch within 24 hours.</span>
                   </motion.div>
                 )}
 

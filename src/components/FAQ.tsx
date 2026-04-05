@@ -9,19 +9,19 @@ const faqs = [
   },
   {
     question: "Do you offer SEO services?",
-    answer: "Yes! Every website we build is SEO-optimized from the ground up. We also offer ongoing SEO management to help your business rank higher in search results over time.",
+    answer: "Yes! Every website I build is SEO-optimized from the ground up. I also offer ongoing SEO management to help your business rank higher in search results over time.",
   },
   {
     question: "Can you fix my existing website?",
-    answer: "Absolutely. We specialize in website repair and maintenance. Whether it's a slow loading speed, broken links, or a full redesign, we've got you covered.",
+    answer: "Absolutely. I specialize in website repair and maintenance. Whether it's a slow loading speed, broken links, or a full redesign, I've got you covered.",
   },
   {
     question: "What are your prices?",
-    answer: "Our pricing is project-based and depends on your specific needs. We offer competitive rates for small businesses and flexible packages for larger enterprises. Contact us for a custom quote!",
+    answer: "My pricing is project-based and depends on your specific needs. I offer competitive rates for small businesses and flexible packages for larger enterprises. Contact me for a custom quote!",
   },
   {
     question: "Do you provide hosting and domain services?",
-    answer: "We can help you set up and manage your hosting and domain, or we can work with your existing provider. We recommend high-performance hosting to ensure your site stays fast and secure.",
+    answer: "I can help you set up and manage your hosting and domain, or I can work with your existing provider. I recommend high-performance hosting to ensure your site stays fast and secure.",
   },
 ];
 
@@ -96,12 +96,12 @@ export default function FAQ() {
         </div>
 
         <div className="mt-16 text-center">
-          <p className="text-gray-500 mb-6 italic">Still have questions? We're here to help.</p>
+          <p className="text-gray-500 mb-6 italic">Still have questions? I'm here to help.</p>
           <a
             href="#contact"
             className="inline-flex items-center gap-2 text-blue-600 font-bold border-b-2 border-blue-600 pb-1 hover:text-blue-700 transition-colors"
           >
-            Contact our team directly
+            Contact me directly
           </a>
         </div>
       </div>

@@ -13,7 +13,7 @@ export default function Footer() {
               <Logo light size="md" />
             </a>
             <p className="text-gray-500 leading-relaxed">
-              We don't just build pages; we build revenue-generating assets. Based in San Antonio, serving businesses that mean business nationwide.
+              I don't just build pages; I build revenue-generating assets. Based in San Antonio, serving businesses that mean business nationwide.
             </p>
             <div className="flex gap-4">
               <a
@@ -44,7 +44,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-lg font-bold mb-6">Our Services</h4>
+            <h4 className="text-lg font-bold mb-6">My Services</h4>
             <ul className="space-y-4">
               {[
                 "Web Design",

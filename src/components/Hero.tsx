@@ -53,7 +53,7 @@ export default function Hero() {
             >
             </motion.div>
             <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-blue-400 uppercase bg-blue-400/10 rounded-full border border-blue-400/20">
-              San Antonio's Premier Web Agency
+              San Antonio's Premier Web Designer
             </span>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] mb-6 px-4 font-display tracking-tight">
               High-Performance Websites for <br className="hidden lg:block" />
@@ -62,7 +62,7 @@ export default function Hero() {
               </span>
             </h1>
             <p className="text-base md:text-lg text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed px-4">
-              We don't just build pages; we build revenue-generating assets. Stop settling for "good enough" and get a professional digital presence designed to convert visitors into customers.
+              I don't just build pages; I build revenue-generating assets. Stop settling for "good enough" and get a professional digital presence designed to convert visitors into customers.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

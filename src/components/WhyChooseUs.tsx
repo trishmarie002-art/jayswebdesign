@@ -5,22 +5,22 @@ const reasons = [
   {
     icon: <Zap className="w-10 h-10 text-blue-500" />,
     title: "Fast Turnaround",
-    description: "We respect your time. Our efficient process ensures your website is up and running in record time without compromising quality.",
+    description: "I respect your time. My efficient process ensures your website is up and running in record time without compromising quality.",
   },
   {
     icon: <Shield className="w-10 h-10 text-blue-500" />,
     title: "Secure & Reliable",
-    description: "Security is built-in. We use the latest standards to protect your data and ensure 99.9% uptime for your business.",
+    description: "Security is built-in. I use the latest standards to protect your data and ensure 99.9% uptime for your business.",
   },
   {
     icon: <Star className="w-10 h-10 text-blue-500" />,
     title: "SEO Optimized",
-    description: "We don't just build sites; we build search engine magnets. Rank higher in San Antonio and nationwide searches.",
+    description: "I don't just build sites; I build search engine magnets. Rank higher in San Antonio and nationwide searches.",
   },
   {
     icon: <Heart className="w-10 h-10 text-blue-500" />,
     title: "Dedicated Support",
-    description: "We're your partners in growth. Our team is always here to help with updates, repairs, and strategic advice.",
+    description: "I'm your partner in growth. I am always here to help with updates, repairs, and strategic advice.",
   },
 ];
 
@@ -42,10 +42,10 @@ export default function WhyChooseUs() {
               <span className="text-blue-500 font-bold tracking-widest uppercase text-sm">Why Choose Us</span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mt-3 mb-8 leading-tight font-display tracking-tight">
                 Your Success is <br />
-                <span className="text-blue-500">Our Mission</span>
+                <span className="text-blue-500">My Mission</span>
               </h2>
               <p className="text-gray-400 text-lg mb-10 leading-relaxed">
-                At Jay's Web Design, we believe every business deserves a powerful online presence. We combine creative design with technical excellence to deliver results that matter.
+                At Jay's Web Design, I believe every business deserves a powerful online presence. I combine creative design with technical excellence to deliver results that matter.
               </p>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">

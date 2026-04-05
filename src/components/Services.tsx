@@ -45,10 +45,10 @@ export default function Services() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-blue-600 font-bold tracking-widest uppercase text-sm">Our Expertise</span>
+            <span className="text-blue-600 font-bold tracking-widest uppercase text-sm">My Expertise</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-black mt-3 mb-6 font-display tracking-tight leading-tight">Comprehensive Solutions</h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              From initial concept to ongoing maintenance, we provide everything you need to succeed in the digital landscape.
+              From initial concept to ongoing maintenance, I provide everything you need to succeed in the digital landscape.
             </p>
           </motion.div>
         </div>

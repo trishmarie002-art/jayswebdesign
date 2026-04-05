@@ -16,7 +16,7 @@ export default function About() {
             >
               <img
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2340&auto=format&fit=crop"
-                alt="Our Team"
+                alt="The Designer"
                 referrerPolicy="no-referrer"
                 className="rounded-3xl shadow-2xl"
               />
@@ -35,21 +35,21 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <span className="text-blue-600 font-bold tracking-widest uppercase text-sm">About Us</span>
+              <span className="text-blue-600 font-bold tracking-widest uppercase text-sm">About Me</span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-black mt-3 mb-6 font-display tracking-tight leading-tight">
                 Jay's Web Design: <br />
                 <span className="text-blue-600">San Antonio's Best</span>
               </h2>
               <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-                We are a full-service digital agency based in the heart of San Antonio, Texas. While our roots are local, our reach is national. We specialize in creating high-converting websites that don't just look pretty—they drive business growth.
+                I am a dedicated web designer based in the heart of San Antonio, Texas. While my roots are local, my reach is national. I specialize in creating high-converting websites that don't just look pretty—they drive real business growth.
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
                 {[
                   { icon: <Globe className="text-blue-600" />, title: "National Reach", desc: "Serving clients from Texas to New York." },
-                  { icon: <Users className="text-blue-600" />, title: "Client Focused", desc: "Your goals are our top priority." },
+                  { icon: <Users className="text-blue-600" />, title: "Client Focused", desc: "Your goals are my top priority." },
                   { icon: <CheckCircle2 className="text-blue-600" />, title: "Proven Results", desc: "Websites that rank and convert." },
-                  { icon: <Award className="text-blue-600" />, title: "Expert Team", desc: "Specialists in design and SEO." },
+                  { icon: <Award className="text-blue-600" />, title: "Expert Design", desc: "Specialist in design and SEO." },
                 ].map((item, i) => (
                   <div key={i} className="flex gap-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
@@ -67,7 +67,7 @@ export default function About() {
                 href="#contact"
                 className="inline-block bg-black hover:bg-gray-800 text-white px-8 py-4 rounded-xl font-bold transition-all"
               >
-                Learn More About Us
+                Learn More About My Work
               </a>
             </motion.div>
           </div>

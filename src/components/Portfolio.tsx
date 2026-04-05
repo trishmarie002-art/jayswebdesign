@@ -51,10 +51,10 @@ export default function Portfolio() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-blue-500 font-bold tracking-widest uppercase text-sm">Our Work</span>
+            <span className="text-blue-500 font-bold tracking-widest uppercase text-sm">My Work</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mt-3 mb-6 font-display tracking-tight leading-tight">Recent Projects</h2>
             <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-              We take pride in delivering high-performance websites that drive results. Explore some of our latest success stories.
+              I take pride in delivering high-performance websites that drive results. Explore some of my latest success stories.
             </p>
           </motion.div>
         </div>
