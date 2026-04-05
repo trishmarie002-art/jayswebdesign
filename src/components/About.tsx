@@ -6,7 +6,7 @@ export default function About() {
     <section id="about" className="py-20 md:py-24 bg-white">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col lg:flex-row items-center gap-12 md:gap-16">
-          <div className="lg:w-1/2 relative w-full">
+          <div className="lg:w-1/2 relative w-full pt-12 lg:pt-20">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}

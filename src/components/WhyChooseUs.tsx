@@ -84,7 +84,7 @@ export default function WhyChooseUs() {
             </motion.div>
           </div>
 
-          <div className="lg:w-1/2 relative w-full">
+          <div className="lg:w-1/2 relative w-full pt-12 lg:pt-20">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
