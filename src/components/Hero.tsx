@@ -105,7 +105,7 @@ export default function Hero() {
               ))}
             </div>
             <div className="text-center sm:text-left">
-              <p className="text-white font-bold">50+ Happy Clients</p>
+              <p className="text-white font-bold">150+ Happy Clients</p>
               <div className="flex justify-center sm:justify-start text-yellow-500">
                 {"★".repeat(5)}
               </div>

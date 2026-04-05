@@ -72,7 +72,7 @@ export default function WhyChooseUs() {
               <div className="flex flex-wrap gap-8 pt-8 border-t border-white/10">
                 {[
                   { label: "Projects Done", value: "150+" },
-                  { label: "Happy Clients", value: "50+" },
+                  { label: "Happy Clients", value: "150+" },
                   { label: "Years Exp", value: "10+" },
                 ].map((stat, i) => (
                   <div key={i}>
