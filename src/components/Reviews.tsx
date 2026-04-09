@@ -107,7 +107,7 @@ export default function Reviews() {
               {[...Array(5)].map((_, i) => (
                 <Star key={i} fill="currentColor" className="w-[18px] h-[18px] md:w-5 md:h-5" />
               ))}
-              <span className="ml-2 text-black font-bold text-sm md:text-base">5.0 Rating</span>
+              <span className="ml-2 text-black font-bold text-sm md:text-base">5.0 Rating (150+ Reviews)</span>
             </div>
           </motion.div>
         </div>

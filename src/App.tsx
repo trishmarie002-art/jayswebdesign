@@ -60,42 +60,46 @@ export default function App() {
         <ScrollToTop />
         <div className="min-h-screen bg-white font-sans selection:bg-blue-600 selection:text-white overflow-x-hidden">
           <Helmet>
-            <title>Professional Web Design Services | Custom Business Websites</title>
-            <meta name="description" content="Maximize your online presence with professional web design services. Jay's Web Design specializes in custom, mobile-friendly WordPress sites and SEO for small businesses." />
-            <meta name="keywords" content="professional web design services, hire wordpress developer, benefits of responsive web design, web design San Antonio, SEO Texas, website maintenance, website repair, logo design, ad flyer design, Jay's Web Design, custom websites San Antonio, digital marketing Texas" />
-            <meta property="og:title" content="Professional Web Design Services | Custom Business Websites" />
-            <meta property="og:description" content="Maximize your online presence with professional web design services. Jay's Web Design specializes in custom, mobile-friendly WordPress sites and SEO for small businesses." />
-            <meta property="og:image" content="https://jayswebdesignsa.com/logo.png" />
+            <title>San Antonio Web Design | Jay's Web Design Services</title>
+            <meta name="description" content="Expert San Antonio web design services to grow your business. Custom, mobile-friendly websites designed to convert visitors into customers. Get a free quote!" />
+            <meta name="keywords" content="San Antonio Web Design, professional web design services, hire wordpress developer, benefits of responsive web design, web design San Antonio, SEO Texas, website maintenance, website repair, logo design, ad flyer design, Jay's Web Design, custom websites San Antonio, digital marketing Texas" />
+            <meta property="og:title" content="San Antonio Web Design | Jay's Web Design Services" />
+            <meta property="og:description" content="Expert San Antonio web design services to grow your business. Custom, mobile-friendly websites designed to convert visitors into customers." />
+            <meta property="og:image" content="https://jayswebdesignservices.com/logo.png" />
             <meta property="og:type" content="website" />
-            <meta property="og:url" content="https://jayswebdesignsa.com" />
+            <meta property="og:url" content="https://jayswebdesignservices.com" />
             <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content="Professional Web Design Services | Custom Business Websites" />
-            <meta name="twitter:description" content="Maximize your online presence with professional web design services. Jay's Web Design specializes in custom, mobile-friendly WordPress sites and SEO for small businesses." />
-            <meta name="twitter:image" content="https://jayswebdesignsa.com/logo.png" />
+            <meta name="twitter:title" content="San Antonio Web Design | Jay's Web Design Services" />
+            <meta name="twitter:description" content="Expert San Antonio web design services to grow your business. Custom, mobile-friendly websites designed to convert visitors into customers." />
+            <meta name="twitter:image" content="https://jayswebdesignservices.com/logo.png" />
             <meta name="google-site-verification" content="google3d9d936012e1e974" />
-            <link rel="canonical" href="https://jayswebdesignsa.com" />
+            <link rel="canonical" href="https://jayswebdesignservices.com" />
             <script type="application/ld+json">
               {`
                 {
                   "@context": "https://schema.org",
                   "@type": "LocalBusiness",
-                  "name": "Jay's Web Design",
-                  "image": "https://jayswebdesignsa.com/logo.png",
-                  "@id": "https://jayswebdesignsa.com",
-                  "url": "https://jayswebdesignsa.com",
+                  "name": "Jay's Web Design Services",
+                  "image": "https://jayswebdesignservices.com/logo.png",
+                  "@id": "https://jayswebdesignservices.com",
+                  "url": "https://jayswebdesignservices.com/",
                   "telephone": "+18302905856",
                   "address": {
                     "@type": "PostalAddress",
                     "streetAddress": "San Antonio Area",
                     "addressLocality": "San Antonio",
                     "addressRegion": "TX",
-                    "postalCode": "78201",
                     "addressCountry": "US"
                   },
                   "geo": {
                     "@type": "GeoCoordinates",
                     "latitude": 29.4241,
                     "longitude": -98.4936
+                  },
+                  "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": "5.0",
+                    "reviewCount": "150"
                   },
                   "openingHoursSpecification": {
                     "@type": "OpeningHoursSpecification",

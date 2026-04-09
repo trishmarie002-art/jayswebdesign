@@ -67,7 +67,7 @@ export default function Header() {
               href="tel:8302905856"
               className="btn-primary btn-glow px-5 py-2 rounded-full text-sm font-semibold"
             >
-              Free Strategy Call
+              Start Your Build
             </a>
           </nav>
 
@@ -108,7 +108,7 @@ export default function Header() {
                 className="btn-primary btn-glow text-center py-3 rounded-xl font-bold mt-2"
                 onClick={() => setIsOpen(false)}
               >
-                Free Strategy Call
+                Start Your Build
               </a>
               <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-gray-800 text-gray-400 text-sm">
                 <div className="flex items-center gap-2">

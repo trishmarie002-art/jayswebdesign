@@ -45,17 +45,25 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="flex flex-col items-center"
           >
-            <span className="inline-block px-4 py-1.5 mb-6 text-[10px] sm:text-xs font-bold tracking-widest text-blue-400 uppercase bg-blue-400/10 rounded-full border border-blue-400/20">
-              San Antonio's Premier Web Designer
-            </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] mb-6 px-2 font-display tracking-tight">
-              Expert Web Design Services for <br className="hidden lg:block" />
+            {/* Social Proof Badge - Repositioned Above the Fold */}
+            <div className="flex items-center gap-2 mb-6 bg-white/5 backdrop-blur-sm border border-white/10 px-4 py-1.5 rounded-full">
+              <div className="flex text-blue-400">
+                {"★".repeat(5)}
+              </div>
+              <span className="text-[10px] sm:text-xs font-bold text-white uppercase tracking-widest">
+                5.0 Facebook Rating
+              </span>
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] mb-6 px-2 font-display tracking-tight">
+              San Antonio’s <br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
-                Growing Businesses.
+                Premier Web Designer
               </span>
             </h1>
-            <p className="text-sm sm:text-base md:text-lg text-gray-400 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed px-2">
-              I don't just build pages; I build revenue-generating assets. Stop settling for "good enough" and get a professional digital presence designed to convert visitors into customers.
+            
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed px-4">
+              Get a high-performance website in just <span className="text-white font-bold underline decoration-blue-500">7 days</span>. I build revenue-generating assets for plumbers, gyms, and local pros designed to turn clicks into customers.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full sm:w-auto px-4 sm:px-0">
@@ -64,16 +72,16 @@ export default function Hero() {
                   href="tel:8302905856"
                   className="group flex items-center justify-center gap-2 btn-primary btn-glow px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg w-full sm:w-auto"
                 >
-                  Call for a Free Consultation
+                  Start Your 7-Day Build
                   <Phone className="group-hover:scale-110 transition-transform" size={20} />
                 </a>
-                <span className="text-[10px] sm:text-xs text-blue-400 font-medium uppercase tracking-widest text-center">Speak directly with the designer</span>
+                <span className="text-[10px] sm:text-xs text-blue-400 font-medium uppercase tracking-widest text-center">Free Strategy Consultation</span>
               </div>
               <a
                 href="#portfolio"
                 className="flex items-center justify-center gap-2 btn-secondary px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg w-full sm:w-auto"
               >
-                Live Projects
+                View Results
                 <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
@@ -98,10 +106,8 @@ export default function Hero() {
               ))}
             </div>
             <div className="text-center sm:text-left">
-              <p className="text-white font-bold text-sm sm:text-base">150+ Happy Clients</p>
-              <div className="flex justify-center sm:justify-start text-yellow-500 text-xs sm:text-sm">
-                {"★".repeat(5)}
-              </div>
+              <p className="text-white font-bold text-sm sm:text-base">150+ Local Businesses Served</p>
+              <p className="text-gray-400 text-xs">San Antonio & Surrounding Areas</p>
             </div>
           </motion.div>
         </div>
