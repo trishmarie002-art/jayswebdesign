@@ -175,7 +175,7 @@ export default function ContactForm() {
               <button
                 disabled={state.submitting}
                 type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-800 text-white font-bold py-4 md:py-5 rounded-xl md:rounded-2xl transition-all flex items-center justify-center gap-3 text-lg md:text-xl shadow-xl shadow-blue-600/20 active:scale-[0.98]"
+                className="w-full btn-primary btn-glow py-4 md:py-5 rounded-xl md:rounded-2xl flex items-center justify-center gap-3 text-lg md:text-xl"
               >
                 {state.submitting ? (
                   <Loader2 className="animate-spin" />

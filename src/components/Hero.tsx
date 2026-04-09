@@ -62,7 +62,7 @@ export default function Hero() {
               <div className="flex flex-col items-center gap-2 w-full sm:w-auto">
                 <a
                   href="tel:8302905856"
-                  className="group flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg transition-all shadow-xl shadow-blue-600/30 w-full sm:w-auto"
+                  className="group flex items-center justify-center gap-2 btn-primary btn-glow px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg w-full sm:w-auto"
                 >
                   Call for a Free Consultation
                   <Phone className="group-hover:scale-110 transition-transform" size={20} />
@@ -71,10 +71,10 @@ export default function Hero() {
               </div>
               <a
                 href="#portfolio"
-                className="flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 text-white border border-white/10 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg transition-all backdrop-blur-sm w-full sm:w-auto"
+                className="flex items-center justify-center gap-2 btn-secondary px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg w-full sm:w-auto"
               >
                 Live Projects
-                <ChevronRight size={20} />
+                <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
           </motion.div>

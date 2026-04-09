@@ -65,7 +65,7 @@ export default function Header() {
             ))}
             <a
               href="tel:8302905856"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all shadow-lg shadow-blue-600/20"
+              className="btn-primary btn-glow px-5 py-2 rounded-full text-sm font-semibold"
             >
               Free Strategy Call
             </a>
@@ -105,7 +105,7 @@ export default function Header() {
               ))}
               <a
                 href="tel:8302905856"
-                className="bg-blue-600 text-white text-center py-3 rounded-xl font-bold mt-2"
+                className="btn-primary btn-glow text-center py-3 rounded-xl font-bold mt-2"
                 onClick={() => setIsOpen(false)}
               >
                 Free Strategy Call

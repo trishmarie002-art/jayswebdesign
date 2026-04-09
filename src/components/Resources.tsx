@@ -72,7 +72,7 @@ export default function Resources() {
         <div className="mt-16 text-center">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 bg-black text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-600 transition-all shadow-lg"
+            className="inline-flex items-center gap-2 btn-primary btn-glow px-8 py-4 rounded-xl font-bold"
           >
             View All Articles
             <ArrowRight size={20} />

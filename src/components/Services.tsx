@@ -72,10 +72,10 @@ export default function Services() {
               </p>
               <a 
                 href="#contact" 
-                className="inline-flex items-center text-sm font-bold text-blue-600 hover:text-blue-700 transition-colors group/link"
+                className="inline-flex items-center text-sm font-bold text-blue-600 hover:text-blue-700 transition-all group/link hover:translate-x-1"
               >
                 Request a Free Quote
-                <ChevronRight size={14} className="ml-1 group-hover/link:translate-x-1 transition-transform" />
+                <ChevronRight size={14} className="ml-1 transition-transform" />
               </a>
             </motion.div>
           ))}

@@ -98,7 +98,7 @@ export default function Blog() {
           </p>
           <Link
             to="/#contact"
-            className="inline-block bg-white text-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-blue-50 transition-all shadow-lg"
+            className="inline-block bg-white text-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-blue-50 transition-all shadow-lg hover:scale-[1.02] active:scale-[0.98]"
           >
             Get Started Now
           </Link>
