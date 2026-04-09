@@ -9,24 +9,24 @@ interface LogoProps {
 
 export default function Logo({ className, size = "md", light = false }: LogoProps) {
   const sizes = {
-    sm: "text-lg",
-    md: "text-2xl",
-    lg: "text-4xl",
-    xl: "text-5xl md:text-7xl",
+    sm: "h-10 md:h-12",
+    md: "h-16 md:h-20",
+    lg: "h-32 md:h-44",
+    xl: "h-48 md:h-64",
   };
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      className={cn(
-        "font-black tracking-tighter uppercase italic flex items-center",
-        sizes[size],
-        light ? "text-white" : "text-blue-600",
-        className
-      )}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className={cn("flex items-center", className)}
     >
-      Jay's <span className={cn("ml-1", light ? "text-blue-400" : "text-black")}>Web Design</span>
+      <img 
+        src="/logo.png" 
+        alt="Jay's Web Design Services" 
+        className={cn("w-auto object-contain", sizes[size])}
+        referrerPolicy="no-referrer"
+      />
     </motion.div>
   );
 }

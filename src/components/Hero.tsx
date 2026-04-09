@@ -20,7 +20,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-start overflow-hidden bg-black">
+    <section id="home" className="relative min-h-[450px] md:min-h-[500px] lg:min-h-screen flex items-center overflow-hidden bg-black">
       {/* Background Slideshow */}
       <div className="absolute inset-0 z-0">
         <AnimatePresence mode="wait">
@@ -37,7 +37,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
       </div>
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10 pt-12 pb-20 lg:pt-20 lg:pb-32">
+      <div className="container mx-auto px-4 md:px-6 relative z-10 py-12 md:py-14 lg:pt-20 lg:pb-32">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

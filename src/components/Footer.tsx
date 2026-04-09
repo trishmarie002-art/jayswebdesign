@@ -20,7 +20,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="space-y-6">
             <Link to="/" className="flex items-center gap-3">
-              <Logo light size="md" />
+              <Logo light size="lg" />
             </Link>
             <p className="text-gray-500 leading-relaxed">
               I don't just build pages; I build revenue-generating assets. Based in San Antonio, serving businesses that mean business nationwide.
