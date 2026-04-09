@@ -158,13 +158,13 @@ export default function ContactForm() {
               </div>
 
               <div className="space-y-2 md:space-y-3">
-                <label className="text-[10px] md:text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Tell me about your goals</label>
+                <label className="text-[10px] md:text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">What’s the #1 thing you want your new website to achieve?</label>
                 <textarea
                   required
                   id="message"
                   name="message"
                   rows={4}
-                  placeholder="What are you looking to achieve with your new website?"
+                  placeholder="e.g. I want to double my monthly leads, rank #1 for 'plumber in San Antonio', or automate my booking process."
                   className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl px-5 md:px-6 py-3 md:py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all resize-none placeholder:text-gray-600 text-sm md:text-base"
                   value={formData.message}
                   onChange={handleInputChange}

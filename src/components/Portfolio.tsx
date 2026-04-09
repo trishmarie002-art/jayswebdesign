@@ -7,36 +7,42 @@ const projects = [
     url: "https://pvcstexas.com/",
     image: "https://s0.wp.com/mshots/v1/https://pvcstexas.com/?w=800",
     category: "Cleaning Services",
+    alt: "Modern cleaning services website for Pure View Cleaning Solutions with online quote request and service area mapping.",
   },
   {
     name: "Plumb Daddy Plumbing",
     url: "https://plumbdaddy-texas.com/",
     image: "https://s0.wp.com/mshots/v1/https://plumbdaddy-texas.com/?w=800",
     category: "Plumbing Services",
+    alt: "Professional plumbing website design for Plumb Daddy Texas featuring emergency service booking and local SEO optimization.",
   },
   {
     name: "Rush Wheels & Tires",
     url: "https://rushwheelandtire.com/",
     image: "https://s0.wp.com/mshots/v1/https://rushwheelandtire.com/?w=800",
     category: "Automotive",
+    alt: "Responsive automotive website for Rush Wheels & Tires featuring product catalogs and local business integration.",
   },
   {
     name: "Reycom Combat Gym",
     url: "https://reycom.com/",
     image: "https://s0.wp.com/mshots/v1/https://reycom.com/?w=800",
     category: "Fitness & MMA",
+    alt: "High-conversion fitness and MMA gym website for Reycom Combat Gym with class schedules and member registration.",
   },
   {
     name: "Texas Stitchworx",
     url: "https://texasstitchworx.com/",
     image: "https://s0.wp.com/mshots/v1/https://texasstitchworx.com/?w=800",
     category: "Custom Embroidery",
+    alt: "Custom e-commerce website for Texas Stitchworx showcasing high-quality embroidery products and secure checkout.",
   },
   {
     name: "Lio's Handyman Services",
     url: "https://liothehandyman.com/",
     image: "https://s0.wp.com/mshots/v1/https://liothehandyman.com/?w=800",
     category: "Home Maintenance",
+    alt: "Local handyman services website for Lio's Handyman with service lists and direct contact integration.",
   },
 ];
 
@@ -77,7 +83,7 @@ export default function Portfolio() {
                 <div className="aspect-video overflow-hidden bg-gray-800">
                   <img
                     src={project.image}
-                    alt={project.name}
+                    alt={project.alt}
                     width={800}
                     height={450}
                     referrerPolicy="no-referrer"

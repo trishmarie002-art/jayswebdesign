@@ -11,6 +11,7 @@ import Portfolio from "./components/Portfolio";
 import FAQ from "./components/FAQ";
 import Industries from "./components/Industries";
 import Resources from "./components/Resources";
+import LeadMagnet from "./components/LeadMagnet";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 import ChatWidget from "./components/ChatWidget";
@@ -47,6 +48,7 @@ function HomePage() {
       <Portfolio />
       <Industries />
       <Resources />
+      <LeadMagnet />
       <FAQ />
       <ContactForm />
     </>
@@ -98,8 +100,7 @@ export default function App() {
                   },
                   "aggregateRating": {
                     "@type": "AggregateRating",
-                    "ratingValue": "5.0",
-                    "reviewCount": "150"
+                    "ratingValue": "5.0"
                   },
                   "openingHoursSpecification": {
                     "@type": "OpeningHoursSpecification",
