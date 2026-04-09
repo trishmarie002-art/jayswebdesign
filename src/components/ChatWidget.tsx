@@ -57,6 +57,14 @@ export default function ChatWidget() {
       </AnimatePresence>
 
       <motion.button
+        animate={!isOpen ? {
+          y: [0, -10, 0],
+        } : {}}
+        transition={!isOpen ? {
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        } : {}}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
