@@ -15,17 +15,29 @@ export default function Logo({ className, size = "md", light = false }: LogoProp
     xl: "h-48 md:h-64",
   };
 
+  const logoUrl = "/logo.png";
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      className={cn("flex items-center", className)}
+      className={cn("flex items-center justify-center overflow-hidden", className)}
     >
       <img 
-        src="/logo.png" 
+        src={logoUrl}
         alt="Jay's Web Design Services" 
-        className={cn("w-auto object-contain", sizes[size])}
-        referrerPolicy="no-referrer"
+        className={cn("w-auto h-auto max-w-full max-h-full object-contain", sizes[size])}
+        onError={(e) => {
+          // Fallback if image fails to load
+          const target = e.currentTarget;
+          target.style.display = 'none';
+          const fallback = document.createElement('span');
+          fallback.className = "font-black tracking-tighter uppercase italic text-blue-600 whitespace-nowrap";
+          fallback.innerHTML = `Jay's <span class="text-black">Web Design</span>`;
+          if (target.parentElement) {
+            target.parentElement.appendChild(fallback);
+          }
+        }}
       />
     </motion.div>
   );

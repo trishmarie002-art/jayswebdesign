@@ -64,7 +64,7 @@ export default function Hero() {
                   href="tel:8302905856"
                   className="group flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg transition-all shadow-xl shadow-blue-600/30 w-full sm:w-auto"
                 >
-                  Tap to Talk to a Local Expert
+                  Call for a Free Consultation
                   <Phone className="group-hover:scale-110 transition-transform" size={20} />
                 </a>
                 <span className="text-[10px] sm:text-xs text-blue-400 font-medium uppercase tracking-widest text-center">Speak directly with the designer</span>

@@ -64,10 +64,10 @@ export default function Header() {
               </Link>
             ))}
             <a
-              href="sms:+18302905856?body=I'm%20ready%20for%20my%20free%20strategy%20chat"
+              href="tel:8302905856"
               className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all shadow-lg shadow-blue-600/20"
             >
-              Free Strategy Chat
+              Free Strategy Call
             </a>
           </nav>
 
@@ -104,11 +104,11 @@ export default function Header() {
                 </Link>
               ))}
               <a
-                href="sms:+18302905856?body=I'm%20ready%20for%20my%20free%20strategy%20chat"
+                href="tel:8302905856"
                 className="bg-blue-600 text-white text-center py-3 rounded-xl font-bold mt-2"
                 onClick={() => setIsOpen(false)}
               >
-                Free Strategy Chat
+                Free Strategy Call
               </a>
               <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-gray-800 text-gray-400 text-sm">
                 <div className="flex items-center gap-2">
