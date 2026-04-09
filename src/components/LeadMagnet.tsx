@@ -1,21 +1,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Download, X, CheckCircle2, Mail } from "lucide-react";
+import { Download, CheckCircle2, Mail, Loader2 } from "lucide-react";
+import { useForm, ValidationError } from '@formspree/react';
 
 export default function LeadMagnet() {
+  const [state, handleSubmit] = useForm('mqegywzr'); // Using your existing Formspree ID
   const [email, setEmail] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      setIsSubmitted(true);
-      // In a real app, you'd send this to your email service
-    }
-  };
-
-  if (!isVisible) return null;
 
   return (
     <section className="py-12 bg-blue-600 relative overflow-hidden">
@@ -33,13 +23,13 @@ export default function LeadMagnet() {
               Is Your Website Costing You Customers?
             </h2>
             <p className="text-gray-600 text-lg leading-relaxed">
-              Download my <span className="text-blue-600 font-bold">Free 10-Point Website Conversion Checklist</span> and discover the exact tweaks that turn casual browsers into high-paying leads. No fluff, just results.
+              Get my <span className="text-blue-600 font-bold">Free 10-Point Website Conversion Checklist</span> and discover the exact tweaks that turn casual browsers into high-paying leads.
             </p>
           </div>
 
           <div className="lg:w-1/2 w-full">
             <AnimatePresence mode="wait">
-              {!isSubmitted ? (
+              {!state.succeeded ? (
                 <motion.form
                   key="form"
                   initial={{ opacity: 0, x: 20 }}
@@ -52,19 +42,29 @@ export default function LeadMagnet() {
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
                     <input
                       required
+                      id="email"
+                      name="email"
                       type="email"
                       placeholder="Enter your email address"
                       className="w-full bg-gray-50 border border-gray-200 rounded-2xl pl-12 pr-6 py-4 text-black focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
+                    <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-xs mt-1 ml-1" />
                   </div>
                   <button
+                    disabled={state.submitting}
                     type="submit"
-                    className="w-full btn-primary py-4 rounded-2xl flex items-center justify-center gap-3 text-lg font-bold shadow-xl shadow-blue-600/20"
+                    className="w-full btn-primary py-4 rounded-2xl flex items-center justify-center gap-3 text-lg font-bold shadow-xl shadow-blue-600/20 disabled:opacity-70"
                   >
-                    Get My Free Checklist
-                    <Download size={20} />
+                    {state.submitting ? (
+                      <Loader2 className="animate-spin" />
+                    ) : (
+                      <>
+                        Get My Free Checklist
+                        <Download size={20} />
+                      </>
+                    )}
                   </button>
                   <p className="text-center text-xs text-gray-400">
                     I hate spam too. Your email is safe with me.
@@ -80,10 +80,19 @@ export default function LeadMagnet() {
                   <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-white mx-auto mb-6 shadow-lg shadow-blue-600/30">
                     <CheckCircle2 size={32} />
                   </div>
-                  <h3 className="text-2xl font-bold text-black mb-2">Check Your Inbox!</h3>
-                  <p className="text-gray-600">
-                    Your checklist is on its way. Get ready to boost your conversions!
+                  <h3 className="text-2xl font-bold text-black mb-2">Ready to Download!</h3>
+                  <p className="text-gray-600 mb-6">
+                    Your checklist is ready. Click the button below to start boosting your conversions.
                   </p>
+                  <a
+                    href="https://drive.google.com/file/d/1r59e-BV_pdfixRU7froeEjaQ_GWKECUy/view?usp=drive_link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-black text-white px-8 py-4 rounded-2xl font-bold hover:bg-gray-800 transition-all shadow-xl"
+                  >
+                    Download PDF Now
+                    <Download size={20} />
+                  </a>
                 </motion.div>
               )}
             </AnimatePresence>
