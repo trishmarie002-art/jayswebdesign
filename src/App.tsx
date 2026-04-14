@@ -14,6 +14,7 @@ import Resources from "./components/Resources";
 import LeadMagnet from "./components/LeadMagnet";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
+import ChatWidget from "./components/ChatWidget";
 
 // Pages
 import Blog from "./pages/Blog";
@@ -99,7 +100,8 @@ export default function App() {
                   },
                   "aggregateRating": {
                     "@type": "AggregateRating",
-                    "ratingValue": "5.0"
+                    "ratingValue": "5",
+                    "reviewCount": "4"
                   },
                   "openingHoursSpecification": {
                     "@type": "OpeningHoursSpecification",
@@ -132,6 +134,7 @@ export default function App() {
             </Routes>
           </main>
           <Footer />
+          <ChatWidget />
         </div>
       </Router>
     </HelmetProvider>
