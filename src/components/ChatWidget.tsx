@@ -5,7 +5,7 @@ import { MessageCircle, Phone, MessageSquare, X } from "lucide-react";
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const phoneNumber = "8302905856";
+  const phoneNumber = "2109001113";
 
   return (
     <div className="fixed bottom-6 right-6 z-[60]">
@@ -33,7 +33,7 @@ export default function ChatWidget() {
                 </div>
                 <div>
                   <p className="text-sm font-bold">Call Me</p>
-                  <p className="text-xs text-gray-400">(830) 290-5856</p>
+                  <p className="text-xs text-gray-400">(210) 900-1113</p>
                 </div>
               </a>
               <a

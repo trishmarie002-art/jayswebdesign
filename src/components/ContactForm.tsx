@@ -59,13 +59,13 @@ export default function ContactForm() {
                     <p className="font-bold text-base md:text-lg break-all">jaywebdesignsa@gmail.com</p>
                   </div>
                 </a>
-                <a href="tel:8302905856" className="flex items-center gap-4 md:gap-5 group">
+                <a href="tel:2109001113" className="flex items-center gap-4 md:gap-5 group">
                   <div className="w-10 h-10 md:w-12 md:h-12 bg-white/10 rounded-xl md:rounded-2xl flex items-center justify-center group-hover:bg-white group-hover:text-blue-600 transition-all">
                     <Phone size={20} />
                   </div>
                   <div>
                     <p className="text-blue-200 text-[10px] font-bold uppercase tracking-wider">Call Me</p>
-                    <p className="font-bold text-base md:text-lg">(830) 290-5856</p>
+                    <p className="font-bold text-base md:text-lg">(210) 900-1113</p>
                   </div>
                 </a>
                 <div className="flex items-center gap-4 md:gap-5">
@@ -135,7 +135,7 @@ export default function ContactForm() {
                     id="phone"
                     name="phone"
                     type="tel"
-                    placeholder="(830) 000-0000"
+                    placeholder="(210) 000-0000"
                     className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl px-5 md:px-6 py-3 md:py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all placeholder:text-gray-600 text-sm md:text-base"
                     value={formData.phone}
                     onChange={handleInputChange}

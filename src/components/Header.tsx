@@ -64,7 +64,7 @@ export default function Header() {
               </Link>
             ))}
             <a
-              href="tel:8302905856"
+              href="tel:2109001113"
               className="btn-primary btn-glow px-5 py-2 rounded-full text-sm font-semibold"
             >
               Start Your Build
@@ -104,7 +104,7 @@ export default function Header() {
                 </Link>
               ))}
               <a
-                href="tel:8302905856"
+                href="tel:2109001113"
                 className="btn-primary btn-glow text-center py-3 rounded-xl font-bold mt-2"
                 onClick={() => setIsOpen(false)}
               >
@@ -113,7 +113,7 @@ export default function Header() {
               <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-gray-800 text-gray-400 text-sm">
                 <div className="flex items-center gap-2">
                   <Phone size={16} className="text-blue-500" />
-                  (830) 290-5856
+                  (210) 900-1113
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail size={16} className="text-blue-500" />

@@ -85,7 +85,7 @@ export default function App() {
                   "image": "https://jayswebdesignservices.com/logo.png",
                   "@id": "https://jayswebdesignservices.com",
                   "url": "https://jayswebdesignservices.com/",
-                  "telephone": "+18302905856",
+                  "telephone": "+12109001113",
                   "address": {
                     "@type": "PostalAddress",
                     "streetAddress": "San Antonio Area",

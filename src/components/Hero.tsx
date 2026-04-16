@@ -69,7 +69,7 @@ export default function Hero() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full sm:w-auto px-4 sm:px-0">
               <div className="flex flex-col items-center gap-2 w-full sm:w-auto">
                 <a
-                  href="tel:8302905856"
+                  href="tel:2109001113"
                   className="group flex items-center justify-center gap-2 btn-primary btn-glow px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg w-full sm:w-auto"
                 >
                   Start Your 7-Day Build
