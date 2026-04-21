@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Facebook } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Lock } from "lucide-react";
 import Logo from "./Logo";
 import { Link } from "react-router-dom";
 
@@ -102,8 +102,16 @@ export default function Footer() {
         <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-600">
           <p>© {currentYear} Jay's Web Design Services. All rights reserved.</p>
           <div className="flex gap-8">
-            <a href="#" className="hover:text-blue-500">Privacy Policy</a>
-            <a href="#" className="hover:text-blue-500">Terms of Service</a>
+            <a href="#" className="hover:text-blue-500 transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-blue-500 transition-colors">Terms of Service</a>
+            <Link 
+              to="/admin" 
+              className="opacity-20 hover:opacity-100 text-gray-500 hover:text-blue-500 transition-all flex items-center gap-1"
+              title="Admin Login"
+            >
+              <Lock size={12} />
+              <span className="text-[10px]">Staff</span>
+            </Link>
           </div>
         </div>
       </div>

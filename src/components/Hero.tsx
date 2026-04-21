@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Phone, ChevronRight } from "lucide-react";
+import { useSiteContent } from "../hooks/useSiteContent";
 
-const images = [
+const defaultImages = [
   "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2400&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=2340&auto=format&fit=crop",
@@ -10,14 +11,20 @@ const images = [
 ];
 
 export default function Hero() {
+  const { content } = useSiteContent("hero", {
+    heroTitle: "San Antonio’s Premier Web Designer",
+    heroSubtitle: "Get a high-performance website in just 7 days. I build revenue-generating assets for plumbers, gyms, and local pros designed to turn clicks into customers.",
+    heroImages: defaultImages
+  });
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % images.length);
+      setCurrentIndex((prev) => (prev + 1) % (content.heroImages?.length || 1));
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [content.heroImages]);
 
   return (
     <section id="home" className="relative min-h-[450px] md:min-h-[500px] lg:min-h-screen flex items-center overflow-hidden bg-black">
@@ -31,7 +38,7 @@ export default function Hero() {
             exit={{ opacity: 0 }}
             transition={{ duration: 1.5, ease: "easeInOut" }}
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${images[currentIndex]})` }}
+            style={{ backgroundImage: `url(${content.heroImages?.[currentIndex] || defaultImages[0]})` }}
           />
         </AnimatePresence>
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
@@ -45,7 +52,7 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="flex flex-col items-center"
           >
-            {/* Social Proof Badge - Repositioned Above the Fold */}
+            {/* Social Proof Badge */}
             <div className="flex items-center gap-2 mb-6 bg-white/5 backdrop-blur-sm border border-white/10 px-4 py-1.5 rounded-full">
               <div className="flex text-blue-400">
                 {"★".repeat(5)}
@@ -56,14 +63,14 @@ export default function Hero() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] mb-6 px-2 font-display tracking-tight">
-              San Antonio’s <br className="hidden sm:block" />
+              {content.heroTitle.split("|")[0]} <br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
-                Premier Web Designer
+                {content.heroTitle.split("|")[1] || "Premier Web Designer"}
               </span>
             </h1>
             
             <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed px-4">
-              Get a high-performance website in just <span className="text-white font-bold underline decoration-blue-500">7 days</span>. I build revenue-generating assets for plumbers, gyms, and local pros designed to turn clicks into customers.
+              {content.heroSubtitle}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full sm:w-auto px-4 sm:px-0">
