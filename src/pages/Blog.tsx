@@ -3,6 +3,7 @@ import { ArrowRight, Calendar, User, Tag } from "lucide-react";
 import { Link } from "react-router-dom";
 import { blogPosts } from "../data/blogPosts";
 import { Helmet } from "react-helmet-async";
+import OptimizedImage from "../components/OptimizedImage";
 
 export default function Blog() {
   return (
@@ -45,13 +46,13 @@ export default function Blog() {
                 className="bg-white rounded-3xl overflow-hidden border border-gray-100 hover:shadow-2xl hover:shadow-blue-600/5 transition-all group flex flex-col h-full"
               >
                 <Link to={`/blog/${post.id}`} className="block aspect-video overflow-hidden">
-                  <img
+                  <OptimizedImage
                     src={post.image}
                     alt={post.title}
-                    width={800}
-                    height={450}
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    width={400}
+                    height={225}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="w-full h-full group-hover:scale-110 transition-transform duration-500"
                   />
                 </Link>
                 <div className="p-8 flex flex-col flex-grow">

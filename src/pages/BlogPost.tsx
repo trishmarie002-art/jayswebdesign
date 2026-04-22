@@ -4,6 +4,7 @@ import { Link, useParams, Navigate } from "react-router-dom";
 import { blogPosts } from "../data/blogPosts";
 import ReactMarkdown from "react-markdown";
 import { Helmet } from "react-helmet-async";
+import OptimizedImage from "../components/OptimizedImage";
 
 export default function BlogPost() {
   const { id } = useParams<{ id: string }>();
@@ -74,13 +75,14 @@ export default function BlogPost() {
               transition={{ duration: 0.8 }}
               className="rounded-3xl overflow-hidden shadow-2xl mb-16"
             >
-              <img
+              <OptimizedImage
                 src={post.image}
                 alt={post.title}
-                width={1200}
-                height={675}
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover"
+                width={800}
+                height={450}
+                sizes="(max-width: 768px) 100vw, 800px"
+                priority={true}
+                className="w-full h-auto aspect-video"
               />
             </motion.div>
 
@@ -162,13 +164,13 @@ export default function BlogPost() {
                 className="bg-white rounded-3xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all group"
               >
                 <div className="aspect-video overflow-hidden">
-                  <img
+                  <OptimizedImage
                     src={post.image}
                     alt={post.title}
-                    width={800}
-                    height={450}
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    width={400}
+                    height={225}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="w-full h-full group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
                 <div className="p-6">

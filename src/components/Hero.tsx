@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Phone, ChevronRight } from "lucide-react";
 import { useSiteContent } from "../hooks/useSiteContent";
+import OptimizedImage from "./OptimizedImage";
 
 const defaultImages = [
   "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
@@ -103,11 +104,12 @@ export default function Hero() {
             <div className="flex -space-x-3 sm:-space-x-4">
               {[1, 2, 3, 4].map((i) => (
                 <div key={i} className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-black bg-gray-800 overflow-hidden">
-                  <img
+                  <OptimizedImage
                     src={`https://i.pravatar.cc/150?u=${i + 10}`}
                     alt="Client"
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover"
+                    width={48}
+                    height={48}
+                    className="w-full h-full"
                   />
                 </div>
               ))}

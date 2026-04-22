@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { CheckCircle2, Users, Globe, Award } from "lucide-react";
+import OptimizedImage from "./OptimizedImage";
 
 export default function About() {
   return (
@@ -14,12 +15,12 @@ export default function About() {
               transition={{ duration: 0.8 }}
               className="relative z-10"
             >
-              <img
+              <OptimizedImage
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2340&auto=format&fit=crop"
                 alt="The Designer"
-                width={1170}
-                height={780}
-                referrerPolicy="no-referrer"
+                width={600}
+                height={400}
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="rounded-3xl shadow-2xl w-full h-auto"
               />
               <div className="absolute -bottom-6 -right-6 md:-bottom-8 md:-right-8 bg-blue-600 p-6 md:p-8 rounded-3xl shadow-xl hidden sm:block">
