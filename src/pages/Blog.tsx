@@ -1,15 +1,71 @@
 import { motion } from "motion/react";
-import { ArrowRight, Calendar, User, Tag } from "lucide-react";
+import { ArrowRight, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { blogPosts } from "../data/blogPosts";
 import { Helmet } from "react-helmet-async";
+import OptimizedImage from "../components/OptimizedImage";
+import { siteConfig, generateBreadcrumbSchema } from "../lib/seo";
 
 export default function Blog() {
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "@id": `${siteConfig.url}/blog#blog`,
+    name: "The Digital Growth Blog",
+    description: "Expert advice on web design, SEO strategy, WordPress development, and digital marketing to help your business thrive online.",
+    url: `${siteConfig.url}/blog`,
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      logo: {
+        "@type": "ImageObject",
+        url: siteConfig.logo,
+      },
+    },
+    blogPost: blogPosts.map((post) => ({
+      "@type": "BlogPosting",
+      headline: post.title,
+      description: post.excerpt,
+      image: post.image,
+      author: {
+        "@type": "Person",
+        name: post.author,
+      },
+      datePublished: post.date,
+      url: `${siteConfig.url}/blog/${post.id}`,
+    })),
+  };
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: siteConfig.url },
+    { name: "Blog", url: `${siteConfig.url}/blog` },
+  ]);
+
   return (
     <div className="pt-24 min-h-screen bg-gray-50">
       <Helmet>
-        <title>Blog | Resources & Insights | Jay's Web Design San Antonio</title>
-        <meta name="description" content="Expert advice on web design, SEO strategy, and digital marketing to help your business thrive online. Read our latest articles." />
+        <title>Web Design Blog | SEO Tips & WordPress Guides | Jay&apos;s Web Design</title>
+        <meta name="title" content="Web Design Blog | SEO Tips & WordPress Guides | Jay's Web Design" />
+        <meta name="description" content="Expert advice on web design, SEO strategy, WordPress development, and digital marketing. Learn proven techniques to grow your business online and increase conversions." />
+        <meta name="keywords" content="web design tips, SEO blog, WordPress tutorials, small business marketing, website optimization, digital marketing guides, responsive design tips, conversion optimization" />
+        <meta name="robots" content="index, follow" />
+        
+        {/* Open Graph */}
+        <meta property="og:type" content="blog" />
+        <meta property="og:url" content={`${siteConfig.url}/blog`} />
+        <meta property="og:title" content="Web Design Blog | SEO Tips & WordPress Guides" />
+        <meta property="og:description" content="Expert advice on web design, SEO strategy, and digital marketing to help your business thrive online." />
+        <meta property="og:image" content={siteConfig.ogImage} />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Web Design Blog | SEO Tips & WordPress Guides" />
+        <meta name="twitter:description" content="Expert advice on web design, SEO strategy, and digital marketing to help your business thrive online." />
+        
+        <link rel="canonical" href={`${siteConfig.url}/blog`} />
+        
+        <script type="application/ld+json">{JSON.stringify(blogSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
 
       <section className="py-16 bg-white border-b border-gray-100">
@@ -45,13 +101,13 @@ export default function Blog() {
                 className="bg-white rounded-3xl overflow-hidden border border-gray-100 hover:shadow-2xl hover:shadow-blue-600/5 transition-all group flex flex-col h-full"
               >
                 <Link to={`/blog/${post.id}`} className="block aspect-video overflow-hidden">
-                  <img
+                  <OptimizedImage
                     src={post.image}
                     alt={post.title}
-                    width={800}
-                    height={450}
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    width={400}
+                    height={225}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="w-full h-full group-hover:scale-110 transition-transform duration-500"
                   />
                 </Link>
                 <div className="p-8 flex flex-col flex-grow">

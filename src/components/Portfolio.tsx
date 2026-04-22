@@ -3,6 +3,7 @@ import { ExternalLink, Loader2 } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
 import { db } from "../lib/firebase";
+import OptimizedImage from "./OptimizedImage";
 
 interface Project {
   id: string;
@@ -95,12 +96,13 @@ export default function Portfolio() {
                   className="group block relative bg-gray-900 rounded-2xl overflow-hidden border border-white/5 hover:border-blue-500/50 transition-all h-full"
                 >
                   <div className="aspect-video overflow-hidden bg-gray-800">
-                    <img
+                    <OptimizedImage
                       src={project.image}
                       alt={project.alt || project.name}
-                      width={800}
-                      height={450}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      width={450}
+                      height={253}
+                      sizes="(max-width: 640px) 300px, (max-width: 768px) 400px, 450px"
+                      className="w-full h-full group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
                   <div className="p-6">

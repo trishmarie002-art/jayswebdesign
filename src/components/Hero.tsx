@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Phone, ChevronRight } from "lucide-react";
 import { useSiteContent } from "../hooks/useSiteContent";
+import OptimizedImage from "./OptimizedImage";
 
 const defaultImages = [
   "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
@@ -12,8 +13,8 @@ const defaultImages = [
 
 export default function Hero() {
   const { content } = useSiteContent("hero", {
-    heroTitle: "San Antonio’s Premier Web Designer",
-    heroSubtitle: "Get a high-performance website in just 7 days. I build revenue-generating assets for plumbers, gyms, and local pros designed to turn clicks into customers.",
+    heroTitle: "Professional Web Design Services|That Drive Real Results",
+    heroSubtitle: "Custom, conversion-optimized websites built in just 7 days. We help small businesses nationwide turn their website into a 24/7 revenue-generating machine.",
     heroImages: defaultImages
   });
 
@@ -27,7 +28,7 @@ export default function Hero() {
   }, [content.heroImages]);
 
   return (
-    <section id="home" className="relative min-h-[450px] md:min-h-[500px] lg:min-h-screen flex items-center overflow-hidden bg-black">
+    <section id="home" className="relative min-h-[450px] md:min-h-[500px] lg:min-h-screen flex items-center overflow-hidden bg-black" aria-label="Professional Web Design Services - Get Started">
       {/* Background Slideshow */}
       <div className="absolute inset-0 z-0">
         <AnimatePresence mode="wait">
@@ -103,18 +104,19 @@ export default function Hero() {
             <div className="flex -space-x-3 sm:-space-x-4">
               {[1, 2, 3, 4].map((i) => (
                 <div key={i} className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-black bg-gray-800 overflow-hidden">
-                  <img
+                  <OptimizedImage
                     src={`https://i.pravatar.cc/150?u=${i + 10}`}
                     alt="Client"
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover"
+                    width={48}
+                    height={48}
+                    className="w-full h-full"
                   />
                 </div>
               ))}
             </div>
             <div className="text-center sm:text-left">
-              <p className="text-white font-bold text-sm sm:text-base">150+ Local Businesses Served</p>
-              <p className="text-gray-400 text-xs">San Antonio & Surrounding Areas</p>
+              <p className="text-white font-bold text-sm sm:text-base">100+ Businesses Nationwide</p>
+              <p className="text-gray-400 text-xs">Trusted Across the United States</p>
             </div>
           </motion.div>
         </div>
