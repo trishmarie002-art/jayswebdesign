@@ -1,10 +1,11 @@
 import { motion } from "motion/react";
-import { ArrowLeft, Calendar, User, Tag, Share2, Facebook, Twitter, Linkedin } from "lucide-react";
+import { ArrowLeft, Calendar, User, Tag, Facebook, Twitter, Linkedin } from "lucide-react";
 import { Link, useParams, Navigate } from "react-router-dom";
 import { blogPosts } from "../data/blogPosts";
 import ReactMarkdown from "react-markdown";
 import { Helmet } from "react-helmet-async";
 import OptimizedImage from "../components/OptimizedImage";
+import { siteConfig, generateArticleSchema, generateBreadcrumbSchema } from "../lib/seo";
 
 export default function BlogPost() {
   const { id } = useParams<{ id: string }>();
@@ -14,16 +15,69 @@ export default function BlogPost() {
     return <Navigate to="/blog" replace />;
   }
 
+  // Parse date for schema
+  const dateMap: Record<string, string> = {
+    "April 2026": "2026-04-01",
+    "March 2026": "2026-03-01",
+    "February 2026": "2026-02-01",
+  };
+  const publishDate = dateMap[post.date] || "2026-01-01";
+
+  const articleSchema = generateArticleSchema({
+    title: post.title,
+    description: post.excerpt,
+    image: post.image,
+    datePublished: publishDate,
+    author: post.author,
+    url: `${siteConfig.url}/blog/${post.id}`,
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: siteConfig.url },
+    { name: "Blog", url: `${siteConfig.url}/blog` },
+    { name: post.title, url: `${siteConfig.url}/blog/${post.id}` },
+  ]);
+
+  // Generate estimated reading time
+  const wordCount = post.content.split(/\s+/).length;
+  const readingTime = Math.ceil(wordCount / 200);
+
   return (
     <div className="pt-24 min-h-screen bg-white">
       <Helmet>
-        <title>{post.title} | Jay's Web Design San Antonio</title>
+        <title>{post.title} | Professional Web Design Blog</title>
+        <meta name="title" content={`${post.title} | Professional Web Design Blog`} />
         <meta name="description" content={post.excerpt} />
+        <meta name="keywords" content={`${post.category.toLowerCase()}, web design, ${post.title.toLowerCase().split(' ').slice(0, 3).join(', ')}, small business tips`} />
+        <meta name="author" content={post.author} />
+        <meta name="robots" content="index, follow" />
+        
+        {/* Open Graph */}
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`${siteConfig.url}/blog/${post.id}`} />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.excerpt} />
         <meta property="og:image" content={post.image} />
-        <meta property="og:type" content="article" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="article:published_time" content={publishDate} />
+        <meta property="article:author" content={post.author} />
+        <meta property="article:section" content={post.category} />
+        
+        {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={post.title} />
+        <meta name="twitter:description" content={post.excerpt} />
+        <meta name="twitter:image" content={post.image} />
+        <meta name="twitter:label1" content="Written by" />
+        <meta name="twitter:data1" content={post.author} />
+        <meta name="twitter:label2" content="Est. reading time" />
+        <meta name="twitter:data2" content={`${readingTime} min read`} />
+        
+        <link rel="canonical" href={`${siteConfig.url}/blog/${post.id}`} />
+        
+        <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
 
       <section className="py-12 bg-gray-50 border-b border-gray-100">

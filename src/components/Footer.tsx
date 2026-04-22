@@ -15,7 +15,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-black text-white pt-20 pb-10 border-t border-white/5">
+    <footer className="bg-black text-white pt-20 pb-10 border-t border-white/5" itemScope itemType="https://schema.org/WPFooter" role="contentinfo">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="space-y-6">
@@ -23,7 +23,7 @@ export default function Footer() {
               <Logo light size="lg" />
             </Link>
             <p className="text-gray-500 leading-relaxed">
-              I don't just build pages; I build revenue-generating assets. Based in San Antonio, serving businesses that mean business nationwide.
+              Professional web design services that deliver results. We create custom, conversion-optimized websites for businesses nationwide. Based in San Antonio, Texas.
             </p>
             <div className="flex gap-4">
               <a
@@ -31,13 +31,14 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-900 rounded-full flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all"
+                aria-label="Follow us on Facebook"
               >
-                <Facebook size={18} />
+                <Facebook size={18} aria-hidden="true" />
               </a>
             </div>
           </div>
 
-          <div>
+          <nav aria-label="Footer navigation">
             <h4 className="text-lg font-bold mb-6">Quick Links</h4>
             <ul className="space-y-4">
               {quickLinks.map((link) => (
@@ -51,10 +52,10 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           <div>
-            <h4 className="text-lg font-bold mb-6">My Services</h4>
+            <h4 className="text-lg font-bold mb-6">Our Services</h4>
             <ul className="space-y-4">
               {[
                 "Web Design",
@@ -73,30 +74,33 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
+          <address className="not-italic" itemScope itemType="https://schema.org/LocalBusiness">
             <h4 className="text-lg font-bold mb-6">Contact Info</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <MapPin className="text-blue-500 mt-1 flex-shrink-0" size={18} />
-                <span className="text-gray-500">San Antonio, Texas, USA</span>
+                <MapPin className="text-blue-500 mt-1 flex-shrink-0" size={18} aria-hidden="true" />
+                <span className="text-gray-500" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+                  <span itemProp="addressLocality">San Antonio</span>, <span itemProp="addressRegion">Texas</span>, <span itemProp="addressCountry">USA</span>
+                </span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone className="text-blue-500 flex-shrink-0" size={18} />
-                <a href="tel:2109001113" className="text-gray-500 hover:text-blue-500 transition-colors">
+                <Phone className="text-blue-500 flex-shrink-0" size={18} aria-hidden="true" />
+                <a href="tel:2109001113" className="text-gray-500 hover:text-blue-500 transition-colors" itemProp="telephone">
                   (210) 900-1113
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="text-blue-500 flex-shrink-0" size={18} />
+                <Mail className="text-blue-500 flex-shrink-0" size={18} aria-hidden="true" />
                 <a
                   href="mailto:jaywebdesignsa@gmail.com"
                   className="text-gray-500 hover:text-blue-500 transition-colors"
+                  itemProp="email"
                 >
                   jaywebdesignsa@gmail.com
                 </a>
               </li>
             </ul>
-          </div>
+          </address>
         </div>
 
         <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-600">
