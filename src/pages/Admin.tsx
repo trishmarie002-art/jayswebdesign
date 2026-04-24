@@ -49,9 +49,23 @@ export default function Admin() {
   const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [loginError, setLoginError] = useState<string | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+
+  const handleGoogleSignIn = async () => {
+    setLoginLoading(true);
+    setLoginError(null);
+    try {
+      await signInWithGoogle();
+    } catch (error: any) {
+      setLoginError(error.message || 'Failed to sign in. Please try again.');
+    } finally {
+      setLoginLoading(false);
+    }
+  };
 
   // Form State
   const [formData, setFormData] = useState({
@@ -172,9 +186,18 @@ export default function Admin() {
 
   const makeMeAdmin = async () => {
     if (user) {
-      await setDoc(doc(db, "admins", user.uid), { email: user.email });
-      setIsAdmin(true);
-      alert("You are now an admin!");
+      try {
+        await setDoc(doc(db, "admins", user.uid), { 
+          email: user.email,
+          displayName: user.displayName,
+          createdAt: new Date().toISOString()
+        });
+        setIsAdmin(true);
+        alert("You are now an admin!");
+      } catch (error: any) {
+        console.error("Error enabling admin:", error);
+        alert("Failed to enable admin access. Error: " + (error.message || "Unknown error"));
+      }
     }
   };
 
@@ -194,13 +217,23 @@ export default function Admin() {
             <Lock className="text-blue-500" size={32} />
           </div>
           <h1 className="text-2xl font-bold text-white mb-2">Admin Access</h1>
-          <p className="text-gray-400 mb-8">Login with your Google account to manage the site gallery and content.</p>
+          <p className="text-gray-400 mb-6">Login with your Google account to manage the site gallery and content.</p>
+          {loginError && (
+            <div className="bg-red-600/20 border border-red-500/50 text-red-400 text-sm p-3 rounded-xl mb-4">
+              {loginError}
+            </div>
+          )}
           <button 
-            onClick={signInWithGoogle}
-            className="w-full btn-primary py-4 rounded-xl font-bold flex items-center justify-center gap-2"
+            onClick={handleGoogleSignIn}
+            disabled={loginLoading}
+            className="w-full btn-primary py-4 rounded-xl font-bold flex items-center justify-center gap-2 disabled:opacity-50"
           >
-            <Globe size={20} />
-            Sign in with Google
+            {loginLoading ? (
+              <Loader2 className="animate-spin" size={20} />
+            ) : (
+              <Globe size={20} />
+            )}
+            {loginLoading ? 'Signing in...' : 'Sign in with Google'}
           </button>
         </div>
       </div>

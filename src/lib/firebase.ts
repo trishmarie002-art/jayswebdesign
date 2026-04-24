@@ -20,7 +20,25 @@ async function testConnection() {
 }
 testConnection();
 
-export const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
+export const signInWithGoogle = async () => {
+  try {
+    const result = await signInWithPopup(auth, googleProvider);
+    return result;
+  } catch (error: any) {
+    // Handle specific popup errors
+    if (error.code === 'auth/popup-closed-by-user') {
+      console.log('Sign-in popup was closed');
+      return null;
+    }
+    if (error.code === 'auth/popup-blocked') {
+      console.error('Popup was blocked. Please allow popups for this site.');
+      alert('Popup was blocked. Please allow popups for this site and try again.');
+      return null;
+    }
+    console.error('Sign-in error:', error);
+    throw error;
+  }
+};
 export const logout = () => auth.signOut();
 
 export interface FirestoreErrorInfo {
