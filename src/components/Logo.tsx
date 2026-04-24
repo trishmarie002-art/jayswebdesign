@@ -33,7 +33,7 @@ export default function Logo({ className, size = "md", light = false }: LogoProp
     >
       {!imageError ? (
         <img 
-          src="https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay's%20Web%20Design%20Services/logo-removebg-preview.png" 
+          src="https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay%27s%20Web%20Design%20Services/logo-removebg-preview.png" 
           alt="Jay's Web Design Services" 
           className={cn(
             "w-auto h-auto max-w-full max-h-full object-contain drop-shadow-2xl", 

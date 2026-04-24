@@ -68,13 +68,13 @@ export default function App() {
             <meta name="keywords" content="Professional Web Design, Custom Website Development, Nationwide Web Design Services, Responsive Web Design USA, Small Business Website Design, Corporate Web Development, E-commerce Website Design, WordPress Developers, Shopify Experts, Landing Page Design, UI/UX Design Services, Affordable Web Design, High Converting Websites, SEO Friendly Web Design, Website Maintenance Services, Web Design for Startups, Digital Marketing Agency, Online Presence Management, Modern Web Design, Creative Web Agency, Business Branding Services, Professional Logo Design, Ad Flyer Design, Website Repair Services, Custom Mobile Apps, Enterprise Web Solutions, Local SEO Services, Google Maps Marketing, Web Hosting Solutions, Digital Growth Strategy, Custom Portfolios, Real Estate Web Design, Law Firm Website Design, Medical Web Design, Construction Website Design, Restaurant Website Design, Non-Profit Web Design, Educational Web Design, Travel Website Design, E-commerce Strategy, Web Design Consultation, Freelance Web Designer, Senior Web Developer, Full Stack Development, Front End Design, Backend Web Development, Website Performance Optimization, Conversion Rate Optimization, Digital Transformation, Jay's Web Design Services" />
             <meta property="og:title" content="Professional Web Design Services | Custom Website Development Nationwide" />
             <meta property="og:description" content="Expert nationwide web design services to grow your business. Custom, mobile-friendly websites designed to convert visitors into customers." />
-            <meta property="og:image" content="https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay's%20Web%20Design%20Services/logo-removebg-preview.png" />
+            <meta property="og:image" content="https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay%27s%20Web%20Design%20Services/logo-removebg-preview.png" />
             <meta property="og:type" content="website" />
             <meta property="og:url" content="https://jayswebdesignservices.com" />
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:title" content="Professional Web Design Services | Custom Website Development Nationwide" />
             <meta name="twitter:description" content="Expert nationwide web design services to grow your business. Custom, mobile-friendly websites designed to convert visitors into customers." />
-            <meta name="twitter:image" content="https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay's%20Web%20Design%20Services/logo-removebg-preview.png" />
+            <meta name="twitter:image" content="https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay%27s%20Web%20Design%20Services/logo-removebg-preview.png" />
             <meta name="google-site-verification" content="google3d9d936012e1e974" />
             <link rel="canonical" href="https://jayswebdesignservices.com" />
             <script type="application/ld+json">
@@ -83,7 +83,7 @@ export default function App() {
                   "@context": "https://schema.org",
                   "@type": "ProfessionalService",
                   "name": "Jay's Web Design Services",
-                  "image": "https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay's%20Web%20Design%20Services/logo-removebg-preview.png",
+                  "image": "https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay%27s%20Web%20Design%20Services/logo-removebg-preview.png",
                   "@id": "https://jayswebdesignservices.com",
                   "url": "https://jayswebdesignservices.com/",
                   "telephone": "+12109001113",
