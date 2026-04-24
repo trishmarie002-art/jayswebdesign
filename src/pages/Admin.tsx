@@ -49,23 +49,9 @@ export default function Admin() {
   const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [loginLoading, setLoginLoading] = useState(false);
-  const [loginError, setLoginError] = useState<string | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
-
-  const handleGoogleSignIn = async () => {
-    setLoginLoading(true);
-    setLoginError(null);
-    try {
-      await signInWithGoogle();
-    } catch (error: any) {
-      setLoginError(error.message || 'Failed to sign in. Please try again.');
-    } finally {
-      setLoginLoading(false);
-    }
-  };
 
   // Form State
   const [formData, setFormData] = useState({
@@ -139,7 +125,7 @@ export default function Admin() {
       {
         name: "Pure View Cleaning Solutions",
         url: "https://pvcstexas.com/",
-        image: "https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay's%20Web%20Design%20Services/pvcswebsitebyJayswebdesignservices.png",
+        image: "https://s0.wp.com/mshots/v1/https://pvcstexas.com/?w=800",
         category: "Cleaning Services",
         alt: "Modern cleaning services website for Pure View Cleaning Solutions",
         order: 0
@@ -147,7 +133,7 @@ export default function Admin() {
       {
         name: "Plumb Daddy Plumbing",
         url: "https://plumbdaddy-texas.com/",
-        image: "https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay's%20Web%20Design%20Services/plumbdaddyswebsitebyjayswebdesignservices.jpeg",
+        image: "https://s0.wp.com/mshots/v1/https://plumbdaddy-texas.com/?w=800",
         category: "Plumbing Services",
         alt: "Professional plumbing website design for Plumb Daddy Texas",
         order: 1
@@ -155,7 +141,7 @@ export default function Admin() {
       {
         name: "Rush Wheels & Tires",
         url: "https://rushwheelandtire.com/",
-        image: "https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay's%20Web%20Design%20Services/RushwheelandtireswebsitebyJayswebdesignservices.png",
+        image: "https://s0.wp.com/mshots/v1/https://rushwheelandtire.com/?w=800",
         category: "Automotive",
         alt: "Responsive automotive website for Rush Wheels & Tires",
         order: 2
@@ -163,18 +149,26 @@ export default function Admin() {
       {
         name: "Reycom Combat Gym",
         url: "https://reycom.com/",
-        image: "https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay's%20Web%20Design%20Services/reycomwebsitebyjayswebdesignservices.png",
+        image: "https://s0.wp.com/mshots/v1/https://reycom.com/?w=800",
         category: "Fitness & MMA",
         alt: "High-conversion fitness and MMA gym website",
         order: 3
       },
       {
-        name: "P&F Services",
-        url: "https://pnfservices.com/",
-        image: "https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay's%20Web%20Design%20Services/pnfwebsitebyjayswebdesignservices.png",
-        category: "Professional Services",
-        alt: "Professional services website by Jay's Web Design",
+        name: "Texas Stitchworx",
+        url: "https://texasstitchworx.com/",
+        image: "https://s0.wp.com/mshots/v1/https://texasstitchworx.com/?w=800",
+        category: "Custom Embroidery",
+        alt: "Custom e-commerce website for Texas Stitchworx",
         order: 4
+      },
+      {
+        name: "Lio's Handyman Services",
+        url: "https://liothehandyman.com/",
+        image: "https://s0.wp.com/mshots/v1/https://liothehandyman.com/?w=800",
+        category: "Home Maintenance",
+        alt: "Local handyman services website",
+        order: 5
       }
     ];
 
@@ -186,18 +180,9 @@ export default function Admin() {
 
   const makeMeAdmin = async () => {
     if (user) {
-      try {
-        await setDoc(doc(db, "admins", user.uid), { 
-          email: user.email,
-          displayName: user.displayName,
-          createdAt: new Date().toISOString()
-        });
-        setIsAdmin(true);
-        alert("You are now an admin!");
-      } catch (error: any) {
-        console.error("Error enabling admin:", error);
-        alert("Failed to enable admin access. Error: " + (error.message || "Unknown error"));
-      }
+      await setDoc(doc(db, "admins", user.uid), { email: user.email });
+      setIsAdmin(true);
+      alert("You are now an admin!");
     }
   };
 
@@ -217,23 +202,13 @@ export default function Admin() {
             <Lock className="text-blue-500" size={32} />
           </div>
           <h1 className="text-2xl font-bold text-white mb-2">Admin Access</h1>
-          <p className="text-gray-400 mb-6">Login with your Google account to manage the site gallery and content.</p>
-          {loginError && (
-            <div className="bg-red-600/20 border border-red-500/50 text-red-400 text-sm p-3 rounded-xl mb-4">
-              {loginError}
-            </div>
-          )}
+          <p className="text-gray-400 mb-8">Login with your Google account to manage the site gallery and content.</p>
           <button 
-            onClick={handleGoogleSignIn}
-            disabled={loginLoading}
-            className="w-full btn-primary py-4 rounded-xl font-bold flex items-center justify-center gap-2 disabled:opacity-50"
+            onClick={signInWithGoogle}
+            className="w-full btn-primary py-4 rounded-xl font-bold flex items-center justify-center gap-2"
           >
-            {loginLoading ? (
-              <Loader2 className="animate-spin" size={20} />
-            ) : (
-              <Globe size={20} />
-            )}
-            {loginLoading ? 'Signing in...' : 'Sign in with Google'}
+            <Globe size={20} />
+            Sign in with Google
           </button>
         </div>
       </div>

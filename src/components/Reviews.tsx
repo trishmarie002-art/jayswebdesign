@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Star, Facebook, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "../lib/utils";
-import { siteConfig } from "../lib/seo";
 
 const reviews = [
   {
@@ -81,39 +80,8 @@ export default function Reviews() {
     return Math.abs(offset) * velocity;
   };
 
-  // Reviews schema for SEO
-  const reviewSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: siteConfig.name,
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "5.0",
-      reviewCount: reviews.length.toString(),
-      bestRating: "5",
-      worstRating: "1",
-    },
-    review: reviews.map((review) => ({
-      "@type": "Review",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: review.rating.toString(),
-        bestRating: "5",
-      },
-      author: {
-        "@type": "Person",
-        name: review.name,
-      },
-      reviewBody: review.text,
-    })),
-  };
-
   return (
-    <section id="reviews" className="py-20 md:py-24 bg-gray-50 overflow-hidden relative" aria-labelledby="reviews-heading">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
-      />
+    <section id="reviews" className="py-20 md:py-24 bg-gray-50 overflow-hidden relative">
       {/* Background Decorative Elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl" />
@@ -134,7 +102,7 @@ export default function Reviews() {
                 <span className="text-blue-600 font-bold tracking-widest uppercase text-xs md:text-sm">Facebook Reviews</span>
               </div>
             </div>
-            <h2 id="reviews-heading" className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-black mt-3 mb-6 font-display tracking-tight leading-tight text-balance">What Our Clients Say</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-black mt-3 mb-6 font-display tracking-tight leading-tight">What My Clients Say</h2>
             <div className="flex items-center justify-center gap-1 text-yellow-500 mb-6">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} fill="currentColor" className="w-[18px] h-[18px] md:w-5 md:h-5" />

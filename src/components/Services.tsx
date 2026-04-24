@@ -1,7 +1,5 @@
 import { motion } from "motion/react";
 import { Code, Search, Settings, Wrench, Layout, Palette, ChevronRight } from "lucide-react";
-import { Helmet } from "react-helmet-async";
-import { generateServiceSchema } from "../lib/seo";
 
 const services = [
   {
@@ -37,17 +35,8 @@ const services = [
 ];
 
 export default function Services() {
-  const serviceSchemas = generateServiceSchema();
-  
   return (
-    <section id="services" className="py-20 md:py-24 bg-gray-50" aria-labelledby="services-heading">
-      <Helmet>
-        {serviceSchemas.map((schema, index) => (
-          <script key={index} type="application/ld+json">
-            {JSON.stringify(schema)}
-          </script>
-        ))}
-      </Helmet>
+    <section id="services" className="py-20 md:py-24 bg-gray-50">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-12 md:mb-16">
           <motion.div
@@ -57,7 +46,7 @@ export default function Services() {
             transition={{ duration: 0.6 }}
           >
             <span className="text-blue-600 font-bold tracking-widest uppercase text-sm">My Expertise</span>
-            <h2 id="services-heading" className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-black mt-3 mb-6 font-display tracking-tight leading-tight text-balance">Professional Web Design Services</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-black mt-3 mb-6 font-display tracking-tight leading-tight">Comprehensive Solutions</h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-base md:text-lg">
               From initial concept to ongoing maintenance, I provide everything you need to succeed in the digital landscape.
             </p>
