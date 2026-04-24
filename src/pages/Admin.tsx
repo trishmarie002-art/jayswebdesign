@@ -125,7 +125,7 @@ export default function Admin() {
       {
         name: "Pure View Cleaning Solutions",
         url: "https://pvcstexas.com/",
-        image: "https://s0.wp.com/mshots/v1/https://pvcstexas.com/?w=800",
+        image: "https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay's%20Web%20Design%20Services/pvcswebsitebyJayswebdesignservices.png",
         category: "Cleaning Services",
         alt: "Modern cleaning services website for Pure View Cleaning Solutions",
         order: 0
@@ -133,7 +133,7 @@ export default function Admin() {
       {
         name: "Plumb Daddy Plumbing",
         url: "https://plumbdaddy-texas.com/",
-        image: "https://s0.wp.com/mshots/v1/https://plumbdaddy-texas.com/?w=800",
+        image: "https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay's%20Web%20Design%20Services/plumbdaddyswebsitebyjayswebdesignservices.jpeg",
         category: "Plumbing Services",
         alt: "Professional plumbing website design for Plumb Daddy Texas",
         order: 1
@@ -141,7 +141,7 @@ export default function Admin() {
       {
         name: "Rush Wheels & Tires",
         url: "https://rushwheelandtire.com/",
-        image: "https://s0.wp.com/mshots/v1/https://rushwheelandtire.com/?w=800",
+        image: "https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay's%20Web%20Design%20Services/RushwheelandtireswebsitebyJayswebdesignservices.png",
         category: "Automotive",
         alt: "Responsive automotive website for Rush Wheels & Tires",
         order: 2
@@ -149,26 +149,18 @@ export default function Admin() {
       {
         name: "Reycom Combat Gym",
         url: "https://reycom.com/",
-        image: "https://s0.wp.com/mshots/v1/https://reycom.com/?w=800",
+        image: "https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay's%20Web%20Design%20Services/reycomwebsitebyjayswebdesignservices.png",
         category: "Fitness & MMA",
         alt: "High-conversion fitness and MMA gym website",
         order: 3
       },
       {
-        name: "Texas Stitchworx",
-        url: "https://texasstitchworx.com/",
-        image: "https://s0.wp.com/mshots/v1/https://texasstitchworx.com/?w=800",
-        category: "Custom Embroidery",
-        alt: "Custom e-commerce website for Texas Stitchworx",
+        name: "P&F Services",
+        url: "https://pnfservices.com/",
+        image: "https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay's%20Web%20Design%20Services/pnfwebsitebyjayswebdesignservices.png",
+        category: "Professional Services",
+        alt: "Professional services website by Jay's Web Design",
         order: 4
-      },
-      {
-        name: "Lio's Handyman Services",
-        url: "https://liothehandyman.com/",
-        image: "https://s0.wp.com/mshots/v1/https://liothehandyman.com/?w=800",
-        category: "Home Maintenance",
-        alt: "Local handyman services website",
-        order: 5
       }
     ];
 
