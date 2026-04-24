@@ -296,7 +296,7 @@ export default function Admin() {
                 <input 
                   name="heroTitle"
                   type="text" 
-                  defaultValue="San Antonio’s|Premier Web Designer"
+                  defaultValue="America's|Premier Web Designer"
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-blue-500 outline-none"
                 />
               </div>
@@ -305,7 +305,7 @@ export default function Admin() {
                 <textarea 
                   name="heroSubtitle"
                   rows={3}
-                  defaultValue="Get a high-performance website in just 7 days. I build revenue-generating assets for plumbers, gyms, and local pros designed to turn clicks into customers."
+                  defaultValue="Get a high-performance website in just 72 hours. I build revenue-generating assets for plumbers, gyms, and local pros designed to turn clicks into customers."
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-blue-500 outline-none resize-none"
                 />
               </div>

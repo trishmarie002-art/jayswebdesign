@@ -40,15 +40,15 @@ export default function About() {
               <span className="text-blue-600 font-bold tracking-widest uppercase text-sm">About Me</span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-black mt-3 mb-6 font-display tracking-tight leading-tight">
                 Jay's Web Design: <br />
-                <span className="text-blue-600">San Antonio's Best</span>
+                <span className="text-blue-600">Nationwide Excellence</span>
               </h2>
               <p className="text-gray-600 text-base md:text-lg mb-8 leading-relaxed">
-                I am a dedicated web designer based in the heart of San Antonio, Texas. While my roots are local, my reach is national. I specialize in creating high-converting websites that don't just look pretty—they drive real business growth.
+                I am a dedicated web designer serving businesses across the entire United States. I specialize in creating high-converting websites that don't just look pretty—they drive real business growth, no matter where your local market is.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
                 {[
-                  { icon: <Globe className="text-blue-600" />, title: "National Reach", desc: "Serving clients from Texas to New York." },
+                  { icon: <Globe className="text-blue-600" />, title: "Nationwide Reach", desc: "Serving clients in all 50 states." },
                   { icon: <Users className="text-blue-600" />, title: "Client Focused", desc: "Your goals are my top priority." },
                   { icon: <CheckCircle2 className="text-blue-600" />, title: "Proven Results", desc: "Websites that rank and convert." },
                   { icon: <Award className="text-blue-600" />, title: "Expert Design", desc: "Specialist in design and SEO." },

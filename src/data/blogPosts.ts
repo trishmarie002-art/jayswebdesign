@@ -37,7 +37,7 @@ Instead of building and maintaining separate sites for desktop and mobile, a sin
 Responsive sites are often optimized for performance. Faster loading times are a key factor in both user satisfaction and SEO rankings.
 
 ## Conclusion
-Responsive web design is no longer a luxury; it's a necessity. As a professional web designer in San Antonio, I specialize in creating mobile-friendly WordPress sites that help local businesses thrive.
+Responsive web design is no longer a luxury; it's a necessity. As a professional web designer serving a national audience, I specialize in creating mobile-friendly WordPress sites that help businesses thrive in any market.
 
 [Contact me today](#contact) to discuss how we can modernize your digital presence.
     `,

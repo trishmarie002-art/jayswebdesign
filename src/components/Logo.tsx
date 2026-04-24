@@ -12,10 +12,10 @@ export default function Logo({ className, size = "md", light = false }: LogoProp
   const [imageError, setImageError] = useState(false);
 
   const sizes = {
-    sm: "h-10 md:h-12",
-    md: "h-16 md:h-20",
-    lg: "h-32 md:h-44",
-    xl: "h-48 md:h-64",
+    sm: "h-12 md:h-14",
+    md: "h-20 md:h-24",
+    lg: "h-40 md:h-52",
+    xl: "h-56 md:h-72",
   };
 
   const textSizes = {
@@ -33,7 +33,7 @@ export default function Logo({ className, size = "md", light = false }: LogoProp
     >
       {!imageError ? (
         <img 
-          src="/logo.png" 
+          src="https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay's%20Web%20Design%20Services/logo-removebg-preview.png" 
           alt="Jay's Web Design Services" 
           className={cn(
             "w-auto h-auto max-w-full max-h-full object-contain drop-shadow-2xl", 

@@ -8,7 +8,7 @@ export default function Blog() {
   return (
     <div className="pt-24 min-h-screen bg-gray-50">
       <Helmet>
-        <title>Blog | Resources & Insights | Jay's Web Design San Antonio</title>
+        <title>Blog | Resources & Insights | Jay's Web Design Services</title>
         <meta name="description" content="Expert advice on web design, SEO strategy, and digital marketing to help your business thrive online. Read our latest articles." />
       </Helmet>
 

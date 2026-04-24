@@ -16,7 +16,7 @@ export default function BlogPost() {
   return (
     <div className="pt-24 min-h-screen bg-white">
       <Helmet>
-        <title>{post.title} | Jay's Web Design San Antonio</title>
+        <title>{post.title} | Jay's Web Design Services</title>
         <meta name="description" content={post.excerpt} />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.excerpt} />
@@ -127,7 +127,7 @@ export default function BlogPost() {
                       </div>
                     </div>
                     <p className="text-sm text-gray-500 leading-relaxed">
-                      I specialize in building high-performance websites that drive results for small businesses in San Antonio and beyond.
+                      I specialize in building high-performance websites that drive results for businesses nationwide.
                     </p>
                   </div>
 

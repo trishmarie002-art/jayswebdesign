@@ -15,7 +15,7 @@ const reasons = [
   {
     icon: <Star className="w-10 h-10 text-blue-500" />,
     title: "SEO Optimized",
-    description: "I don't just build sites; I build search engine magnets. Rank higher in San Antonio and nationwide searches.",
+    description: "I don't just build sites; I build search engine magnets. Rank higher in local and nationwide searches across the country.",
   },
   {
     icon: <Heart className="w-10 h-10 text-blue-500" />,

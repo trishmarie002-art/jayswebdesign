@@ -12,8 +12,8 @@ const defaultImages = [
 
 export default function Hero() {
   const { content } = useSiteContent("hero", {
-    heroTitle: "San Antonio’s Premier Web Designer",
-    heroSubtitle: "Get a high-performance website in just 7 days. I build revenue-generating assets for plumbers, gyms, and local pros designed to turn clicks into customers.",
+    heroTitle: "America's|Premier Web Designer",
+    heroSubtitle: "Get a high-performance website in just 72 hours. I build revenue-generating assets for businesses nationwide, designed to turn clicks into customers.",
     heroImages: defaultImages
   });
 
@@ -79,7 +79,7 @@ export default function Hero() {
                   href="tel:2109001113"
                   className="group flex items-center justify-center gap-2 btn-primary btn-glow px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg w-full sm:w-auto"
                 >
-                  Start Your 7-Day Build
+                  Start Your 72-Hour Build
                   <Phone className="group-hover:scale-110 transition-transform" size={20} />
                 </a>
                 <span className="text-[10px] sm:text-xs text-blue-400 font-medium uppercase tracking-widest text-center">Free Strategy Consultation</span>
@@ -113,8 +113,8 @@ export default function Hero() {
               ))}
             </div>
             <div className="text-center sm:text-left">
-              <p className="text-white font-bold text-sm sm:text-base">150+ Local Businesses Served</p>
-              <p className="text-gray-400 text-xs">San Antonio & Surrounding Areas</p>
+              <p className="text-white font-bold text-sm sm:text-base">150+ Businesses Served Nationwide</p>
+              <p className="text-gray-400 text-xs">Serving All 50 States</p>
             </div>
           </motion.div>
         </div>

@@ -83,9 +83,9 @@ export default function ContactForm() {
             <div className="relative z-10 mt-10 md:mt-12 pt-6 md:pt-8 border-t border-white/10">
               <div className="flex items-center gap-3 mb-2">
                 <Globe size={18} className="text-blue-200" />
-                <span className="font-bold text-sm md:text-base">San Antonio, Texas</span>
+                <span className="font-bold text-sm md:text-base">Serving Nationwide</span>
               </div>
-              <p className="text-blue-100 text-xs md:text-sm">Serving clients across all 50 states.</p>
+              <p className="text-blue-100 text-xs md:text-sm">Available across all 50 states & all time zones.</p>
             </div>
 
             {/* Decorative circles */}
@@ -164,7 +164,7 @@ export default function ContactForm() {
                   id="message"
                   name="message"
                   rows={4}
-                  placeholder="e.g. I want to double my monthly leads, rank #1 for 'plumber in San Antonio', or automate my booking process."
+                  placeholder="e.g. I want to double my monthly leads, rank #1 for my core services nationwide, or automate my booking process."
                   className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl px-5 md:px-6 py-3 md:py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all resize-none placeholder:text-gray-600 text-sm md:text-base"
                   value={formData.message}
                   onChange={handleInputChange}

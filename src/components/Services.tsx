@@ -10,7 +10,7 @@ const services = [
   {
     icon: <Search className="w-8 h-8" />,
     title: "SEO Services",
-    description: "High-ranking SEO strategies to ensure your business is found by the right people in San Antonio and beyond.",
+    description: "High-ranking SEO strategies to ensure your business is found by the right people in local and nationwide markets.",
   },
   {
     icon: <Settings className="w-8 h-8" />,

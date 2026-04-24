@@ -23,7 +23,7 @@ export default function Footer() {
               <Logo light size="lg" />
             </Link>
             <p className="text-gray-500 leading-relaxed">
-              I don't just build pages; I build revenue-generating assets. Based in San Antonio, serving businesses that mean business nationwide.
+              I don't just build pages; I build revenue-generating assets. Premium web design and high-ranking SEO services for businesses nationwide.
             </p>
             <div className="flex gap-4">
               <a
@@ -78,7 +78,7 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="text-blue-500 mt-1 flex-shrink-0" size={18} />
-                <span className="text-gray-500">San Antonio, Texas, USA</span>
+                <span className="text-gray-500">Serving United States (Nationwide)</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="text-blue-500 flex-shrink-0" size={18} />
