@@ -45,13 +45,26 @@ interface Project {
   order: number;
 }
 
+interface Lead {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  projectDescription?: string;
+  website?: string;
+  timestamp: string;
+  source: string;
+}
+
 export default function Admin() {
   const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
   const [projects, setProjects] = useState<Project[]>([]);
+  const [leads, setLeads] = useState<Lead[]>([]);
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<"content" | "leads">("content");
 
   // Form State
   const [formData, setFormData] = useState({
@@ -87,12 +100,20 @@ export default function Admin() {
   useEffect(() => {
     if (!isAdmin) return;
 
-    const q = query(collection(db, "projects"), orderBy("order", "asc"));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
+    const pq = query(collection(db, "projects"), orderBy("order", "asc"));
+    const unsubscribeProjects = onSnapshot(pq, (snapshot) => {
       setProjects(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Project)));
     });
 
-    return () => unsubscribe();
+    const lq = query(collection(db, "leads"), orderBy("timestamp", "desc"));
+    const unsubscribeLeads = onSnapshot(lq, (snapshot) => {
+      setLeads(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Lead)));
+    });
+
+    return () => {
+      unsubscribeProjects();
+      unsubscribeLeads();
+    };
   }, [isAdmin]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -117,6 +138,12 @@ export default function Admin() {
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this project?")) {
       await deleteDoc(doc(db, "projects", id));
+    }
+  };
+
+  const handleDeleteLead = async (id: string) => {
+    if (confirm("Are you sure you want to delete this lead?")) {
+      await deleteDoc(doc(db, "leads", id));
     }
   };
 
@@ -253,7 +280,7 @@ export default function Admin() {
             <p className="text-gray-500 mt-1 italic">Welcome back, {user.displayName}</p>
           </div>
           <div className="flex gap-4">
-             {projects.length === 0 && (
+             {projects.length === 0 && activeTab === "content" && (
                 <button 
                   onClick={seedInitialData}
                   className="bg-yellow-600/20 text-yellow-500 border border-yellow-500/50 px-4 py-2 rounded-xl text-sm font-bold hover:bg-yellow-600/30 transition-all"
@@ -271,8 +298,41 @@ export default function Admin() {
           </div>
         </div>
 
+        {/* Tabs */}
+        <div className="flex gap-2 mb-8 bg-gray-900 p-1.5 rounded-2xl w-fit border border-white/5">
+          <button
+            onClick={() => setActiveTab("content")}
+            className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold transition-all ${
+              activeTab === "content" 
+                ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20" 
+                : "text-gray-400 hover:text-white"
+            }`}
+          >
+            <Layout size={18} />
+            Manage Content
+          </button>
+          <button
+            onClick={() => setActiveTab("leads")}
+            className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold transition-all ${
+              activeTab === "leads" 
+                ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20" 
+                : "text-gray-400 hover:text-white"
+            }`}
+          >
+            <Globe size={18} />
+            Captured Leads
+            {leads.length > 0 && (
+              <span className="bg-white text-blue-600 px-2 py-0.5 rounded-full text-[10px] ml-1">
+                {leads.length}
+              </span>
+            )}
+          </button>
+        </div>
+
         <div className="grid grid-cols-1 gap-12">
-          {/* Site Content Management */}
+          {activeTab === "content" ? (
+            <>
+              {/* Site Content Management */}
           <section className="bg-gray-900 border border-white/5 rounded-3xl p-6 md:p-8">
             <h2 className="text-xl font-bold flex items-center gap-3 mb-8">
               <Globe className="text-blue-500" size={24} />
@@ -456,6 +516,81 @@ export default function Admin() {
               ))}
             </div>
           </section>
+            </>
+          ) : (
+            <section className="bg-gray-900 border border-white/5 rounded-3xl overflow-hidden">
+              <div className="p-6 md:p-8 border-b border-white/5 flex justify-between items-center">
+                <h2 className="text-xl font-bold flex items-center gap-3">
+                  <Globe className="text-blue-500" size={24} />
+                  Captured Leads
+                </h2>
+                <span className="text-gray-500 text-sm font-medium">{leads.length} total leads</span>
+              </div>
+              
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-black/50 text-[10px] uppercase tracking-widest font-bold text-gray-500">
+                      <th className="px-6 py-4 border-b border-white/5">Date</th>
+                      <th className="px-6 py-4 border-b border-white/5">Source</th>
+                      <th className="px-6 py-4 border-b border-white/5">Name</th>
+                      <th className="px-6 py-4 border-b border-white/5">Contact Info</th>
+                      <th className="px-6 py-4 border-b border-white/5">Interest / Message</th>
+                      <th className="px-6 py-4 border-b border-white/5 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/5">
+                    {leads.length > 0 ? (
+                      leads.map((lead) => (
+                        <tr key={lead.id} className="hover:bg-white/5 transition-colors group">
+                          <td className="px-6 py-4 text-xs text-gray-400 whitespace-nowrap">
+                            {new Date(lead.timestamp).toLocaleDateString()}
+                            <span className="block text-[10px] opacity-50">
+                              {new Date(lead.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4">
+                            <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${
+                              lead.source === "chatbot" 
+                                ? "bg-blue-600/10 text-blue-500 border-blue-500/20" 
+                                : "bg-purple-600/10 text-purple-500 border-purple-500/20"
+                            }`}>
+                              {lead.source}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 font-bold text-sm whitespace-nowrap">{lead.name}</td>
+                          <td className="px-6 py-4 space-y-1">
+                            <a href={`mailto:${lead.email}`} className="block text-xs text-blue-400 hover:underline">{lead.email}</a>
+                            {lead.phone && <a href={`tel:${lead.phone}`} className="block text-xs text-gray-400">{lead.phone}</a>}
+                          </td>
+                          <td className="px-6 py-4">
+                            <p className="text-xs text-gray-400 max-w-xs line-clamp-2 md:line-clamp-3">
+                              {lead.projectDescription || lead.website || "No description provided"}
+                            </p>
+                          </td>
+                          <td className="px-6 py-4 text-right">
+                            <button 
+                              onClick={() => handleDeleteLead(lead.id)}
+                              className="p-2 text-gray-600 hover:text-red-500 transition-colors bg-white/5 hover:bg-red-500/10 rounded-lg"
+                              title="Delete Lead"
+                            >
+                              <Trash2 size={16} />
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={6} className="px-6 py-20 text-center text-gray-500 font-medium italic">
+                          No leads captured yet.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          )}
         </div>
       </div>
     </div>

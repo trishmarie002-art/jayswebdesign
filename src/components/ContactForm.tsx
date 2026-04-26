@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Send, CheckCircle, AlertCircle, Loader2, Phone, Mail, Globe, MessageSquare } from "lucide-react";
 import { useForm, ValidationError } from '@formspree/react';
+import { saveLead } from "../services/leadService";
 
 export default function ContactForm() {
-  const [state, handleSubmit] = useForm('mqegywzr');
+  const [state, handleFormspreeSubmit] = useForm('mqegywzr');
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,6 +13,27 @@ export default function ContactForm() {
     website: "",
     message: "",
   });
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    // Save to Firestore first
+    try {
+      await saveLead({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        website: formData.website,
+        projectDescription: formData.message,
+        source: "contact_form"
+      });
+    } catch (err) {
+      console.error("Firestore save failed but continuing with Formspree:", err);
+    }
+
+    // Then submit to Formspree
+    handleFormspreeSubmit(e);
+  };
 
   // Handle local state for input values while using Formspree's handleSubmit
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

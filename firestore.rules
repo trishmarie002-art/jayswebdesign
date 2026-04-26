@@ -61,5 +61,20 @@ service cloud.firestore {
       // Allow user to check their own status
       allow read: if isSignedIn() && request.auth.uid == userId;
     }
+
+    // Leads Rules
+    match /leads/{leadId} {
+      allow create: if isValidId(leadId) && isValidLead(incoming());
+      allow read, update, delete: if isAdmin();
+    }
+
+    function isValidLead(data) {
+      return data.name is string && data.name.size() <= 200 &&
+             data.email is string && data.email.size() <= 200 &&
+             (data.get('phone', '') is string && data.get('phone', '').size() <= 50) &&
+             (data.get('projectDescription', '') is string && data.get('projectDescription', '').size() <= 2000) &&
+             data.timestamp is string &&
+             data.source in ['chatbot', 'contact_form'];
+    }
   }
 }

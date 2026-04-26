@@ -26,9 +26,27 @@
           "items": { "type": "string" }
         }
       }
+    },
+    "Lead": {
+      "title": "Lead",
+      "description": "A lead captured via the chatbot or contact form",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "projectDescription": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "source": { "type": "string", "enum": ["chatbot", "contact_form"] }
+      },
+      "required": ["name", "email", "timestamp"]
     }
   },
   "firestore": {
+    "/leads/{leadId}": {
+      "schema": "Lead",
+      "description": "Collection of business leads"
+    },
     "/projects/{projectId}": {
       "schema": "Project",
       "description": "Collection of portfolio projects"
