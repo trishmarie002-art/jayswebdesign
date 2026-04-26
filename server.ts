@@ -3,10 +3,16 @@ import { createServer as createViteServer } from "vite";
 import path from "path";
 import dotenv from "dotenv";
 import { streamText, tool } from "ai";
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { z } from "zod";
 import admin from "firebase-admin";
 
 dotenv.config();
+
+// Initialize Google AI provider
+const google = createGoogleGenerativeAI({
+  apiKey: process.env.GEMINI_API_KEY || "",
+});
 
 // Initialize Firebase Admin if not already initialized
 if (!admin.apps.length) {
@@ -72,7 +78,7 @@ async function startServer() {
         }));
 
       const result = streamText({
-        model: "google/gemini-3-flash",
+        model: google("gemini-2.0-flash"),
         system: systemInstruction,
         messages: formattedMessages,
         tools: {
