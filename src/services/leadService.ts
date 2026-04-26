@@ -1,5 +1,5 @@
-import { collection, addDoc } from "firebase/firestore";
-import { db, handleFirestoreError } from "../lib/firebase";
+import { ref, push, set } from "firebase/database";
+import { rtdb, auth } from "../lib/firebase";
 
 export async function saveLead(leadData: {
   name: string;
@@ -12,12 +12,16 @@ export async function saveLead(leadData: {
   website?: string;
 }) {
   try {
-    const docRef = await addDoc(collection(db, "leads"), {
+    const leadsRef = ref(rtdb, "leads");
+    const newLeadRef = push(leadsRef);
+    await set(newLeadRef, {
       ...leadData,
       timestamp: new Date().toISOString(),
+      userId: auth.currentUser?.uid || "anonymous",
     });
-    return docRef.id;
-  } catch (error) {
-    handleFirestoreError(error, "create", "leads");
+    return newLeadRef.key;
+  } catch (error: any) {
+    console.error("RTDB Error:", error);
+    throw new Error(`Failed to save lead: ${error.message}`);
   }
 }
