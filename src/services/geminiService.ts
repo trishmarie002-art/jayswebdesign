@@ -46,7 +46,7 @@ Then, continue to be available for any other questions they might have about Jay
 
 export type Message = 
   | { role: "user"; content: string }
-  | { role: "model"; content: string; functionCalls?: any[]; thought?: string }
+  | { role: "model"; content: string; functionCalls?: any[] }
   | { role: "function"; name: string; content: any };
 
 export async function chatWithAI(messages: Message[]) {
@@ -65,16 +65,6 @@ export async function chatWithAI(messages: Message[]) {
     
     const parts: any[] = [];
     
-    // For model turns, handle thoughts according to API requirements
-    if (m.role === "model") {
-      if (m.thought !== undefined) {
-        parts.push({ thought: m.thought });
-      } else if (m.functionCalls && m.functionCalls.length > 0) {
-        // Thinking models REQUIRE a thought part (even if empty) if there are function calls
-        parts.push({ thought: "" });
-      }
-    }
-
     if (m.content) {
       parts.push({ text: m.content });
     }
@@ -86,29 +76,31 @@ export async function chatWithAI(messages: Message[]) {
     }
 
     return {
-      role: m.role,
+      role: m.role || "user",
       parts
     };
   });
 
-  const response = await ai.models.generateContent({
-    model: "gemini-3-flash-preview",
-    contents: contents,
-    config: {
-      systemInstruction,
-      tools: [{ functionDeclarations: [captureLeadSchema] }]
-    }
-  });
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-flash-latest",
+      contents: contents,
+      config: {
+        systemInstruction,
+        tools: [{ functionDeclarations: [captureLeadSchema] }]
+      }
+    });
 
-  const text = response.text || "";
-  const parts = response.candidates?.[0]?.content?.parts || [];
-  
-  const functionCalls = parts
-    ?.filter(part => part.functionCall)
-    ?.map(part => part.functionCall) || [];
+    const text = response.text || "";
+    const functionCalls = response.functionCalls || [];
     
-  const thoughtPart = parts?.find(part => 'thought' in part && typeof (part as any).thought === 'string');
-  const thought = (thoughtPart as any)?.thought as string | undefined;
-
-  return { text, functionCalls, thought };
+    return { text, functionCalls };
+  } catch (error: any) {
+    console.error("Gemini API Error:", error);
+    // On the domain, we want to know if it's an API key issue
+    if (error.message?.includes("API key")) {
+      throw new Error("Chatbot is currently disconnected. Please try again in a few minutes or call Jay!");
+    }
+    throw error;
+  }
 }

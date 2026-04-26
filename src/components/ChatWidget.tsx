@@ -48,8 +48,7 @@ export default function ChatWidget() {
         currentHistory.push({ 
           role: "model", 
           content: response.text, 
-          functionCalls: response.functionCalls,
-          thought: response.thought
+          functionCalls: response.functionCalls
         });
         
         const functionResponses: Message[] = [];
@@ -87,7 +86,7 @@ export default function ChatWidget() {
       }
 
       if (response.text) {
-        setMessages([...currentHistory, { role: "model", content: response.text, thought: response.thought }]);
+        setMessages([...currentHistory, { role: "model", content: response.text }]);
       } else {
         setMessages(currentHistory);
       }
