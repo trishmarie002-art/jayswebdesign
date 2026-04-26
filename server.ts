@@ -10,8 +10,11 @@ import admin from "firebase-admin";
 dotenv.config();
 
 // Initialize Google AI provider
+const apiKey = process.env.GEMINI_API_KEY || "";
+console.log("[v0] GEMINI_API_KEY configured:", apiKey ? "Yes (length: " + apiKey.length + ")" : "No");
+
 const google = createGoogleGenerativeAI({
-  apiKey: process.env.GEMINI_API_KEY || "",
+  apiKey: apiKey,
 });
 
 // Initialize Firebase Admin if not already initialized
@@ -66,8 +69,10 @@ async function startServer() {
   
   // AI Chat API endpoint
   app.post("/api/chat", async (req, res) => {
+    console.log("[v0] /api/chat endpoint hit");
     try {
       const { messages } = req.body;
+      console.log("[v0] Received messages:", JSON.stringify(messages, null, 2));
       
       // Convert messages to the format expected by AI SDK
       const formattedMessages = messages
@@ -127,7 +132,7 @@ async function startServer() {
       
       res.end();
     } catch (error: any) {
-      console.error("AI Chat Error:", error);
+      console.error("[v0] AI Chat Error:", error.message, error.stack);
       res.status(500).json({ 
         error: "Failed to process chat request",
         message: error.message 
