@@ -48,8 +48,10 @@ interface Project {
 interface Lead {
   id: string;
   name: string;
-  email: string;
-  phone?: string;
+  phone: string;
+  businessName: string;
+  websiteType: string;
+  email?: string;
   projectDescription?: string;
   website?: string;
   timestamp: string;
@@ -533,8 +535,9 @@ export default function Admin() {
                     <tr className="bg-black/50 text-[10px] uppercase tracking-widest font-bold text-gray-500">
                       <th className="px-6 py-4 border-b border-white/5">Date</th>
                       <th className="px-6 py-4 border-b border-white/5">Source</th>
-                      <th className="px-6 py-4 border-b border-white/5">Name</th>
+                      <th className="px-6 py-4 border-b border-white/5">Name / Business</th>
                       <th className="px-6 py-4 border-b border-white/5">Contact Info</th>
+                      <th className="px-6 py-4 border-b border-white/5">Website Type</th>
                       <th className="px-6 py-4 border-b border-white/5">Interest / Message</th>
                       <th className="px-6 py-4 border-b border-white/5 text-right">Actions</th>
                     </tr>
@@ -558,14 +561,22 @@ export default function Admin() {
                               {lead.source}
                             </span>
                           </td>
-                          <td className="px-6 py-4 font-bold text-sm whitespace-nowrap">{lead.name}</td>
+                          <td className="px-6 py-4">
+                            <span className="font-bold text-sm block">{lead.name}</span>
+                            <span className="text-xs text-gray-500 italic block">{lead.businessName}</span>
+                          </td>
                           <td className="px-6 py-4 space-y-1">
-                            <a href={`mailto:${lead.email}`} className="block text-xs text-blue-400 hover:underline">{lead.email}</a>
-                            {lead.phone && <a href={`tel:${lead.phone}`} className="block text-xs text-gray-400">{lead.phone}</a>}
+                            {lead.email && <a href={`mailto:${lead.email}`} className="block text-xs text-blue-400 hover:underline">{lead.email}</a>}
+                            <a href={`tel:${lead.phone}`} className="block text-xs text-gray-400 font-medium">{lead.phone}</a>
+                          </td>
+                          <td className="px-6 py-4">
+                            <span className="px-2 py-1 bg-white/5 border border-white/10 rounded text-[10px] font-medium text-gray-300">
+                              {lead.websiteType}
+                            </span>
                           </td>
                           <td className="px-6 py-4">
                             <p className="text-xs text-gray-400 max-w-xs line-clamp-2 md:line-clamp-3">
-                              {lead.projectDescription || lead.website || "No description provided"}
+                              {lead.projectDescription || lead.website || "No additional details"}
                             </p>
                           </td>
                           <td className="px-6 py-4 text-right">

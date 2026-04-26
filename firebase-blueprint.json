@@ -33,13 +33,15 @@
       "type": "object",
       "properties": {
         "name": { "type": "string" },
-        "email": { "type": "string" },
         "phone": { "type": "string" },
+        "businessName": { "type": "string" },
+        "websiteType": { "type": "string" },
+        "email": { "type": "string" },
         "projectDescription": { "type": "string" },
         "timestamp": { "type": "string" },
         "source": { "type": "string", "enum": ["chatbot", "contact_form"] }
       },
-      "required": ["name", "email", "timestamp"]
+      "required": ["name", "phone", "businessName", "websiteType", "timestamp"]
     }
   },
   "firestore": {

@@ -1,20 +1,28 @@
 import { GoogleGenAI, Type, FunctionDeclaration } from "@google/genai";
 import { saveLead } from "./leadService";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
+const getApiKey = () => {
+  try {
+    return process.env.GEMINI_API_KEY || "";
+  } catch {
+    return "";
+  }
+};
+
+const ai = new GoogleGenAI({ apiKey: getApiKey() });
 
 const captureLeadSchema: FunctionDeclaration = {
   name: "capture_lead",
-  description: "Captures lead information from the user interested in web design services.",
+  description: "Captures lead information from a user interested in web design services.",
   parameters: {
     type: Type.OBJECT,
     properties: {
       name: { type: Type.STRING, description: "Full name of the user" },
-      email: { type: Type.STRING, description: "Email address of the user" },
-      phone: { type: Type.STRING, description: "Phone number of the user (optional)" },
-      projectDescription: { type: Type.STRING, description: "Short description of their project or goals" }
+      phone: { type: Type.STRING, description: "Phone number of the user" },
+      businessName: { type: Type.STRING, description: "Name of their business" },
+      websiteType: { type: Type.STRING, description: "The type of website they need (e.g., E-commerce, Portfolio, Business site)" }
     },
-    required: ["name", "email"]
+    required: ["name", "phone", "businessName", "websiteType"]
   }
 };
 
@@ -35,8 +43,8 @@ Key Selling Points:
 - 150+ businesses served nationwide.
 - Revenue-generating assets, not just "pretty pages".
 
-IMPORTANT: Your primary objective is to capture lead information (Name, Email, and optionally Phone/Project Details). 
-When a user seems interested or asks about pricing/starting a project, politely ask for their name and email so Jay can reach out with a personalized quote or more information.
+IMPORTANT: Your primary objective is to capture lead information (Name, Phone Number, Business Name, and Website Type). 
+When a user seems interested or asks about pricing/starting a project, politely ask for these details so Jay can reach out with a personalized quote.
 Once you have the details, call the 'capture_lead' function.`;
 
 export async function chatWithAI(messages: { role: "user" | "model"; content: string }[]) {

@@ -49,9 +49,9 @@ export default function ChatWidget() {
               const args = call.args as any;
               await saveLead({
                 name: args.name,
-                email: args.email,
                 phone: args.phone,
-                projectDescription: args.projectDescription,
+                businessName: args.businessName,
+                websiteType: args.websiteType,
                 source: "chatbot"
               });
               setMessages(prev => [...prev, { role: "model", content: "Got it! I've shared your details with Jay. He'll reach out to you personally to discuss your project. In the meantime, do you have any other questions?" }]);

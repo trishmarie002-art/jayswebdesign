@@ -10,6 +10,8 @@ export default function ContactForm() {
     name: "",
     email: "",
     phone: "",
+    businessName: "",
+    websiteType: "Business Site",
     website: "",
     message: "",
   });
@@ -21,8 +23,10 @@ export default function ContactForm() {
     try {
       await saveLead({
         name: formData.name,
-        email: formData.email,
         phone: formData.phone,
+        businessName: formData.businessName,
+        websiteType: formData.websiteType,
+        email: formData.email,
         website: formData.website,
         projectDescription: formData.message,
         source: "contact_form"
@@ -149,6 +153,38 @@ export default function ContactForm() {
                 </div>
               </div>
               
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                <div className="space-y-2 md:space-y-3">
+                  <label className="text-[10px] md:text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Business Name</label>
+                  <input
+                    required
+                    id="businessName"
+                    name="businessName"
+                    type="text"
+                    placeholder="e.g. Acme Corp"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl px-5 md:px-6 py-3 md:py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all placeholder:text-gray-600 text-sm md:text-base"
+                    value={formData.businessName}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="space-y-2 md:space-y-3">
+                  <label className="text-[10px] md:text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Type of Website Needed</label>
+                  <select
+                    id="websiteType"
+                    name="websiteType"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl px-5 md:px-6 py-3 md:py-4 text-white focus:outline-none focus:border-blue-500 focus:bg-white/10 transition-all text-sm md:text-base appearance-none"
+                    value={formData.websiteType}
+                    onChange={(e) => setFormData(prev => ({ ...prev, websiteType: e.target.value }))}
+                  >
+                    <option value="Business Site" className="bg-gray-900">General Business Site</option>
+                    <option value="E-commerce" className="bg-gray-900">E-commerce / Store</option>
+                    <option value="Portfolio" className="bg-gray-900">Creative Portfolio</option>
+                    <option value="Landing Page" className="bg-gray-900">Marketing Landing Page</option>
+                    <option value="Other" className="bg-gray-900">Other Custom Project</option>
+                  </select>
+                </div>
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 <div className="space-y-2 md:space-y-3">
                   <label className="text-[10px] md:text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Phone Number</label>

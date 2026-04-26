@@ -69,10 +69,13 @@ service cloud.firestore {
     }
 
     function isValidLead(data) {
-      return data.name is string && data.name.size() <= 200 &&
-             data.email is string && data.email.size() <= 200 &&
-             (data.get('phone', '') is string && data.get('phone', '').size() <= 50) &&
+      return (data.name is string && data.name.size() <= 200) &&
+             (data.phone is string && data.phone.size() <= 200) &&
+             (data.businessName is string && data.businessName.size() <= 200) &&
+             (data.websiteType is string && data.websiteType.size() <= 200) &&
+             (data.get('email', '') is string && data.get('email', '').size() <= 200) &&
              (data.get('projectDescription', '') is string && data.get('projectDescription', '').size() <= 2000) &&
+             (data.get('website', '') is string && data.get('website', '').size() <= 500) &&
              data.timestamp is string &&
              data.source in ['chatbot', 'contact_form'];
     }
