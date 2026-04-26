@@ -46,10 +46,16 @@ Then, continue to be available for any other questions they might have about Jay
 
 export type Message = 
   | { role: "user"; content: string }
-  | { role: "model"; content: string; functionCalls?: any[] }
+  | { role: "model"; content: string; functionCalls?: any[]; thought?: string }
   | { role: "function"; name: string; content: any };
 
-export async function chatWithAI(messages: Message[]) {
+export interface AIResponse {
+  text: string;
+  functionCalls?: any[];
+  thought?: string;
+}
+
+export async function chatWithAI(messages: Message[]): Promise<AIResponse> {
   const contents = messages.map(m => {
     if (m.role === "function") {
       return {
@@ -65,6 +71,14 @@ export async function chatWithAI(messages: Message[]) {
     
     const parts: any[] = [];
     
+    if (m.role === "model") {
+      if (m.thought !== undefined) {
+        parts.push({ thought: m.thought });
+      } else if (m.functionCalls && m.functionCalls.length > 0) {
+        parts.push({ thought: "" });
+      }
+    }
+
     if (m.content) {
       parts.push({ text: m.content });
     }
@@ -83,7 +97,7 @@ export async function chatWithAI(messages: Message[]) {
 
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-flash-latest",
+      model: "gemini-3-flash-preview",
       contents: contents,
       config: {
         systemInstruction,
@@ -92,14 +106,20 @@ export async function chatWithAI(messages: Message[]) {
     });
 
     const text = response.text || "";
-    const functionCalls = response.functionCalls || [];
+    const parts = response.candidates?.[0]?.content?.parts || [];
     
-    return { text, functionCalls };
+    const functionCalls = parts
+      ?.filter(part => part.functionCall)
+      ?.map(part => part.functionCall) || [];
+      
+    const thoughtPart = parts?.find(part => 'thought' in part && typeof (part as any).thought === 'string');
+    const thought = (thoughtPart as any)?.thought as string | undefined;
+
+    return { text, functionCalls, thought };
   } catch (error: any) {
     console.error("Gemini API Error:", error);
-    // On the domain, we want to know if it's an API key issue
     if (error.message?.includes("API key")) {
-      throw new Error("Chatbot is currently disconnected. Please try again in a few minutes or call Jay!");
+      throw new Error("I'm having trouble connecting to my brain! Please try again in a moment or call Jay directly.");
     }
     throw error;
   }
