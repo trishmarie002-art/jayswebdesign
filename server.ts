@@ -10,7 +10,7 @@ async function startServer() {
   const PORT = 3000;
 
   app.use(express.json());
-
+  
   // API routes
   app.get("/robots.txt", (req, res) => {
     res.sendFile(path.join(process.cwd(), "public", "robots.txt"));

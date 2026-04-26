@@ -1,13 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { MessageCircle, X, Send, Loader2, User, Bot, Phone, Globe } from "lucide-react";
-import { chatWithAI } from "../services/geminiService";
+import { Message, chatWithAI } from "../services/geminiService";
 import { saveLead } from "../services/leadService";
-
-interface Message {
-  role: "user" | "model";
-  content: string;
-}
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +23,8 @@ export default function ChatWidget() {
     }
   }, [messages, isOpen]);
 
+  const MAX_CHARS = 500;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
@@ -39,11 +36,24 @@ export default function ChatWidget() {
     setIsLoading(true);
 
     try {
-      const response = await chatWithAI(newMessages);
+      let currentHistory = [...newMessages];
+      let response = await chatWithAI(currentHistory);
       
-      const functionCalls = response.functionCalls;
-      if (functionCalls && functionCalls.length > 0) {
-        for (const call of functionCalls) {
+      // Handle function calls loop (e.g. if AI wants to confirm more things)
+      let iterations = 0;
+      while (response.functionCalls && response.functionCalls.length > 0 && iterations < 3) {
+        iterations++;
+        
+        // Add the model's intent (the function call) to history
+        currentHistory.push({ 
+          role: "model", 
+          content: response.text, 
+          functionCalls: response.functionCalls
+        });
+        
+        const functionResponses: Message[] = [];
+        
+        for (const call of response.functionCalls) {
           if (call.name === "capture_lead") {
             try {
               const args = call.args as any;
@@ -54,15 +64,31 @@ export default function ChatWidget() {
                 websiteType: args.websiteType,
                 source: "chatbot"
               });
-              setMessages(prev => [...prev, { role: "model", content: "Got it! I've shared your details with Jay. He'll reach out to you personally to discuss your project. In the meantime, do you have any other questions?" }]);
+              functionResponses.push({ 
+                role: "function", 
+                name: "capture_lead", 
+                content: { success: true, message: "Lead information successfully saved to the database. Jay will be notified." } 
+              });
             } catch (err) {
               console.error("Error saving lead:", err);
-              setMessages(prev => [...prev, { role: "model", content: "I've noted your interest! I'm having a slight technical issue saving it right now, but feel free to also reach Jay at (210) 900-1113." }]);
+              functionResponses.push({ 
+                role: "function", 
+                name: "capture_lead", 
+                content: { success: false, error: "Database error occurred" } 
+              });
             }
           }
         }
-      } else if (response.text) {
-        setMessages(prev => [...prev, { role: "model", content: response.text! }]);
+        
+        // Add function responses to history and call AI again to get the final text response
+        currentHistory = [...currentHistory, ...functionResponses];
+        response = await chatWithAI(currentHistory);
+      }
+
+      if (response.text) {
+        setMessages([...currentHistory, { role: "model", content: response.text }]);
+      } else {
+        setMessages(currentHistory);
       }
     } catch (error) {
       console.error("AI Error:", error);
@@ -73,14 +99,14 @@ export default function ChatWidget() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[60]">
+    <div className="fixed bottom-6 right-6 z-[100]">
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8, y: 20, transformOrigin: "bottom right" }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="absolute bottom-20 right-0 w-[350px] max-w-[calc(100vw-2rem)] h-[500px] max-h-[70vh] bg-black border border-white/10 rounded-3xl shadow-2xl overflow-hidden flex flex-col shadow-blue-600/10"
+            className="absolute bottom-20 right-0 w-[350px] max-w-[calc(100vw-2rem)] h-[540px] max-h-[80vh] bg-black border border-white/10 rounded-3xl shadow-2xl overflow-hidden flex flex-col shadow-blue-600/10"
           >
             {/* Header */}
             <div className="bg-blue-600 p-4 text-white flex items-center justify-between shadow-lg relative z-10">
@@ -106,7 +132,7 @@ export default function ChatWidget() {
 
             {/* Messages Area */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-950/50">
-              {messages.map((msg, i) => (
+              {messages.filter(msg => (msg.role === "user" || msg.role === "model") && msg.content).map((msg, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 10, scale: 0.95 }}
@@ -161,21 +187,43 @@ export default function ChatWidget() {
 
             {/* Input Area */}
             <form onSubmit={handleSubmit} className="p-4 bg-gray-900 border-t border-white/5">
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder="Ask me anything..."
-                  className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 transition-all placeholder:text-gray-600"
-                />
-                <button
-                  type="submit"
-                  disabled={isLoading || !input.trim()}
-                  className="w-11 h-11 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:hover:bg-blue-600 rounded-xl flex items-center justify-center text-white transition-all shadow-lg shadow-blue-600/20 active:scale-95"
-                >
-                  <Send size={18} />
-                </button>
+              <div className="flex flex-col gap-2">
+                <div className="flex gap-2">
+                  <div className="relative flex-1 group">
+                    <input
+                      type="text"
+                      autoFocus
+                      value={input}
+                      maxLength={MAX_CHARS}
+                      onChange={(e) => setInput(e.target.value)}
+                      placeholder="Ask me anything..."
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 pr-10 text-sm text-white focus:outline-none focus:border-blue-500 transition-all placeholder:text-gray-600"
+                    />
+                    {input && (
+                      <button
+                        type="button"
+                        onClick={() => setInput("")}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
+                      >
+                        <X size={14} />
+                      </button>
+                    )}
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={isLoading || !input.trim()}
+                    className="w-11 h-11 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:hover:bg-blue-600 rounded-xl flex items-center justify-center text-white transition-all shadow-lg shadow-blue-600/20 active:scale-95"
+                  >
+                    <Send size={18} />
+                  </button>
+                </div>
+                <div className="flex justify-end pr-1 transition-all">
+                  <span className={`text-[10px] font-medium tracking-tight ${
+                    input.length >= MAX_CHARS * 0.9 ? "text-red-500 animate-pulse" : "text-gray-500"
+                  }`}>
+                    {input.length} / {MAX_CHARS}
+                  </span>
+                </div>
               </div>
             </form>
           </motion.div>

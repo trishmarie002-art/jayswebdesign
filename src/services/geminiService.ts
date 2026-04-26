@@ -1,15 +1,9 @@
 import { GoogleGenAI, Type, FunctionDeclaration } from "@google/genai";
 import { saveLead } from "./leadService";
 
-const getApiKey = () => {
-  try {
-    return process.env.GEMINI_API_KEY || "";
-  } catch {
-    return "";
-  }
-};
-
-const ai = new GoogleGenAI({ apiKey: getApiKey() });
+const ai = new GoogleGenAI({ 
+  apiKey: process.env.GEMINI_API_KEY || "" 
+});
 
 const captureLeadSchema: FunctionDeclaration = {
   name: "capture_lead",
@@ -45,16 +39,45 @@ Key Selling Points:
 
 IMPORTANT: Your primary objective is to capture lead information (Name, Phone Number, Business Name, and Website Type). 
 When a user seems interested or asks about pricing/starting a project, politely ask for these details so Jay can reach out with a personalized quote.
-Once you have the details, call the 'capture_lead' function.`;
+Once you have the details, call the 'capture_lead' function.
 
-export async function chatWithAI(messages: { role: "user" | "model"; content: string }[]) {
-  const contents = messages.map(m => ({
-    role: m.role,
-    parts: [{ text: m.content }]
-  }));
+After you call 'capture_lead' and receive a successful response, acknowledge it warmly and let the user know Jay will be in touch. 
+Then, continue to be available for any other questions they might have about Jay's services. Do not ask for their information again.`;
 
-  const response = await ai.models.generateContent({
-    model: "gemini-3-flash-preview",
+export type Message = 
+  | { role: "user"; content: string }
+  | { role: "model"; content: string; functionCalls?: any[] }
+  | { role: "function"; name: string; content: any };
+
+export async function chatWithAI(messages: Message[]) {
+  const contents = messages.map(m => {
+    if (m.role === "function") {
+      return {
+        role: "function",
+        parts: [{ functionResponse: { name: m.name, response: m.content } }]
+      };
+    }
+    
+    const parts: any[] = [];
+    
+    if (m.content) {
+      parts.push({ text: m.content });
+    }
+    
+    if (m.role === "model" && m.functionCalls) {
+      m.functionCalls.forEach(fc => {
+        parts.push({ functionCall: fc });
+      });
+    }
+
+    return {
+      role: m.role,
+      parts
+    };
+  });
+
+  const result = await ai.models.generateContent({
+    model: "gemini-2.0-flash",
     contents: contents,
     config: {
       systemInstruction,
@@ -62,5 +85,12 @@ export async function chatWithAI(messages: { role: "user" | "model"; content: st
     }
   });
 
-  return response;
+  const text = result.text || "";
+  const parts = result.candidates?.[0]?.content?.parts || [];
+  
+  const functionCalls = parts
+    ?.filter(part => part.functionCall)
+    ?.map(part => part.functionCall) || [];
+    
+  return { text, functionCalls };
 }
