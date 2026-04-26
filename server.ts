@@ -18,18 +18,6 @@ async function startServer() {
     res.json({ status: "ok" });
   });
 
-  app.post("/api/chat", async (req, res) => {
-    try {
-      const { messages } = req.body;
-      const { chatWithAI } = await import("./server/aiService");
-      const result = await chatWithAI(messages);
-      res.json(result);
-    } catch (error: any) {
-      console.error("Chat API error:", error);
-      res.status(500).json({ error: "Internal AI Error", details: error.message });
-    }
-  });
-
   app.get("/robots.txt", (req, res) => {
     res.sendFile(path.join(process.cwd(), "public", "robots.txt"));
   });
