@@ -2,6 +2,7 @@ import express from "express";
 import { createServer as createViteServer } from "vite";
 import path from "path";
 import dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();
 
@@ -9,11 +10,24 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
+  app.use(cors());
   app.use(express.json());
   
   // API routes
   app.get("/api/health", (req, res) => {
     res.json({ status: "ok" });
+  });
+
+  app.post("/api/chat", async (req, res) => {
+    try {
+      const { messages } = req.body;
+      const { chatWithAI } = await import("./server/aiService");
+      const result = await chatWithAI(messages);
+      res.json(result);
+    } catch (error: any) {
+      console.error("Chat API error:", error);
+      res.status(500).json({ error: "Internal AI Error", details: error.message });
+    }
   });
 
   app.get("/robots.txt", (req, res) => {
