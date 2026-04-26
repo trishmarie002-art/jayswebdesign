@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { MessageCircle, X, Send, Loader2, User, Bot, Phone, Globe } from "lucide-react";
 import { Message, chatWithAI } from "../services/geminiService";
-import { saveLead } from "../services/leadService";
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,60 +35,10 @@ export default function ChatWidget() {
     setIsLoading(true);
 
     try {
-      let currentHistory = [...newMessages];
-      let response = await chatWithAI(currentHistory);
+      const response = await chatWithAI(newMessages);
       
-      // Handle function calls loop (e.g. if AI wants to confirm more things)
-      let iterations = 0;
-      while (response.functionCalls && response.functionCalls.length > 0 && iterations < 3) {
-        iterations++;
-        
-        // Add the model's intent (the function call) to history
-        currentHistory.push({ 
-          role: "model", 
-          content: response.text, 
-          functionCalls: response.functionCalls,
-          thought: response.thought
-        });
-        
-        const functionResponses: Message[] = [];
-        
-        for (const call of response.functionCalls) {
-          if (call.name === "capture_lead") {
-            try {
-              const args = call.args as any;
-              await saveLead({
-                name: args.name,
-                phone: args.phone,
-                businessName: args.businessName,
-                websiteType: args.websiteType,
-                source: "chatbot"
-              });
-              functionResponses.push({ 
-                role: "function", 
-                name: "capture_lead", 
-                content: { success: true, message: "Lead information successfully saved to the database. Jay will be notified." } 
-              });
-            } catch (err) {
-              console.error("Error saving lead:", err);
-              functionResponses.push({ 
-                role: "function", 
-                name: "capture_lead", 
-                content: { success: false, error: "Database error occurred" } 
-              });
-            }
-          }
-        }
-        
-        // Add function responses to history and call AI again to get the final text response
-        currentHistory = [...currentHistory, ...functionResponses];
-        response = await chatWithAI(currentHistory);
-      }
-
       if (response.text) {
-        setMessages([...currentHistory, { role: "model", content: response.text, thought: response.thought }]);
-      } else {
-        setMessages(currentHistory);
+        setMessages([...newMessages, { role: "model", content: response.text }]);
       }
     } catch (error) {
       console.error("AI Error:", error);
