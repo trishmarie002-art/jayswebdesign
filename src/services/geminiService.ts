@@ -20,7 +20,7 @@ const captureLeadSchema: FunctionDeclaration = {
   }
 };
 
-export const systemInstruction = `You are the AI Assistant for Jay's Web Design Services. 
+const systemInstruction = `You are the AI Assistant for Jay's Web Design Services. 
 Your goal is to help potential clients by answering their questions about web design, SEO, and the services provided by Jay.
 You are professional, helpful, friendly, and persuasive but not pushy.
 
@@ -46,7 +46,7 @@ Then, continue to be available for any other questions they might have about Jay
 
 export type Message = 
   | { role: "user"; content: string }
-  | { role: "model"; content: string; functionCalls?: any[] }
+  | { role: "model"; content: string; functionCalls?: any[]; thought?: string }
   | { role: "function"; name: string; content: any };
 
 export async function chatWithAI(messages: Message[]) {
@@ -54,12 +54,27 @@ export async function chatWithAI(messages: Message[]) {
     if (m.role === "function") {
       return {
         role: "function",
-        parts: [{ functionResponse: { name: m.name, response: m.content } }]
+        parts: [{ 
+          functionResponse: { 
+            name: m.name, 
+            response: typeof m.content === 'object' ? m.content : { result: m.content } 
+          } 
+        }]
       };
     }
     
     const parts: any[] = [];
     
+    // For model turns, handle thoughts according to API requirements
+    if (m.role === "model") {
+      if (m.thought !== undefined) {
+        parts.push({ thought: m.thought });
+      } else if (m.functionCalls && m.functionCalls.length > 0) {
+        // Thinking models REQUIRE a thought part (even if empty) if there are function calls
+        parts.push({ thought: "" });
+      }
+    }
+
     if (m.content) {
       parts.push({ text: m.content });
     }
@@ -76,8 +91,8 @@ export async function chatWithAI(messages: Message[]) {
     };
   });
 
-  const result = await ai.models.generateContent({
-    model: "gemini-2.0-flash",
+  const response = await ai.models.generateContent({
+    model: "gemini-3-flash-preview",
     contents: contents,
     config: {
       systemInstruction,
@@ -85,12 +100,15 @@ export async function chatWithAI(messages: Message[]) {
     }
   });
 
-  const text = result.text || "";
-  const parts = result.candidates?.[0]?.content?.parts || [];
+  const text = response.text || "";
+  const parts = response.candidates?.[0]?.content?.parts || [];
   
   const functionCalls = parts
     ?.filter(part => part.functionCall)
     ?.map(part => part.functionCall) || [];
     
-  return { text, functionCalls };
+  const thoughtPart = parts?.find(part => 'thought' in part && typeof (part as any).thought === 'string');
+  const thought = (thoughtPart as any)?.thought as string | undefined;
+
+  return { text, functionCalls, thought };
 }

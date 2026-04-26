@@ -12,6 +12,10 @@ async function startServer() {
   app.use(express.json());
   
   // API routes
+  app.get("/api/health", (req, res) => {
+    res.json({ status: "ok" });
+  });
+
   app.get("/robots.txt", (req, res) => {
     res.sendFile(path.join(process.cwd(), "public", "robots.txt"));
   });
@@ -50,7 +54,7 @@ async function startServer() {
     });
   }
 
-  app.listen(PORT, "0.0.0.0", () => {
+  app.listen(PORT, "0.0.0.0", async () => {
     console.log(`Server running on http://localhost:${PORT}`);
   });
 }
