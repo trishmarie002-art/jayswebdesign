@@ -5,7 +5,7 @@ import { Plus, Minus, HelpCircle } from "lucide-react";
 const faqs = [
   {
     question: "How long does it take to build a website?",
-    answer: "Typically, a standard business website takes 2-4 weeks from start to finish. More complex projects like e-commerce or custom applications may take 6-10 weeks depending on the scope.",
+    answer: "I specialize in high-speed, high-performance delivery. A professional, revenue-generating website is typically completed in just 72 hours. I build fast so you can start generating leads and sales immediately.",
   },
   {
     question: "Do you offer SEO services?",

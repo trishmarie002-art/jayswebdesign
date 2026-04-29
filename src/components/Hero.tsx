@@ -1,47 +1,27 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { Phone, ChevronRight } from "lucide-react";
 import { useSiteContent } from "../hooks/useSiteContent";
-
-const defaultImages = [
-  "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2400&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=2340&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2400&auto=format&fit=crop",
-];
 
 export default function Hero() {
   const { content } = useSiteContent("hero", {
     heroTitle: "America's|Premier Web Designer",
     heroSubtitle: "Get a high-performance website in just 72 hours. I build revenue-generating assets for businesses nationwide, designed to turn clicks into customers.",
-    heroImages: defaultImages
   });
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % (content.heroImages?.length || 1));
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [content.heroImages]);
 
   return (
     <section id="home" className="relative min-h-[450px] md:min-h-[500px] lg:min-h-screen flex items-center overflow-hidden bg-black">
-      {/* Background Slideshow */}
+      {/* Background Video */}
       <div className="absolute inset-0 z-0">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentIndex}
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 0.4, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${content.heroImages?.[currentIndex] || defaultImages[0]})` }}
-          />
-        </AnimatePresence>
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-15"
+        >
+          <source src="https://pub-d0383005f8d24f9bbf6ce1a6abc39c3e.r2.dev/Jays-web-design-services.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black/30" />
       </div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10 py-12 md:py-14 lg:pt-20 lg:pb-32">
@@ -62,14 +42,14 @@ export default function Hero() {
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] mb-6 px-2 font-display tracking-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] mb-6 px-2 font-display tracking-tight [text-shadow:_0_4px_8px_rgba(0,0,0,0.8)]">
               {content.heroTitle.split("|")[0]} <br className="hidden sm:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
+              <span className="text-blue-500 [text-shadow:_0_0_30px_rgba(59,130,246,0.8),_0_2px_4px_rgba(0,0,0,0.8)] brightness-110">
                 {content.heroTitle.split("|")[1] || "Premier Web Designer"}
               </span>
             </h1>
             
-            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed px-4">
+            <p className="text-base sm:text-lg md:text-xl text-gray-100 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed px-4 [text-shadow:_0_2px_4px_rgba(0,0,0,0.8)] font-medium">
               {content.heroSubtitle}
             </p>
             
@@ -102,12 +82,12 @@ export default function Hero() {
           >
             <div className="flex -space-x-3 sm:-space-x-4">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-black bg-gray-800 overflow-hidden">
+                <div key={i} className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-black bg-gray-800 overflow-hidden relative">
                   <img
-                    src={`https://i.pravatar.cc/150?u=${i + 10}`}
+                    src={`https://i.pravatar.cc/150?u=${i + 130}`}
                     alt="Client"
                     referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
                   />
                 </div>
               ))}
