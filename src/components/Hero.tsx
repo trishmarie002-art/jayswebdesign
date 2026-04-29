@@ -24,7 +24,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-black/30" />
       </div>
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10 py-12 md:py-14 lg:pt-20 lg:pb-32">
+      <div className="container mx-auto px-4 md:px-6 relative z-10 pt-32 pb-12 md:pt-40 md:pb-14 lg:pt-56 lg:pb-32">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
