@@ -1,10 +1,10 @@
 {
-  "projectId": "jay-s-web-design",
-  "appId": "1:713377750934:web:290600f7d3c73c691707b7",
-  "apiKey": "AIzaSyAZjOQSNbSdtHLKFg5rJQvB6q9LLSr8UyA",
-  "authDomain": "jay-s-web-design.firebaseapp.com",
+  "projectId": "gen-lang-client-0175376500",
+  "appId": "1:990876997587:web:55db42677cc724ab098126",
+  "apiKey": "AIzaSyCaykMv0wZLTGcKXW8a6kt6p0Z802Qvo-I",
+  "authDomain": "gen-lang-client-0175376500.firebaseapp.com",
   "firestoreDatabaseId": "ai-studio-cbe0ff19-a70d-47b0-9416-83275c77d1d2",
-  "storageBucket": "jay-s-web-design.firebasestorage.app",
-  "messagingSenderId": "713377750934",
+  "storageBucket": "gen-lang-client-0175376500.firebasestorage.app",
+  "messagingSenderId": "990876997587",
   "measurementId": ""
 }
