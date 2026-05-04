@@ -78,7 +78,11 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="text-blue-500 mt-1 flex-shrink-0" size={18} />
-                <span className="text-gray-500">Serving United States (Nationwide)</span>
+                <div className="text-gray-500">
+                  <p>650 Nottingham Dr.</p>
+                  <p>Poteet, Texas 78065</p>
+                  <p className="text-xs mt-1 opacity-50 uppercase tracking-wider font-bold">Serving Nationwide</p>
+                </div>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="text-blue-500 flex-shrink-0" size={18} />
