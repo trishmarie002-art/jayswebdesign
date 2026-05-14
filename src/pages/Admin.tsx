@@ -121,12 +121,19 @@ export default function Admin() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      const dataToSave = { ...formData };
+      
+      // Don't save the document ID inside the document itself
+      if ('id' in dataToSave) {
+        delete (dataToSave as any).id;
+      }
+
       if (editingId) {
-        await updateDoc(doc(db, "projects", editingId), formData);
+        await updateDoc(doc(db, "projects", editingId), dataToSave);
         setEditingId(null);
       } else {
         await addDoc(collection(db, "projects"), {
-          ...formData,
+          ...dataToSave,
           order: projects.length
         });
       }
@@ -134,6 +141,7 @@ export default function Admin() {
       setIsAdding(false);
     } catch (error) {
       console.error("Error saving project:", error);
+      alert("Error saving project: " + (error instanceof Error ? error.message : String(error)));
     }
   };
 
@@ -209,9 +217,14 @@ export default function Admin() {
 
   const makeMeAdmin = async () => {
     if (user) {
-      await setDoc(doc(db, "admins", user.uid), { email: user.email });
-      setIsAdmin(true);
-      alert("You are now an admin!");
+      try {
+        await setDoc(doc(db, "admins", user.uid), { email: user.email });
+        setIsAdmin(true);
+        alert("You are now an admin!");
+      } catch (error) {
+        console.error("Error making admin:", error);
+        alert("Error making admin. Your Google account email (" + user.email + ") might not be whitelisted. " + (error instanceof Error ? error.message : String(error)));
+      }
     }
   };
 
@@ -499,7 +512,7 @@ export default function Admin() {
                       <button 
                         onClick={() => {
                           setEditingId(project.id);
-                          setFormData(project);
+                          setFormData({ ...project, alt: project.alt || "" });
                           setIsAdding(true);
                         }}
                         className="flex-1 bg-white/5 hover:bg-white/10 py-2 rounded-lg flex items-center justify-center transition-all"

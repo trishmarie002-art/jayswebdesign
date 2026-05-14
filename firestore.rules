@@ -36,11 +36,11 @@ service cloud.firestore {
     }
 
     function isValidProject(data) {
-      return data.name is string && data.name.size() <= 100 &&
-             data.url is string && data.url.size() <= 500 &&
-             data.image is string && data.image.size() <= 1000 &&
-             data.category is string && data.category.size() <= 50 &&
-             (data.get('alt', '') is string && data.get('alt', '').size() <= 1000) &&
+      return data.name is string && data.name.size() <= 200 &&
+             data.url is string && data.url.size() <= 2000 &&
+             data.image is string && data.image.size() <= 2000 &&
+             data.category is string && data.category.size() <= 100 &&
+             (data.get('alt', '') is string && data.get('alt', '').size() <= 2000) &&
              (data.get('order', 0) is number);
     }
 
