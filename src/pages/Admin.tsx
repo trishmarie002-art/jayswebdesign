@@ -82,12 +82,15 @@ export default function Admin() {
     const unsubscribeAuth = onAuthStateChanged(auth, async (u) => {
       setUser(u);
       if (u) {
-        const adminDoc = await getDoc(doc(db, "admins", u.uid));
-        if (adminDoc.exists()) {
-          setIsAdmin(true);
-        } else {
-          // If no admins exist at all, make this first user an admin (Bootstrap mode)
-          // For safety in production, this should be handled differently.
+        try {
+          const adminDoc = await getDoc(doc(db, "admins", u.uid));
+          if (adminDoc.exists()) {
+            setIsAdmin(true);
+          } else {
+            setIsAdmin(false);
+          }
+        } catch (error) {
+          console.error("Error checking admin status:", error);
           setIsAdmin(false);
         }
       } else {
@@ -246,7 +249,13 @@ export default function Admin() {
           <h1 className="text-2xl font-bold text-white mb-2">Admin Access</h1>
           <p className="text-gray-400 mb-8">Login with your Google account to manage the site gallery and content.</p>
           <button 
-            onClick={signInWithGoogle}
+            onClick={async () => {
+              try {
+                await signInWithGoogle();
+              } catch (error: any) {
+                alert("Sign in failed: " + error.message);
+              }
+            }}
             className="w-full btn-primary py-4 rounded-xl font-bold flex items-center justify-center gap-2"
           >
             <Globe size={20} />

@@ -55,8 +55,9 @@ service cloud.firestore {
       // Allow the master admin or existing admins to manage the list
       allow read, write: if isAdmin();
       
-      // Allow the specific user to bootstrap themselves once if needed
-      allow write: if isSignedIn() && request.auth.uid == userId && request.auth.token.email == "garzatricia89@gmail.com";
+      // Allow the specific user to bootstrap themselves. 
+      // For higher security, restrict this to an email, e.g. && request.auth.token.email == "garzatricia89@gmail.com"
+      allow write: if isSignedIn() && request.auth.uid == userId;
       
       // Allow user to check their own status
       allow read: if isSignedIn() && request.auth.uid == userId;
