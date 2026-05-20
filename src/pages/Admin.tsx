@@ -1,18 +1,6 @@
 import { useState, useEffect } from "react";
-import { 
-  collection, 
-  addDoc, 
-  deleteDoc, 
-  doc, 
-  onSnapshot, 
-  query, 
-  orderBy, 
-  updateDoc,
-  setDoc,
-  getDoc
-} from "firebase/firestore";
-import { auth, db, signInWithGoogle, logout } from "../lib/firebase";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { supabase } from "../lib/supabase";
+import { User } from "@supabase/supabase-js";
 import { motion, AnimatePresence } from "motion/react";
 import { 
   Plus, 
@@ -79,47 +67,87 @@ export default function Admin() {
   });
 
   useEffect(() => {
-    const unsubscribeAuth = onAuthStateChanged(auth, async (u) => {
-      setUser(u);
-      if (u) {
-        try {
-          const adminDoc = await getDoc(doc(db, "admins", u.uid));
-          if (adminDoc.exists()) {
-            setIsAdmin(true);
-          } else {
-            setIsAdmin(false);
-          }
-        } catch (error) {
-          console.error("Error checking admin status:", error);
-          setIsAdmin(false);
-        }
-      } else {
-        setIsAdmin(false);
-      }
-      setLoading(false);
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      checkAdmin(session?.user);
     });
 
-    return () => unsubscribeAuth();
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      checkAdmin(session?.user);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
+
+  const checkAdmin = async (u: User | null | undefined) => {
+    if (u) {
+      try {
+        const { data, error } = await supabase
+          .from("admins")
+          .select("email")
+          .eq("id", u.id)
+          .single();
+
+        if (error && error.code !== 'PGRST116') {
+          console.error("Error checking admin status:", error);
+          setIsAdmin(false);
+        } else if (data) {
+          setIsAdmin(true);
+        } else {
+          setIsAdmin(false);
+        }
+      } catch (error) {
+        setIsAdmin(false);
+      }
+    } else {
+      setIsAdmin(false);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
     if (!isAdmin) return;
 
-    const pq = query(collection(db, "projects"), orderBy("order", "asc"));
-    const unsubscribeProjects = onSnapshot(pq, (snapshot) => {
-      setProjects(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Project)));
-    });
+    const fetchProjects = async () => {
+      const { data } = await supabase.from("projects").select("*").order("order", { ascending: true });
+      if (data) setProjects(data as Project[]);
+    };
 
-    const lq = query(collection(db, "leads"), orderBy("timestamp", "desc"));
-    const unsubscribeLeads = onSnapshot(lq, (snapshot) => {
-      setLeads(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Lead)));
-    });
+    const fetchLeads = async () => {
+      const { data } = await supabase.from("leads").select("*").order("timestamp", { ascending: false });
+      if (data) setLeads(data as Lead[]);
+    };
+
+    fetchProjects();
+    fetchLeads();
+
+    const projectsChannel = supabase
+      .channel('projects-changes-admin')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'projects' }, () => fetchProjects())
+      .subscribe();
+
+    const leadsChannel = supabase
+      .channel('leads-changes-admin')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'leads' }, () => fetchLeads())
+      .subscribe();
 
     return () => {
-      unsubscribeProjects();
-      unsubscribeLeads();
+      supabase.removeChannel(projectsChannel);
+      supabase.removeChannel(leadsChannel);
     };
   }, [isAdmin]);
+
+  const signInWithGoogle = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+    });
+    if (error) alert("Sign in failed: " + error.message);
+  };
+
+  const logout = async () => {
+    await supabase.auth.signOut();
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -132,13 +160,14 @@ export default function Admin() {
       }
 
       if (editingId) {
-        await updateDoc(doc(db, "projects", editingId), dataToSave);
+        const { error } = await supabase.from("projects").update(dataToSave).eq("id", editingId);
+        if (error) throw error;
         setEditingId(null);
       } else {
-        await addDoc(collection(db, "projects"), {
-          ...dataToSave,
-          order: projects.length
-        });
+        const { error } = await supabase.from("projects").insert([
+          { ...dataToSave, order: projects.length }
+        ]);
+        if (error) throw error;
       }
       setFormData({ name: "", url: "", image: "", category: "", alt: "", order: 0 });
       setIsAdding(false);
@@ -150,13 +179,13 @@ export default function Admin() {
 
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this project?")) {
-      await deleteDoc(doc(db, "projects", id));
+      await supabase.from("projects").delete().eq("id", id);
     }
   };
 
   const handleDeleteLead = async (id: string) => {
     if (confirm("Are you sure you want to delete this lead?")) {
-      await deleteDoc(doc(db, "leads", id));
+      await supabase.from("leads").delete().eq("id", id);
     }
   };
 
@@ -212,21 +241,24 @@ export default function Admin() {
       }
     ];
 
-    for (const p of initialProjects) {
-      await addDoc(collection(db, "projects"), p);
+    const { error } = await supabase.from("projects").insert(initialProjects);
+    if (error) {
+      alert("Error seeding data: " + error.message);
+    } else {
+      alert("Success! All 6 website projects have been added back to your gallery.");
     }
-    alert("Success! All 6 website projects have been added back to your gallery.");
   };
 
   const makeMeAdmin = async () => {
     if (user) {
       try {
-        await setDoc(doc(db, "admins", user.uid), { email: user.email });
+        const { error } = await supabase.from("admins").insert([{ id: user.id, email: user.email }]);
+        if (error) throw error;
         setIsAdmin(true);
         alert("You are now an admin!");
       } catch (error) {
         console.error("Error making admin:", error);
-        alert("Error making admin. Your Google account email (" + user.email + ") might not be whitelisted. " + (error instanceof Error ? error.message : String(error)));
+        alert("Error making admin. Your account might not be whitelisted or table doesn't exist. " + (error instanceof Error ? error.message : String(error)));
       }
     }
   };
@@ -301,7 +333,7 @@ export default function Admin() {
               <Layout className="text-blue-500" />
               Site Dashboard
             </h1>
-            <p className="text-gray-500 mt-1 italic">Welcome back, {user.displayName}</p>
+            <p className="text-gray-500 mt-1 italic">Welcome back, {user?.user_metadata?.full_name || user?.email}</p>
           </div>
           <div className="flex gap-4">
              {projects.length === 0 && activeTab === "content" && (
@@ -366,12 +398,17 @@ export default function Admin() {
               onSubmit={async (e) => {
                 e.preventDefault();
                 const target = e.target as any;
-                await setDoc(doc(db, "siteContent", "hero"), {
+                const { error } = await supabase.from("site_content").upsert({
+                  id: "hero",
                   heroTitle: target.heroTitle.value,
                   heroSubtitle: target.heroSubtitle.value,
                   heroImages: target.heroImages.value.split("\n").filter((s: string) => s.trim() !== "")
                 });
-                alert("Content updated!");
+                if (error) {
+                  alert("Error updating content: " + error.message);
+                } else {
+                  alert("Content updated!");
+                }
               }}
               className="space-y-6"
             >

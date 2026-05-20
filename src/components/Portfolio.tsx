@@ -1,8 +1,7 @@
 import { motion, useAnimationControls } from "motion/react";
 import { ExternalLink, Loader2 } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
-import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
-import { db } from "../lib/firebase";
+import { supabase } from "../lib/supabase";
 
 interface Project {
   id: string;
@@ -20,20 +19,41 @@ export default function Portfolio() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const q = query(collection(db, "projects"), orderBy("order", "asc"));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const projectsData = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      })) as Project[];
-      setProjects(projectsData);
-      setLoading(false);
-    }, (error) => {
-      console.error("Error fetching projects:", error);
-      setLoading(false);
-    });
+    const fetchProjects = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("projects")
+          .select("*")
+          .order("order", { ascending: true });
 
-    return () => unsubscribe();
+        if (error) {
+          console.error("Error fetching projects:", error);
+        } else if (data) {
+          setProjects(data as Project[]);
+        }
+      } catch (err) {
+        console.error("Error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+
+    const channel = supabase
+      .channel('projects-changes')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'projects' },
+        () => {
+          fetchProjects(); // Re-fetch all to ensure order is correct, or merge manually
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   if (loading) {

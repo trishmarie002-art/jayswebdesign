@@ -1,5 +1,4 @@
-import { ref, push, set } from "firebase/database";
-import { rtdb, auth } from "../lib/firebase";
+import { supabase } from "../lib/supabase";
 
 export async function saveLead(leadData: {
   name: string;
@@ -12,16 +11,25 @@ export async function saveLead(leadData: {
   website?: string;
 }) {
   try {
-    const leadsRef = ref(rtdb, "leads");
-    const newLeadRef = push(leadsRef);
-    await set(newLeadRef, {
-      ...leadData,
-      timestamp: new Date().toISOString(),
-      userId: auth.currentUser?.uid || "anonymous",
-    });
-    return newLeadRef.key;
+    const { data: userData } = await supabase.auth.getUser();
+    
+    const { data, error } = await supabase
+      .from('leads')
+      .insert([
+        {
+          ...leadData,
+          timestamp: new Date().toISOString(),
+          user_id: userData?.user?.id || null,
+        }
+      ])
+      .select('id')
+      .single();
+
+    if (error) throw error;
+    
+    return data.id;
   } catch (error: any) {
-    console.error("RTDB Error:", error);
+    console.error("Supabase Error:", error);
     throw new Error(`Failed to save lead: ${error.message}`);
   }
 }
