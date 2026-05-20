@@ -55,6 +55,8 @@ export default function Admin() {
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"content" | "leads">("content");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   // Form State
   const [formData, setFormData] = useState({
@@ -138,9 +140,11 @@ export default function Admin() {
     };
   }, [isAdmin]);
 
-  const signInWithGoogle = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
+  const handleSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
     });
     if (error) alert("Sign in failed: " + error.message);
   };
@@ -279,20 +283,31 @@ export default function Admin() {
             <Lock className="text-blue-500" size={32} />
           </div>
           <h1 className="text-2xl font-bold text-white mb-2">Admin Access</h1>
-          <p className="text-gray-400 mb-8">Login with your Google account to manage the site gallery and content.</p>
-          <button 
-            onClick={async () => {
-              try {
-                await signInWithGoogle();
-              } catch (error: any) {
-                alert("Sign in failed: " + error.message);
-              }
-            }}
-            className="w-full btn-primary py-4 rounded-xl font-bold flex items-center justify-center gap-2"
-          >
-            <Globe size={20} />
-            Sign in with Google
-          </button>
+          <p className="text-gray-400 mb-8">Login with your credentials to manage the site gallery and content.</p>
+          <form onSubmit={handleSignIn} className="space-y-4">
+            <input 
+              type="email" 
+              placeholder="Email address"
+              required 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-left"
+            />
+            <input 
+              type="password" 
+              placeholder="Password"
+              required 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-left"
+            />
+            <button 
+              type="submit"
+              className="w-full btn-primary py-4 rounded-xl font-bold flex items-center justify-center gap-2 mt-2"
+            >
+              Sign In
+            </button>
+          </form>
         </div>
       </div>
     );
