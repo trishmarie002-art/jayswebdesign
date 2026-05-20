@@ -260,9 +260,9 @@ export default function Admin() {
         if (error) throw error;
         setIsAdmin(true);
         alert("You are now an admin!");
-      } catch (error) {
+      } catch (error: any) {
         console.error("Error making admin:", error);
-        alert("Error making admin. Your account might not be whitelisted or table doesn't exist. " + (error instanceof Error ? error.message : String(error)));
+        alert("Error making admin: " + (error.message || JSON.stringify(error)));
       }
     }
   };
