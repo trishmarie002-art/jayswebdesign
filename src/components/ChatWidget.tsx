@@ -6,6 +6,7 @@ import { saveLead } from "../services/leadService";
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  const [hasAutomaticallyOpened, setHasAutomaticallyOpened] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { role: "model", content: "Hi! I'm Jay's AI assistant. Ready to help you grow your business with a high-performance website. How can I help you today?" }
   ]);
@@ -22,6 +23,18 @@ export default function ChatWidget() {
       scrollToBottom();
     }
   }, [messages, isOpen]);
+
+  useEffect(() => {
+    // Pop up automatically within 10 seconds of browsing
+    const timer = setTimeout(() => {
+      if (!hasAutomaticallyOpened && !isOpen) {
+        setIsOpen(true);
+        setHasAutomaticallyOpened(true);
+      }
+    }, 8000); // 8 seconds
+
+    return () => clearTimeout(timer);
+  }, [hasAutomaticallyOpened, isOpen]);
 
   const MAX_CHARS = 500;
 

@@ -3,6 +3,7 @@ import { createServer as createViteServer } from "vite";
 import path from "path";
 import dotenv from "dotenv";
 import cors from "cors";
+import { GoogleGenAI } from "@google/genai";
 
 dotenv.config();
 
@@ -14,6 +15,39 @@ async function startServer() {
   app.use(express.json());
   
   // API routes
+  app.post("/api/chat", async (req, res) => {
+    try {
+      const { contents, config } = req.body;
+      const apiKey = process.env.GEMINI_API_KEY;
+      
+      if (!apiKey) {
+        return res.status(500).json({ error: "API key not configured" });
+      }
+
+      const ai = new GoogleGenAI({
+        apiKey: apiKey,
+        httpOptions: {
+          headers: {
+            'User-Agent': 'aistudio-build',
+          }
+        }
+      });
+
+      const response = await ai.models.generateContent({
+        model: "gemini-3.5-flash",
+        contents: contents,
+        config: config
+      });
+
+      // return raw parts to help with function calls and thoughts
+      const parts = response.candidates?.[0]?.content?.parts || [];
+      res.json({ text: response.text, parts });
+    } catch (error: any) {
+      console.error("Chat Error:", error);
+      res.status(500).json({ error: error.message || "Failed to process chat" });
+    }
+  });
+
   app.get("/api/health", (req, res) => {
     res.json({ status: "ok" });
   });

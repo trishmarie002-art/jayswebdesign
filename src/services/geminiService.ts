@@ -1,9 +1,5 @@
-import { GoogleGenAI, Type, FunctionDeclaration } from "@google/genai";
+import { Type, FunctionDeclaration } from "@google/genai";
 import { saveLead } from "./leadService";
-
-const ai = new GoogleGenAI({ 
-  apiKey: process.env.GEMINI_API_KEY || "" 
-});
 
 const captureLeadSchema: FunctionDeclaration = {
   name: "capture_lead",
@@ -96,31 +92,37 @@ export async function chatWithAI(messages: Message[]): Promise<AIResponse> {
   });
 
   try {
-    const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: contents,
-      config: {
-        systemInstruction,
-        tools: [{ functionDeclarations: [captureLeadSchema] }]
-      }
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents,
+        config: {
+          systemInstruction,
+          tools: [{ functionDeclarations: [captureLeadSchema] }]
+        }
+      })
     });
 
-    const text = response.text || "";
-    const parts = response.candidates?.[0]?.content?.parts || [];
+    if (!response.ok) {
+      throw new Error(`Server returned ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    const text = data.text || "";
+    const parts = data.parts || [];
     
     const functionCalls = parts
-      ?.filter(part => part.functionCall)
-      ?.map(part => part.functionCall) || [];
+      ?.filter((part: any) => part.functionCall)
+      ?.map((part: any) => part.functionCall) || [];
       
-    const thoughtPart = parts?.find(part => 'thought' in part && typeof (part as any).thought === 'string');
+    const thoughtPart = parts?.find((part: any) => 'thought' in part && typeof part.thought === 'string');
     const thought = (thoughtPart as any)?.thought as string | undefined;
 
     return { text, functionCalls, thought };
   } catch (error: any) {
     console.error("Gemini API Error:", error);
-    if (error.message?.includes("API key")) {
-      throw new Error("I'm having trouble connecting to my brain! Please try again in a moment or call Jay directly.");
-    }
-    throw error;
+    throw new Error("I'm having trouble connecting to my brain! Please try again in a moment or call Jay directly.");
   }
 }
