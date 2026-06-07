@@ -79,8 +79,7 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="text-blue-500 mt-1 flex-shrink-0" size={18} />
                 <div className="text-gray-500">
-                  <p>650 Nottingham Dr.</p>
-                  <p>Poteet, Texas 78065</p>
+                  <p>Based in Texas</p>
                   <p className="text-xs mt-1 opacity-50 uppercase tracking-wider font-bold">Serving Nationwide</p>
                 </div>
               </li>

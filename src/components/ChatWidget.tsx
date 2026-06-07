@@ -8,7 +8,7 @@ export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [hasAutomaticallyOpened, setHasAutomaticallyOpened] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: "model", content: "Hi! I'm Jay's AI assistant. Ready to help you grow your business with a high-performance website. How can I help you today?" }
+    { role: "model", content: "Hi! I'm here to help with your web design project. What do you need help with today?" }
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -120,32 +120,32 @@ export default function ChatWidget() {
             initial={{ opacity: 0, scale: 0.8, y: 20, transformOrigin: "bottom right" }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="absolute bottom-20 right-0 w-[350px] max-w-[calc(100vw-2rem)] h-[540px] max-h-[80vh] bg-black border border-white/10 rounded-3xl shadow-2xl overflow-hidden flex flex-col shadow-blue-600/10"
+            className="absolute bottom-20 right-0 w-[350px] max-w-[calc(100vw-2rem)] h-[540px] max-h-[80vh] bg-white border border-gray-200 rounded-3xl shadow-xl overflow-hidden flex flex-col"
           >
             {/* Header */}
-            <div className="bg-blue-600 p-4 text-white flex items-center justify-between shadow-lg relative z-10">
+            <div className="bg-white p-4 text-gray-800 flex items-center justify-between shadow-sm relative z-10 border-b border-gray-100">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center border border-white/30 backdrop-blur-sm">
-                  <Bot size={22} className="text-white" />
+                <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center border border-gray-200">
+                  <MessageCircle size={22} className="text-gray-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-sm leading-tight">Jay's AI Assistant</h4>
+                  <h4 className="font-bold text-sm leading-tight text-gray-900">Jay's Web Design Helper</h4>
                   <div className="flex items-center gap-1.5 mt-0.5">
-                    <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                    <p className="text-[10px] text-blue-100 font-medium">Online & Ready</p>
+                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <p className="text-[10px] text-gray-500 font-medium tracking-wide">Available now</p>
                   </div>
                 </div>
               </div>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="hover:rotate-90 transition-transform p-1 rounded-lg hover:bg-white/10"
+                className="hover:rotate-90 transition-transform p-1 rounded-lg hover:bg-gray-100 text-gray-400"
               >
                 <X size={20} />
               </button>
             </div>
 
             {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-950/50">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
               {messages.filter(msg => (msg.role === "user" || msg.role === "model") && msg.content).map((msg, i) => (
                 <motion.div
                   key={i}
@@ -156,15 +156,15 @@ export default function ChatWidget() {
                   <div className={`flex gap-2 max-w-[85%] ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
                     <div className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-1 border ${
                       msg.role === "user" 
-                        ? "bg-blue-600 border-blue-400 text-white" 
-                        : "bg-gray-800 border-white/10 text-blue-400"
+                        ? "bg-gray-800 border-gray-700 text-white" 
+                        : "bg-white border-gray-200 text-gray-500"
                     }`}>
-                      {msg.role === "user" ? <User size={14} /> : <Bot size={14} />}
+                      {msg.role === "user" ? <User size={14} /> : <MessageCircle size={14} />}
                     </div>
                     <div className={`p-3 rounded-2xl text-sm leading-relaxed ${
                       msg.role === "user"
-                        ? "bg-blue-600/90 text-white rounded-tr-none shadow-md"
-                        : "bg-white/5 border border-white/10 text-gray-200 rounded-tl-none"
+                        ? "bg-gray-800 text-white rounded-tr-none shadow-sm"
+                        : "bg-white border border-gray-200 text-gray-700 rounded-tl-none shadow-sm"
                     }`}>
                       {msg.content}
                     </div>
@@ -174,11 +174,11 @@ export default function ChatWidget() {
               {isLoading && (
                 <div className="flex justify-start">
                   <div className="flex gap-2 max-w-[85%]">
-                    <div className="w-8 h-8 rounded-full bg-gray-800 border border-white/10 flex items-center justify-center mt-1 text-blue-400 animate-pulse">
-                      <Bot size={14} />
+                    <div className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center mt-1 text-gray-500">
+                      <MessageCircle size={14} />
                     </div>
-                    <div className="bg-white/5 border border-white/10 p-4 rounded-2xl rounded-tl-none">
-                      <Loader2 className="w-4 h-4 text-blue-500 animate-spin" />
+                    <div className="bg-white border border-gray-200 p-4 rounded-2xl rounded-tl-none shadow-sm">
+                      <Loader2 className="w-4 h-4 text-gray-400 animate-spin" />
                     </div>
                   </div>
                 </div>
@@ -187,20 +187,20 @@ export default function ChatWidget() {
             </div>
 
             {/* Quick Actions */}
-            <div className="px-4 py-2 bg-gray-900 border-t border-white/5 flex gap-2 overflow-x-auto no-scrollbar">
-              <a href="tel:2109001113" className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-[10px] font-bold text-gray-300 transition-colors uppercase tracking-wider">
-                <Phone size={10} className="text-blue-500" /> Call Jay
+            <div className="px-4 py-2 bg-gray-50 border-t border-gray-100 flex gap-2 overflow-x-auto no-scrollbar">
+              <a href="tel:2109001113" className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-gray-50 border border-gray-200 rounded-full text-[10px] font-bold text-gray-700 transition-colors uppercase tracking-wider">
+                <Phone size={10} className="text-gray-500" /> Call Jay
               </a>
               <button 
                 onClick={() => setInput("How much for a new website?")}
-                className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-[10px] font-bold text-gray-300 transition-colors uppercase tracking-wider"
+                className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-gray-50 border border-gray-200 rounded-full text-[10px] font-bold text-gray-700 transition-colors uppercase tracking-wider"
               >
-                <Globe size={10} className="text-blue-500" /> Pricing
+                <Globe size={10} className="text-gray-500" /> Pricing
               </button>
             </div>
 
             {/* Input Area */}
-            <form onSubmit={handleSubmit} className="p-4 bg-gray-900 border-t border-white/5">
+            <form onSubmit={handleSubmit} className="p-4 bg-white border-t border-gray-100">
               <div className="flex flex-col gap-2">
                 <div className="flex gap-2">
                   <div className="relative flex-1 group">
@@ -210,14 +210,14 @@ export default function ChatWidget() {
                       value={input}
                       maxLength={MAX_CHARS}
                       onChange={(e) => setInput(e.target.value)}
-                      placeholder="Ask me anything..."
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 pr-10 text-sm text-white focus:outline-none focus:border-blue-500 transition-all placeholder:text-gray-600"
+                      placeholder="Type a message..."
+                      className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 pr-10 text-sm text-gray-900 focus:outline-none focus:border-gray-300 transition-all placeholder:text-gray-400"
                     />
                     {input && (
                       <button
                         type="button"
                         onClick={() => setInput("")}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                       >
                         <X size={14} />
                       </button>
@@ -226,14 +226,14 @@ export default function ChatWidget() {
                   <button
                     type="submit"
                     disabled={isLoading || !input.trim()}
-                    className="w-11 h-11 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:hover:bg-blue-600 rounded-xl flex items-center justify-center text-white transition-all shadow-lg shadow-blue-600/20 active:scale-95"
+                    className="w-11 h-11 bg-gray-900 hover:bg-gray-800 disabled:opacity-50 disabled:hover:bg-gray-900 rounded-xl flex items-center justify-center text-white transition-all shadow-sm active:scale-95"
                   >
                     <Send size={18} />
                   </button>
                 </div>
                 <div className="flex justify-end pr-1 transition-all">
                   <span className={`text-[10px] font-medium tracking-tight ${
-                    input.length >= MAX_CHARS * 0.9 ? "text-red-500 animate-pulse" : "text-gray-500"
+                    input.length >= MAX_CHARS * 0.9 ? "text-red-500 animate-pulse" : "text-gray-400"
                   }`}>
                     {input.length} / {MAX_CHARS}
                   </span>

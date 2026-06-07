@@ -13,6 +13,63 @@ interface Project {
   order?: number;
 }
 
+const FALLBACK_PROJECTS: Project[] = [
+  {
+    id: "p1",
+    name: "Pure View Cleaning Solutions",
+    url: "https://pvcstexas.com/",
+    image: "https://s0.wp.com/mshots/v1/https://pvcstexas.com/?w=800",
+    category: "Cleaning Services",
+    alt: "Modern cleaning services website for Pure View Cleaning Solutions",
+    order: 0
+  },
+  {
+    id: "p2",
+    name: "Plumb Daddy Plumbing",
+    url: "https://plumbdaddy-texas.com/",
+    image: "https://s0.wp.com/mshots/v1/https://plumbdaddy-texas.com/?w=800",
+    category: "Plumbing Services",
+    alt: "Professional plumbing website design for Plumb Daddy Texas",
+    order: 1
+  },
+  {
+    id: "p3",
+    name: "Rush Wheels & Tires",
+    url: "https://rushwheelandtire.com/",
+    image: "https://s0.wp.com/mshots/v1/https://rushwheelandtire.com/?w=800",
+    category: "Automotive",
+    alt: "Responsive automotive website for Rush Wheels & Tires",
+    order: 2
+  },
+  {
+    id: "p4",
+    name: "Reycom Combat Gym",
+    url: "https://reycom.com/",
+    image: "https://s0.wp.com/mshots/v1/https://reycom.com/?w=800",
+    category: "Fitness & MMA",
+    alt: "High-conversion fitness and MMA gym website",
+    order: 3
+  },
+  {
+    id: "p5",
+    name: "Texas Stitchworx",
+    url: "https://texasstitchworx.com/",
+    image: "https://s0.wp.com/mshots/v1/https://texasstitchworx.com/?w=800",
+    category: "Custom Embroidery",
+    alt: "Custom e-commerce website for Texas Stitchworx",
+    order: 4
+  },
+  {
+    id: "p6",
+    name: "Lio's Handyman Services",
+    url: "https://liothehandyman.com/",
+    image: "https://s0.wp.com/mshots/v1/https://liothehandyman.com/?w=800",
+    category: "Home Maintenance",
+    alt: "Local handyman services website",
+    order: 5
+  }
+];
+
 export default function Portfolio() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
@@ -27,12 +84,16 @@ export default function Portfolio() {
           .order("order", { ascending: true });
 
         if (error) {
-          console.error("Error fetching projects:", error);
-        } else if (data) {
+          console.error("Error fetching projects, using fallback:", error);
+          setProjects(FALLBACK_PROJECTS);
+        } else if (data && data.length > 0) {
           setProjects(data as Project[]);
+        } else {
+          setProjects(FALLBACK_PROJECTS);
         }
       } catch (err) {
         console.error("Error:", err);
+        setProjects(FALLBACK_PROJECTS);
       } finally {
         setLoading(false);
       }
