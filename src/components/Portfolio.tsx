@@ -1,7 +1,8 @@
 import { motion, useAnimationControls } from "motion/react";
 import { ExternalLink, Loader2 } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
-import { supabase } from "../lib/supabase";
+import { db } from "../lib/firebase";
+import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 
 interface Project {
   id: string;
@@ -76,45 +77,29 @@ export default function Portfolio() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("projects")
-          .select("*")
-          .order("order", { ascending: true });
-
-        if (error) {
-          console.error("Error fetching projects, using fallback:", error);
-          setProjects(FALLBACK_PROJECTS);
-        } else if (data && data.length > 0) {
-          setProjects(data as Project[]);
+    const q = query(collection(db, "projects"), orderBy("order", "asc"));
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        if (!snapshot.empty) {
+          const list: Project[] = [];
+          snapshot.forEach((doc) => {
+            list.push({ id: doc.id, ...doc.data() } as Project);
+          });
+          setProjects(list);
         } else {
           setProjects(FALLBACK_PROJECTS);
         }
-      } catch (err) {
-        console.error("Error:", err);
+        setLoading(false);
+      },
+      (error) => {
+        console.error("Firestore error fetching projects, using fallback:", error);
         setProjects(FALLBACK_PROJECTS);
-      } finally {
         setLoading(false);
       }
-    };
+    );
 
-    fetchProjects();
-
-    const channel = supabase
-      .channel('projects-changes')
-      .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'projects' },
-        () => {
-          fetchProjects(); // Re-fetch all to ensure order is correct, or merge manually
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
+    return () => unsubscribe();
   }, []);
 
   if (loading) {

@@ -1,4 +1,5 @@
-import { supabase } from "../lib/supabase";
+import { db } from "../lib/firebase";
+import { collection, addDoc } from "firebase/firestore";
 
 export async function saveLead(leadData: {
   name: string;
@@ -11,25 +12,17 @@ export async function saveLead(leadData: {
   website?: string;
 }) {
   try {
-    const { data: userData } = await supabase.auth.getUser();
+    const docRef = await addDoc(collection(db, "leads"), {
+      ...leadData,
+      email: leadData.email || "",
+      projectDescription: leadData.projectDescription || "",
+      website: leadData.website || "",
+      timestamp: new Date().toISOString(),
+    });
     
-    const { data, error } = await supabase
-      .from('leads')
-      .insert([
-        {
-          ...leadData,
-          timestamp: new Date().toISOString(),
-          user_id: userData?.user?.id || null,
-        }
-      ])
-      .select('id')
-      .single();
-
-    if (error) throw error;
-    
-    return data.id;
+    return docRef.id;
   } catch (error: any) {
-    console.error("Supabase Error:", error);
-    throw new Error(`Failed to save lead: ${error.message}`);
+    console.error("Firestore Lead Save Error:", error);
+    throw new Error(`Failed to save lead: ${error.message || String(error)}`);
   }
 }

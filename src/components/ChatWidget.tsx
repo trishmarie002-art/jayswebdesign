@@ -106,7 +106,7 @@ export default function ChatWidget() {
       }
     } catch (error) {
       console.error("AI Error:", error);
-      setMessages(prev => [...prev, { role: "model", content: "Oops! I hit a snag. You can always call Jay directly at (210) 900-1113 for immediate help!" }]);
+      setMessages(prev => [...prev, { role: "model", content: "Oops! I hit a snag. You can always call Jay directly at (830) 290-5856 for immediate help!" }]);
     } finally {
       setIsLoading(false);
     }
@@ -188,7 +188,7 @@ export default function ChatWidget() {
 
             {/* Quick Actions */}
             <div className="px-4 py-2 bg-gray-50 border-t border-gray-100 flex gap-2 overflow-x-auto no-scrollbar">
-              <a href="tel:2109001113" className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-gray-50 border border-gray-200 rounded-full text-[10px] font-bold text-gray-700 transition-colors uppercase tracking-wider">
+              <a href="tel:8302905856" className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-gray-50 border border-gray-200 rounded-full text-[10px] font-bold text-gray-700 transition-colors uppercase tracking-wider">
                 <Phone size={10} className="text-gray-500" /> Call Jay
               </a>
               <button 

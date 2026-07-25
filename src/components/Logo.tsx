@@ -12,31 +12,31 @@ export default function Logo({ className, size = "md", light = false }: LogoProp
   const [imageError, setImageError] = useState(false);
 
   const sizes = {
-    sm: "h-12 md:h-14",
-    md: "h-20 md:h-24",
-    lg: "h-40 md:h-52",
-    xl: "h-56 md:h-72",
+    sm: "h-12 md:h-16",
+    md: "h-24 md:h-32",
+    lg: "h-36 md:h-48",
+    xl: "h-52 md:h-72",
   };
 
   const textSizes = {
     sm: "text-lg",
-    md: "text-2xl",
-    lg: "text-4xl",
-    xl: "text-6xl",
+    md: "text-3xl",
+    lg: "text-5xl",
+    xl: "text-7xl",
   };
 
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      className={cn("flex items-center justify-center", className)}
+      className={cn("flex items-center justify-center shrink-0", className)}
     >
       {!imageError ? (
         <img 
-          src="https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay%27s%20Web%20Design%20Services/logo-removebg-preview.png" 
+          src="https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay's%20Web%20Design%20Services/jayswebdesignserviceslogo.png" 
           alt="Jay's Web Design Services" 
           className={cn(
-            "w-auto h-auto max-w-full max-h-full object-contain drop-shadow-2xl", 
+            "w-auto max-w-full object-contain drop-shadow-2xl transition-all duration-300", 
             sizes[size]
           )}
           onError={() => setImageError(true)}

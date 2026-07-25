@@ -86,7 +86,7 @@ export default function App() {
                   "image": "https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay%27s%20Web%20Design%20Services/logo-removebg-preview.png",
                   "@id": "https://jayswebdesignservices.com",
                   "url": "https://jayswebdesignservices.com/",
-                  "telephone": "+12109001113",
+                  "telephone": "+18302905856",
                   "address": {
                     "@type": "PostalAddress",
                     "streetAddress": "Remote / Nationwide",
