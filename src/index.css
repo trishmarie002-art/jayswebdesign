@@ -19,4 +19,12 @@
   .btn-glow {
     @apply relative after:absolute after:inset-0 after:z-[-1] after:bg-blue-600 after:opacity-0 after:blur-xl after:transition-opacity hover:after:opacity-40;
   }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
