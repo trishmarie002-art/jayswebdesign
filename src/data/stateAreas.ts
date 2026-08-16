@@ -5,6 +5,8 @@ export interface StateArea {
   title: string;
   metaDescription: string;
   heroDescription: string;
+  heroImage: string;
+  imageAlt: string;
   introduction: string;
   marketHeading: string;
   marketContent: string;
@@ -24,6 +26,8 @@ export const stateAreas: StateArea[] = [
     title: "Affordable Web Design in California",
     metaDescription: "Need affordable web design in California? Jay's Web Design Services builds fast, professional websites for California small businesses.",
     heroDescription: "Get affordable web design in California with a fast, mobile-friendly website created to help your business stand out in competitive local markets and turn more visitors into customers.",
+    heroImage: "https://images.unsplash.com/photo-1444723121867-7a241cacace9?q=85&w=2400&auto=format&fit=crop",
+    imageAlt: "California city skyline representing affordable web design services in California",
     introduction: "California businesses compete in one of the country's most active digital markets. A neighborhood service company, creative professional, restaurant, retailer, or growing startup needs a website that communicates value quickly. Jay's Web Design Services creates practical, professional websites for California small businesses that want strong design without the overhead of a large agency.",
     marketHeading: "Designed for California's competitive markets",
     marketContent: "Customers in California often compare several businesses before calling or requesting a quote. Your website must load quickly on mobile devices, explain your services clearly, establish credibility, and make the next step easy. We organize every page around the questions customers ask and the actions that matter, whether that means booking a consultation, calling your office, viewing recent work, or purchasing online.",
@@ -49,6 +53,8 @@ export const stateAreas: StateArea[] = [
     title: "Affordable Web Design in Florida",
     metaDescription: "Affordable web design in Florida for local businesses. Get a responsive, professional website built to attract customers and generate inquiries.",
     heroDescription: "Choose affordable web design in Florida for a professional website that helps local customers understand your services, trust your business, and contact you from any device.",
+    heroImage: "https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?q=85&w=2400&auto=format&fit=crop",
+    imageAlt: "Florida coastal city representing affordable web design services in Florida",
     introduction: "Florida's growing population, tourism economy, and expanding local communities create opportunities for businesses that are easy to find and trust online. Jay's Web Design Services builds affordable websites for Florida companies that need a polished presence, straightforward messaging, and convenient ways for customers to call, book, or request information.",
     marketHeading: "Built for Florida's mobile and tourism-driven audience",
     marketContent: "Florida customers and visitors frequently search while traveling, relocating, planning an event, or looking for nearby services. A slow or confusing website can lose that opportunity quickly. We build responsive pages with visible contact options, useful service information, location details, and calls to action that remain easy to use on a phone.",
@@ -74,6 +80,8 @@ export const stateAreas: StateArea[] = [
     title: "Affordable Web Design in New York",
     metaDescription: "Affordable web design in New York for small businesses that need a fast, credible website without paying a large-agency price.",
     heroDescription: "Get affordable web design in New York with sharp messaging, responsive performance, and a professional customer experience built for demanding local markets.",
+    heroImage: "https://images.unsplash.com/photo-1522083165195-3424ed129620?q=85&w=2400&auto=format&fit=crop",
+    imageAlt: "New York skyline representing affordable web design services in New York",
     introduction: "New York businesses operate in markets where customers expect speed, professionalism, and clear information. From New York City to Albany, Buffalo, Rochester, and growing suburban communities, a website must establish credibility immediately. Jay's Web Design Services provides an affordable path to a modern site without sacrificing the features customers rely on.",
     marketHeading: "A clear message for fast-moving New York customers",
     marketContent: "People comparing New York businesses may scan several websites in minutes. Strong headings, direct service explanations, trust signals, and visible contact options help them understand why they should choose you. We remove unnecessary clutter and organize your content so visitors can find answers quickly on both mobile and desktop devices.",
@@ -99,6 +107,8 @@ export const stateAreas: StateArea[] = [
     title: "Affordable Web Design in Georgia",
     metaDescription: "Get affordable web design in Georgia with responsive pages, local business content, and clear ways for customers to contact you.",
     heroDescription: "Affordable web design in Georgia gives your small business a modern, mobile-friendly website built to earn trust and support growth in Atlanta and communities statewide.",
+    heroImage: "https://images.unsplash.com/photo-1575917649705-5b59aaa12e6b?q=85&w=2400&auto=format&fit=crop",
+    imageAlt: "Atlanta Georgia skyline representing affordable web design services in Georgia",
     introduction: "Georgia combines a major metropolitan business center with fast-growing suburbs, established regional cities, and strong local communities. Businesses need websites that feel professional while remaining personal and easy to use. Jay's Web Design Services helps Georgia small businesses create an online presence that fits their budget and supports their next stage of growth.",
     marketHeading: "Made for Georgia's growing business communities",
     marketContent: "Customers throughout Georgia use websites to compare service areas, experience, project examples, reviews, and availability. We turn that information into a clear customer journey. Visitors can quickly learn what you do, whether you serve their community, and how to request a quote or consultation.",
@@ -124,6 +134,8 @@ export const stateAreas: StateArea[] = [
     title: "Affordable Web Design in North Carolina",
     metaDescription: "Affordable web design in North Carolina for growing small businesses. Get a responsive website with clear content and dependable support.",
     heroDescription: "Get affordable web design in North Carolina with a professional website built for growing companies, mobile customers, and competitive local searches.",
+    heroImage: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=85&w=2400&auto=format&fit=crop",
+    imageAlt: "North Carolina landscape representing affordable web design services in North Carolina",
     introduction: "North Carolina's technology centers, established industries, coastal communities, and fast-growing cities support a wide range of small businesses. Jay's Web Design Services creates affordable websites that help those companies present their services professionally, reach the right customers, and compete without committing to an oversized agency budget.",
     marketHeading: "Supporting growth across North Carolina",
     marketContent: "A business serving Charlotte may need a polished, high-growth presentation, while a company in Asheville, Wilmington, or a smaller community may depend on clear regional service information. We shape the website around your real coverage area and customer needs instead of forcing every business into the same generic message.",
