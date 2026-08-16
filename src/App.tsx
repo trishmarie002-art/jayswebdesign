@@ -16,6 +16,7 @@ import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 import ChatWidget from "./components/ChatWidget";
 import PriceEstimator from "./components/PriceEstimator";
+import MobileContactBar from "./components/MobileContactBar";
 
 // Pages
 import Blog from "./pages/Blog";
@@ -139,6 +140,7 @@ export default function App() {
           </main>
           <Footer />
           <ChatWidget />
+          <MobileContactBar />
         </div>
       </Router>
     </HelmetProvider>
