@@ -58,7 +58,7 @@ export default function PriceEstimator() {
     } catch (error) {
       console.error("Estimator lead save failed but continuing with Formspree:", error);
     }
-    handleFormspreeSubmit(event);
+    await handleFormspreeSubmit(event);
   };
 
   return (
@@ -187,6 +187,12 @@ export default function PriceEstimator() {
             {showForm && !state.succeeded && (
               <form onSubmit={handleSubmit} className="mt-7 pt-7 border-t border-gray-100 space-y-4">
                 <input type="hidden" name="estimate" value={estimateSummary} />
+                <input type="hidden" name="website_package" value={selectedPackage.name} />
+                <input type="hidden" name="seo_option" value={supportsSeo ? (includeSeo ? "Basic SEO included" : "Without SEO") : "Not applicable"} />
+                <input type="hidden" name="logo_design" value={includesFreeLogo ? "Free logo design if needed" : "Logo design only"} />
+                <input type="hidden" name="monthly_maintenance" value={maintenance ? "$60 per month" : "Not selected"} />
+                <input type="hidden" name="estimated_one_time_price" value={`$${oneTimePrice}`} />
+                <input type="hidden" name="submission_source" value="Website Price Estimator" />
                 <h4 className="text-lg font-bold text-black">Where should we send your estimate?</h4>
                 <input
                   required
