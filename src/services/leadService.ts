@@ -6,7 +6,7 @@ export async function saveLead(leadData: {
   phone: string;
   businessName: string;
   websiteType: string;
-  source: "chatbot" | "contact_form" | "price_estimator";
+  source: "chatbot" | "contact_form" | "price_estimator" | "referral_form";
   email?: string;
   projectDescription?: string;
   website?: string;
