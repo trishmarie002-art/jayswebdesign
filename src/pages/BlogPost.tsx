@@ -23,6 +23,28 @@ export default function BlogPost() {
         <meta property="og:image" content={post.image} />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary_large_image" />
+        <link rel="canonical" href={`https://jayswebdesignservices.com/blog/${post.id}`} />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: post.title,
+            description: post.excerpt,
+            image: post.image,
+            datePublished: "2026-08-16",
+            dateModified: "2026-08-16",
+            mainEntityOfPage: `https://jayswebdesignservices.com/blog/${post.id}`,
+            author: {
+              "@type": "Person",
+              name: "Jay",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "Jay's Web Design Services",
+              url: "https://jayswebdesignservices.com/",
+            },
+          })}
+        </script>
       </Helmet>
 
       <section className="py-12 bg-gray-50 border-b border-gray-100">
