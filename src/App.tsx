@@ -76,7 +76,7 @@ export default function App() {
             <meta name="twitter:description" content="Need affordable Web design in TX? Jay's Web Design Service is the best choice when looking for top quality affordable Web design in TX." />
             <meta name="twitter:image" content="https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay%27s%20Web%20Design%20Services/logo-removebg-preview.png" />
             <meta name="google-site-verification" content="google3d9d936012e1e974" />
-            <link rel="canonical" href="https://jayswebdesignservices.com" />
+            <link rel="canonical" href="https://jayswebdesignservices.com/" />
             <script type="application/ld+json">
               {`
                 {
@@ -87,19 +87,19 @@ export default function App() {
                   "@id": "https://jayswebdesignservices.com",
                   "url": "https://jayswebdesignservices.com/",
                   "telephone": "+18302905856",
-                  "address": {
-                    "@type": "PostalAddress",
-                    "streetAddress": "Remote / Nationwide",
-                    "addressLocality": "USA",
-                    "addressRegion": "HQ",
-                    "addressCountry": "US"
+                  "description": "Affordable web design in TX for small businesses, including responsive websites, SEO-friendly development, maintenance, repairs, logos, and digital marketing materials.",
+                  "areaServed": {
+                    "@type": "State",
+                    "name": "Texas"
                   },
-                  "areaServed": "United States",
-                  "aggregateRating": {
-                    "@type": "AggregateRating",
-                    "ratingValue": "5",
-                    "reviewCount": "4"
-                  },
+                  "priceRange": "$$",
+                  "knowsAbout": [
+                    "Affordable web design in TX",
+                    "Texas small business web design",
+                    "Responsive website development",
+                    "Search engine optimization",
+                    "Website maintenance"
+                  ],
                   "openingHoursSpecification": {
                     "@type": "OpeningHoursSpecification",
                     "dayOfWeek": [
