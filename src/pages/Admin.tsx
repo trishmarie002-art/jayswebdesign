@@ -86,7 +86,7 @@ export default function Admin() {
   // Hero Content State
   const [heroTitle, setHeroTitle] = useState("Affordable Web Design|In TX");
   const [heroSubtitle, setHeroSubtitle] = useState(
-    "Get a high-performance website in just 72 hours. I build revenue-generating assets for plumbers, gyms, and local pros designed to turn clicks into customers."
+    "Get affordable web design in TX with a high-performance website in just 72 hours. I build revenue-generating assets for Texas businesses, designed to turn clicks into customers."
   );
   const [heroImagesStr, setHeroImagesStr] = useState(defaultImages.join("\n"));
 
