@@ -4,8 +4,8 @@ import { Code, Search, Settings, Wrench, Layout, Palette, ChevronRight } from "l
 const services = [
   {
     icon: <Layout className="w-8 h-8" />,
-    title: "Web Design",
-    description: "Custom, responsive websites designed to capture your brand's essence and convert visitors into customers.",
+    title: "Affordable Web Design in TX",
+    description: "Custom, responsive Texas business websites designed to fit your budget, represent your brand, and convert visitors into customers.",
   },
   {
     icon: <Search className="w-8 h-8" />,
@@ -46,9 +46,9 @@ export default function Services() {
             transition={{ duration: 0.6 }}
           >
             <span className="text-blue-600 font-bold tracking-widest uppercase text-sm">My Expertise</span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-black mt-3 mb-6 font-display tracking-tight leading-tight">Comprehensive Solutions</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-black mt-3 mb-6 font-display tracking-tight leading-tight">Affordable Texas Web Design Solutions</h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-base md:text-lg">
-              From initial concept to ongoing maintenance, I provide everything you need to succeed in the digital landscape.
+              Get affordable web design in TX, SEO, branding, maintenance, and reliable support from one dedicated web designer.
             </p>
           </motion.div>
         </div>
