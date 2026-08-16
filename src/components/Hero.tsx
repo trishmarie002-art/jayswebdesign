@@ -4,7 +4,7 @@ import { useSiteContent } from "../hooks/useSiteContent";
 
 export default function Hero() {
   const { content } = useSiteContent("hero", {
-    heroTitle: "America's|Premier Web Designer",
+    heroTitle: "Affordable Web Design|In TX",
     heroSubtitle: "Get a high-performance website in just 72 hours. I build revenue-generating assets for businesses nationwide, designed to turn clicks into customers.",
   });
 
@@ -43,9 +43,9 @@ export default function Hero() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] mb-6 px-2 font-display tracking-tight [text-shadow:_0_4px_8px_rgba(0,0,0,0.8)]">
-              {content.heroTitle.split("|")[0]} <br className="hidden sm:block" />
+              Affordable Web Design <br className="hidden sm:block" />
               <span className="text-blue-500 [text-shadow:_0_0_30px_rgba(59,130,246,0.8),_0_2px_4px_rgba(0,0,0,0.8)] brightness-110">
-                {content.heroTitle.split("|")[1] || "Premier Web Designer"}
+                In TX
               </span>
             </h1>
             
