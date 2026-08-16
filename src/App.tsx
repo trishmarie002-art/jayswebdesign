@@ -15,6 +15,7 @@ import LeadMagnet from "./components/LeadMagnet";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 import ChatWidget from "./components/ChatWidget";
+import PriceEstimator from "./components/PriceEstimator";
 
 // Pages
 import Blog from "./pages/Blog";
@@ -46,6 +47,7 @@ function HomePage() {
       <Hero />
       <About />
       <Services />
+      <PriceEstimator />
       <WhyChooseUs />
       <Reviews />
       <Portfolio />
