@@ -4,12 +4,20 @@ import { Plus, Minus, HelpCircle } from "lucide-react";
 
 const faqs = [
   {
+    question: "What is included with affordable web design in TX?",
+    answer: "Every project is tailored to the business, but a typical website includes responsive mobile design, clear service information, contact buttons or forms, search-friendly page structure, basic on-page SEO, and launch support. I recommend only the pages and features that make sense for your goals and budget.",
+  },
+  {
+    question: "Do you build websites for businesses throughout Texas?",
+    answer: "Yes. Jay's Web Design Services works with small businesses across Texas, including San Antonio, Austin, Houston, Dallas-Fort Worth, surrounding communities, and rural service areas. Meetings and project communication can be handled remotely by phone, text, and email.",
+  },
+  {
     question: "How long does it take to build a website?",
     answer: "I specialize in high-speed, high-performance delivery. A professional, revenue-generating website is typically completed in just 72 hours. I build fast so you can start generating leads and sales immediately.",
   },
   {
     question: "Do you offer SEO services?",
-    answer: "Yes! Every website I build is SEO-optimized from the ground up. I also offer ongoing SEO management to help your business rank higher in search results over time.",
+    answer: "Yes. Every website is built with search-friendly titles, headings, mobile performance, crawlable links, and organized content. I also offer ongoing SEO support. Rankings depend on competition, content, reputation, links, and other factors, so no specific position can be guaranteed.",
   },
   {
     question: "Can you fix my existing website?",
@@ -43,7 +51,7 @@ export default function FAQ() {
             transition={{ duration: 0.6 }}
           >
             <span className="text-blue-600 font-bold tracking-widest uppercase text-sm">Got Questions?</span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-black mt-3 mb-6 font-display tracking-tight leading-tight">Frequently Asked Questions</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-black mt-3 mb-6 font-display tracking-tight leading-tight">Affordable Web Design in TX FAQs</h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
               Everything you need to know about working with Jay's Web Design.
             </p>
