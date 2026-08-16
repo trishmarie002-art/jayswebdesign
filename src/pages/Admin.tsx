@@ -84,7 +84,7 @@ export default function Admin() {
   const [saveSuccess, setSaveSuccess] = useState<string | null>(null);
 
   // Hero Content State
-  const [heroTitle, setHeroTitle] = useState("America's|Premier Web Designer");
+  const [heroTitle, setHeroTitle] = useState("Affordable Web Design|In TX");
   const [heroSubtitle, setHeroSubtitle] = useState(
     "Get a high-performance website in just 72 hours. I build revenue-generating assets for plumbers, gyms, and local pros designed to turn clicks into customers."
   );
