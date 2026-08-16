@@ -11,6 +11,7 @@ const navLinks = [
   { name: "Industries", href: "/#industries" },
   { name: "Portfolio", href: "/#portfolio" },
   { name: "Blog", href: "/blog" },
+  { name: "Service Areas", href: "/service-areas" },
   { name: "Contact", href: "/#contact" },
 ];
 
@@ -33,6 +34,9 @@ export default function Header() {
   const isLinkActive = (href: string) => {
     if (href === "/") return location.pathname === "/";
     if (href === "/blog") return location.pathname.startsWith("/blog");
+    if (href === "/service-areas") {
+      return location.pathname === "/service-areas" || location.pathname.startsWith("/affordable-web-design-in-");
+    }
     return false;
   };
 
