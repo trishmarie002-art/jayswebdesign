@@ -11,7 +11,6 @@ const navLinks = [
   { name: "Industries", href: "/#industries" },
   { name: "Portfolio", href: "/#portfolio" },
   { name: "FAQ", href: "/#faq" },
-  { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/#contact" },
 ];
 
@@ -33,7 +32,6 @@ export default function Header() {
 
   const isLinkActive = (href: string) => {
     if (href === "/") return location.pathname === "/";
-    if (href === "/blog") return location.pathname.startsWith("/blog");
     return false;
   };
 
