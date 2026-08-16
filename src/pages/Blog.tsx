@@ -10,6 +10,7 @@ export default function Blog() {
       <Helmet>
         <title>Affordable Web Design in TX Blog | Jay's Web Design Services</title>
         <meta name="description" content="Read practical advice about affordable web design in TX, small-business websites, SEO, and growing your Texas business online." />
+        <link rel="canonical" href="https://jayswebdesignservices.com/blog" />
       </Helmet>
 
       <section className="py-16 bg-white border-b border-gray-100">
