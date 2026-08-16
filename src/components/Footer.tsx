@@ -23,7 +23,7 @@ export default function Footer() {
               <Logo light size="lg" />
             </Link>
             <p className="text-gray-500 leading-relaxed">
-              I don't just build pages; I build revenue-generating assets. Premium web design and high-ranking SEO services for businesses nationwide.
+              Affordable web design in TX for small businesses that need responsive websites, clear messaging, and dependable support without a large-agency price.
             </p>
             <div className="flex gap-4">
               <a
@@ -57,7 +57,7 @@ export default function Footer() {
             <h4 className="text-lg font-bold mb-6">My Services</h4>
             <ul className="space-y-4">
               {[
-                "Web Design",
+                "Affordable Web Design in TX",
                 "SEO Optimization",
                 "Website Maintenance",
                 "Website Repair",
