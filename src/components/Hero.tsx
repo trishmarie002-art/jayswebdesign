@@ -5,7 +5,7 @@ import { useSiteContent } from "../hooks/useSiteContent";
 export default function Hero() {
   const { content } = useSiteContent("hero", {
     heroTitle: "Affordable Web Design|In TX",
-    heroSubtitle: "Get a high-performance website in just 72 hours. I build revenue-generating assets for businesses nationwide, designed to turn clicks into customers.",
+    heroSubtitle: "Get affordable web design in TX with a high-performance website in just 72 hours. I build revenue-generating assets for Texas businesses, designed to turn clicks into customers.",
   });
 
   return (
@@ -50,7 +50,7 @@ export default function Hero() {
             </h1>
             
             <p className="text-base sm:text-lg md:text-xl text-gray-100 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed px-4 [text-shadow:_0_2px_4px_rgba(0,0,0,0.8)] font-medium">
-              {content.heroSubtitle}
+              Get affordable web design in TX with a high-performance website in just 72 hours. I build revenue-generating assets for Texas businesses, designed to turn clicks into customers.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full sm:w-auto px-4 sm:px-0">
