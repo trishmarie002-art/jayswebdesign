@@ -2,6 +2,8 @@ import { Helmet } from "react-helmet-async";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { CheckCircle2, MapPin, Phone, ArrowRight } from "lucide-react";
 import { stateAreas } from "../data/stateAreas";
+import Portfolio from "../components/Portfolio";
+import Reviews from "../components/Reviews";
 
 export default function StateArea() {
   const { slug } = useParams<{ slug: string }>();
@@ -15,7 +17,7 @@ export default function StateArea() {
   const relatedAreas = stateAreas.filter((item) => item.slug !== area.slug);
 
   return (
-    <div className="pt-24 min-h-screen bg-white">
+    <div className="min-h-screen bg-white">
       <Helmet>
         <title>{area.title} | Jay's Web Design</title>
         <meta name="description" content={area.metaDescription} />
@@ -47,8 +49,19 @@ export default function StateArea() {
         </script>
       </Helmet>
 
-      <section className="bg-black text-white py-20 md:py-28">
-        <div className="container mx-auto px-4 md:px-6 text-center">
+      <section className="relative bg-black text-white pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src={area.heroImage}
+            alt={area.imageAlt}
+            width={2400}
+            height={1350}
+            className="w-full h-full object-cover opacity-35"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/70 to-black" />
+        </div>
+        <div className="container mx-auto px-4 md:px-6 text-center relative z-10">
           <div className="inline-flex items-center gap-2 bg-blue-600/15 border border-blue-500/30 text-blue-400 px-4 py-2 rounded-full text-sm font-bold mb-6">
             <MapPin size={16} />
             Serving businesses throughout {area.state}
@@ -68,6 +81,33 @@ export default function StateArea() {
               Request a Free Quote
               <ArrowRight size={18} />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 md:px-6 max-w-6xl">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="rounded-3xl overflow-hidden shadow-2xl min-h-[300px] md:min-h-[420px]">
+              <img
+                src={area.heroImage}
+                alt={`Web design services available to small businesses throughout ${area.state}`}
+                width={1200}
+                height={900}
+                className="w-full h-full min-h-[300px] md:min-h-[420px] object-cover"
+                loading="lazy"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            <div className="p-2 md:p-8">
+              <span className="text-blue-600 font-bold uppercase tracking-widest text-sm">Professional Results at a Practical Price</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-black mt-3 mb-6">
+                Websites built to represent your {area.state} business
+              </h2>
+              <p className="text-gray-600 text-lg leading-relaxed">
+                Your website should look credible, explain your value, and make it easy for customers to take action. We combine responsive design, clear content, strong calls to action, and dependable support in one affordable service.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -146,6 +186,9 @@ export default function StateArea() {
           </div>
         </div>
       </section>
+
+      <Portfolio />
+      <Reviews />
 
       <section className="py-16 bg-blue-600 text-white">
         <div className="container mx-auto px-4 md:px-6 max-w-5xl">
