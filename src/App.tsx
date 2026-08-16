@@ -17,6 +17,7 @@ import Footer from "./components/Footer";
 import ChatWidget from "./components/ChatWidget";
 import PriceEstimator from "./components/PriceEstimator";
 import MobileContactBar from "./components/MobileContactBar";
+import ReferralRewardsSection from "./components/ReferralRewardsSection";
 
 // Pages
 import Blog from "./pages/Blog";
@@ -24,6 +25,7 @@ import BlogPost from "./pages/BlogPost";
 import Admin from "./pages/Admin";
 import StateArea from "./pages/StateArea";
 import ServiceAreas from "./pages/ServiceAreas";
+import ReferralRewards from "./pages/ReferralRewards";
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -49,6 +51,7 @@ function HomePage() {
       <About />
       <Services />
       <PriceEstimator />
+      <ReferralRewardsSection />
       <WhyChooseUs />
       <Reviews />
       <Portfolio />
@@ -134,6 +137,7 @@ export default function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:id" element={<BlogPost />} />
               <Route path="/service-areas" element={<ServiceAreas />} />
+              <Route path="/referral-rewards" element={<ReferralRewards />} />
               <Route path="/:slug" element={<StateArea />} />
               <Route path="/admin" element={<Admin />} />
             </Routes>
