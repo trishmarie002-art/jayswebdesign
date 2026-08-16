@@ -8,8 +8,8 @@ export default function Blog() {
   return (
     <div className="pt-24 min-h-screen bg-gray-50">
       <Helmet>
-        <title>Blog | Resources & Insights | Jay's Web Design Services</title>
-        <meta name="description" content="Expert advice on web design, SEO strategy, and digital marketing to help your business thrive online. Read our latest articles." />
+        <title>Affordable Web Design in TX Blog | Jay's Web Design Services</title>
+        <meta name="description" content="Read practical advice about affordable web design in TX, small-business websites, SEO, and growing your Texas business online." />
       </Helmet>
 
       <section className="py-16 bg-white border-b border-gray-100">
@@ -22,10 +22,10 @@ export default function Blog() {
             >
               <span className="text-blue-600 font-bold tracking-widest uppercase text-sm">Resources & Insights</span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-black mt-3 mb-6 font-display tracking-tight leading-tight">
-                The Digital Growth Blog
+                Affordable Web Design in TX Blog
               </h1>
               <p className="text-gray-600 text-xl leading-relaxed">
-                Expert advice on web design, SEO strategy, and digital marketing to help your business thrive online.
+                Straightforward advice to help Texas small businesses build an affordable, professional website and grow online.
               </p>
             </motion.div>
           </div>
