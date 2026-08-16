@@ -41,11 +41,11 @@ export default function WhyChooseUs() {
             >
               <span className="text-blue-500 font-bold tracking-widest uppercase text-sm">Why Choose Me</span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mt-3 mb-6 md:mb-8 leading-tight font-display tracking-tight">
-                Your Success is <br />
-                <span className="text-blue-500">My Mission</span>
+                Affordable Web Design <br />
+                <span className="text-blue-500">Made for Texas</span>
               </h2>
               <p className="text-gray-400 text-base md:text-lg mb-8 md:mb-10 leading-relaxed">
-                At Jay's Web Design, I believe every business deserves a powerful online presence. I combine creative design with technical excellence to deliver results that matter.
+                At Jay's Web Design, I believe every small business deserves a powerful online presence. My affordable web design services in Texas combine professional design, mobile performance, search-friendly structure, and personal support to deliver results that matter.
               </p>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 mb-10 md:mb-12">
