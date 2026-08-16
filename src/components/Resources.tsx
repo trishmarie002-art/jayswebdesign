@@ -15,9 +15,9 @@ export default function Resources() {
             transition={{ duration: 0.6 }}
           >
             <span className="text-blue-600 font-bold tracking-widest uppercase text-sm">Resources & Insights</span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-black mt-3 mb-6 font-display tracking-tight leading-tight">Latest from the Blog</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-black mt-3 mb-6 font-display tracking-tight leading-tight">Affordable Web Design in TX Resources</h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Expert advice on web design, <Link to="/blog" className="text-blue-600 hover:underline">SEO strategy</Link>, and digital marketing to help your business thrive online.
+              Read practical guides about <Link to="/blog" className="text-blue-600 hover:underline">affordable Texas web design</Link>, SEO strategy, and turning more website visitors into customers.
             </p>
           </motion.div>
         </div>
