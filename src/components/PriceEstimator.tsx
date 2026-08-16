@@ -30,6 +30,7 @@ export default function PriceEstimator() {
   const selectedPackage = packages.find((item) => item.id === selected)!;
   const supportsSeo = "withSeo" in selectedPackage;
   const includesFreeLogo = selected !== "logo";
+  const supportsMaintenance = selected !== "logo";
   const oneTimePrice = useMemo(() => {
     if ("fixedPrice" in selectedPackage) return selectedPackage.fixedPrice;
     return includeSeo ? selectedPackage.withSeo : selectedPackage.noSeo;
@@ -39,7 +40,9 @@ export default function PriceEstimator() {
     selectedPackage.name,
     supportsSeo ? (includeSeo ? "Basic SEO included" : "Without SEO") : null,
     includesFreeLogo ? "Free logo design if needed" : null,
-    maintenance ? "Monthly maintenance: $60/month" : "No monthly maintenance selected",
+    supportsMaintenance
+      ? (maintenance ? "Monthly maintenance: $60/month" : "No monthly maintenance selected")
+      : "Monthly maintenance: Not applicable",
     `Estimated one-time price: $${oneTimePrice}`,
   ].filter(Boolean).join(" | ");
 
@@ -85,6 +88,7 @@ export default function PriceEstimator() {
                   type="button"
                   onClick={() => {
                     setSelected(item.id);
+                    if (item.id === "logo") setMaintenance(false);
                     setShowForm(false);
                   }}
                   className={`text-left p-6 rounded-3xl border-2 transition-all ${
@@ -148,18 +152,20 @@ export default function PriceEstimator() {
               </div>
             )}
 
-            <label className="flex items-center justify-between gap-4 border border-gray-200 rounded-2xl p-4 cursor-pointer">
-              <div>
-                <p className="font-bold text-black">Monthly Maintenance</p>
-                <p className="text-sm text-gray-500">$60 per month</p>
-              </div>
-              <input
-                type="checkbox"
-                checked={maintenance}
-                onChange={(event) => setMaintenance(event.target.checked)}
-                className="w-5 h-5 accent-blue-600"
-              />
-            </label>
+            {supportsMaintenance && (
+              <label className="flex items-center justify-between gap-4 border border-gray-200 rounded-2xl p-4 cursor-pointer">
+                <div>
+                  <p className="font-bold text-black">Monthly Maintenance</p>
+                  <p className="text-sm text-gray-500">$60 per month</p>
+                </div>
+                <input
+                  type="checkbox"
+                  checked={maintenance}
+                  onChange={(event) => setMaintenance(event.target.checked)}
+                  className="w-5 h-5 accent-blue-600"
+                />
+              </label>
+            )}
 
             <div className="mt-7 pt-6 border-t border-gray-100">
               <div className="flex justify-between items-end gap-4">
@@ -167,7 +173,7 @@ export default function PriceEstimator() {
                   <p className="text-sm text-gray-500">Estimated one-time price</p>
                   <p className="text-4xl font-extrabold text-black">${oneTimePrice}</p>
                 </div>
-                {maintenance && <p className="text-blue-600 font-bold">+ $60/month</p>}
+                {supportsMaintenance && maintenance && <p className="text-blue-600 font-bold">+ $60/month</p>}
               </div>
               <p className="text-xs text-gray-400 mt-4 leading-relaxed">
                 Starting estimate only. Final pricing depends on project requirements, content, integrations, and requested custom features.
@@ -190,7 +196,7 @@ export default function PriceEstimator() {
                 <input type="hidden" name="website_package" value={selectedPackage.name} />
                 <input type="hidden" name="seo_option" value={supportsSeo ? (includeSeo ? "Basic SEO included" : "Without SEO") : "Not applicable"} />
                 <input type="hidden" name="logo_design" value={includesFreeLogo ? "Free logo design if needed" : "Logo design only"} />
-                <input type="hidden" name="monthly_maintenance" value={maintenance ? "$60 per month" : "Not selected"} />
+                <input type="hidden" name="monthly_maintenance" value={supportsMaintenance ? (maintenance ? "$60 per month" : "Not selected") : "Not applicable"} />
                 <input type="hidden" name="estimated_one_time_price" value={`$${oneTimePrice}`} />
                 <input type="hidden" name="submission_source" value="Website Price Estimator" />
                 <h4 className="text-lg font-bold text-black">Where should we send your estimate?</h4>
