@@ -63,17 +63,17 @@ export default function App() {
         <ScrollToTop />
         <div className="min-h-screen bg-white font-sans selection:bg-blue-600 selection:text-white overflow-x-hidden">
           <Helmet>
-            <title>Professional Web Design Services | Custom Website Development Nationwide</title>
-            <meta name="description" content="Premium nationwide web design services. We build high-converting, custom, and mobile-friendly websites for businesses across the USA. Get a free consultation today!" />
+            <title>Affordable Web Design In TX</title>
+            <meta name="description" content="Need affordable Web design in TX? Jay's Web Design Service is the best choice when looking for top quality affordable Web design in TX." />
             <meta name="keywords" content="Professional Web Design, Custom Website Development, Nationwide Web Design Services, Responsive Web Design USA, Small Business Website Design, Corporate Web Development, E-commerce Website Design, WordPress Developers, Shopify Experts, Landing Page Design, UI/UX Design Services, Affordable Web Design, High Converting Websites, SEO Friendly Web Design, Website Maintenance Services, Web Design for Startups, Digital Marketing Agency, Online Presence Management, Modern Web Design, Creative Web Agency, Business Branding Services, Professional Logo Design, Ad Flyer Design, Website Repair Services, Custom Mobile Apps, Enterprise Web Solutions, Local SEO Services, Google Maps Marketing, Web Hosting Solutions, Digital Growth Strategy, Custom Portfolios, Real Estate Web Design, Law Firm Website Design, Medical Web Design, Construction Website Design, Restaurant Website Design, Non-Profit Web Design, Educational Web Design, Travel Website Design, E-commerce Strategy, Web Design Consultation, Freelance Web Designer, Senior Web Developer, Full Stack Development, Front End Design, Backend Web Development, Website Performance Optimization, Conversion Rate Optimization, Digital Transformation, Jay's Web Design Services" />
-            <meta property="og:title" content="Professional Web Design Services | Custom Website Development Nationwide" />
-            <meta property="og:description" content="Expert nationwide web design services to grow your business. Custom, mobile-friendly websites designed to convert visitors into customers." />
+            <meta property="og:title" content="Affordable Web Design In TX" />
+            <meta property="og:description" content="Need affordable Web design in TX? Jay's Web Design Service is the best choice when looking for top quality affordable Web design in TX." />
             <meta property="og:image" content="https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay%27s%20Web%20Design%20Services/logo-removebg-preview.png" />
             <meta property="og:type" content="website" />
             <meta property="og:url" content="https://jayswebdesignservices.com" />
             <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content="Professional Web Design Services | Custom Website Development Nationwide" />
-            <meta name="twitter:description" content="Expert nationwide web design services to grow your business. Custom, mobile-friendly websites designed to convert visitors into customers." />
+            <meta name="twitter:title" content="Affordable Web Design In TX" />
+            <meta name="twitter:description" content="Need affordable Web design in TX? Jay's Web Design Service is the best choice when looking for top quality affordable Web design in TX." />
             <meta name="twitter:image" content="https://pub-a35884625cfe400d9088764a7f0e49e0.r2.dev/Jay%27s%20Web%20Design%20Services/logo-removebg-preview.png" />
             <meta name="google-site-verification" content="google3d9d936012e1e974" />
             <link rel="canonical" href="https://jayswebdesignservices.com" />
