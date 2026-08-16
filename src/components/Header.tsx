@@ -7,7 +7,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "Texas Web Design", href: "/#services" },
+  { name: "About", href: "/#about" },
   { name: "Industries", href: "/#industries" },
   { name: "Portfolio", href: "/#portfolio" },
   { name: "Blog", href: "/blog" },
