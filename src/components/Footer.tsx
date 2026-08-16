@@ -1,6 +1,7 @@
 import { Mail, Phone, MapPin, Facebook, Lock } from "lucide-react";
 import Logo from "./Logo";
 import { Link } from "react-router-dom";
+import { stateAreas } from "../data/stateAreas";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -99,6 +100,32 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
+          </div>
+        </div>
+
+        <div className="mb-12 pt-10 border-t border-white/5">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+            <div>
+              <h4 className="text-lg font-bold">Affordable Web Design Service Areas</h4>
+              <p className="text-gray-500 text-sm mt-1">Explore web design services available in each state.</p>
+            </div>
+            <Link to="/service-areas" className="text-blue-500 hover:text-blue-400 font-bold text-sm">
+              View All Service Areas
+            </Link>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link to="/" className="bg-gray-900 hover:bg-blue-600 border border-white/10 text-gray-300 hover:text-white px-4 py-2.5 rounded-xl text-sm font-bold transition-all">
+              Texas
+            </Link>
+            {stateAreas.map((area) => (
+              <Link
+                key={area.slug}
+                to={`/${area.slug}`}
+                className="bg-gray-900 hover:bg-blue-600 border border-white/10 text-gray-300 hover:text-white px-4 py-2.5 rounded-xl text-sm font-bold transition-all"
+              >
+                {area.state}
+              </Link>
+            ))}
           </div>
         </div>
 
