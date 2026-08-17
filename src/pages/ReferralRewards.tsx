@@ -23,6 +23,9 @@ export default function ReferralRewards() {
     referredBusiness: "",
     referredPhone: "",
     referredEmail: "",
+    rewardPreference: "Full reward to me",
+    splitWithName: "",
+    splitWithContact: "",
   });
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -33,6 +36,8 @@ export default function ReferralRewards() {
       `Referrer email: ${formData.referrerEmail}`,
       `Referred contact: ${formData.referredName}`,
       `Referred email: ${formData.referredEmail || "Not provided"}`,
+      `Reward preference: ${formData.rewardPreference}`,
+      `Split with: ${formData.rewardPreference === "Split reward" ? `${formData.splitWithName} (${formData.splitWithContact})` : "Not applicable"}`,
     ].join(" | ");
 
     try {
@@ -80,7 +85,7 @@ export default function ReferralRewards() {
           <span className="text-blue-500 font-bold tracking-widest uppercase text-sm">Share Jay's Web Design</span>
           <h1 className="text-4xl md:text-6xl font-extrabold mt-4">Refer a Business. Earn a Visa Gift Card.</h1>
           <p className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto mt-7 leading-relaxed">
-            Introduce a new customer to Jay's Web Design Services. When they purchase and pay for a qualifying website or logo package, you receive the corresponding Visa gift-card reward.
+            Refer yourself or introduce another customer to Jay's Web Design Services. When the qualifying website or logo package is paid in full, the corresponding Visa gift-card reward is issued.
           </p>
         </div>
       </section>
@@ -129,17 +134,19 @@ export default function ReferralRewards() {
                 ))}
               </ol>
               <div className="mt-9 pt-7 border-t border-blue-400/40 space-y-3 text-sm text-blue-100">
-                <p className="flex gap-2"><CheckCircle2 size={18} className="flex-shrink-0" /> Reward applies to new customers only.</p>
-                <p className="flex gap-2"><CheckCircle2 size={18} className="flex-shrink-0" /> One reward is issued per qualifying customer purchase.</p>
+                <p className="flex gap-2"><CheckCircle2 size={18} className="flex-shrink-0" /> The referral program is available to anyone.</p>
+                <p className="flex gap-2"><CheckCircle2 size={18} className="flex-shrink-0" /> One reward is issued per completed website or logo-design referral.</p>
+                <p className="flex gap-2"><CheckCircle2 size={18} className="flex-shrink-0" /> Refer as many customers as you like for unlimited earning potential.</p>
                 <p className="flex gap-2"><CheckCircle2 size={18} className="flex-shrink-0" /> Reward is issued after the qualifying package is paid in full.</p>
-                <p className="flex gap-2"><CheckCircle2 size={18} className="flex-shrink-0" /> Self-referrals and duplicate referrals do not qualify.</p>
+                <p className="flex gap-2"><CheckCircle2 size={18} className="flex-shrink-0" /> Self-referrals are accepted.</p>
+                <p className="flex gap-2"><CheckCircle2 size={18} className="flex-shrink-0" /> A referral reward may be split with another person upon request.</p>
               </div>
             </div>
 
             <div className="bg-gray-50 rounded-3xl border border-gray-100 p-8 md:p-10">
               <span className="text-blue-600 font-bold tracking-widest uppercase text-sm">Submit a Referral</span>
               <h2 className="text-3xl font-extrabold text-black mt-3 mb-3">Who can we help?</h2>
-              <p className="text-gray-600 mb-8">Please confirm that the referred person has given permission for their contact information to be shared.</p>
+              <p className="text-gray-600 mb-8">Please confirm that the referred person has given permission for their contact information to be shared. For a self-referral, enter your own information in both sections.</p>
 
               {!state.succeeded ? (
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -165,6 +172,38 @@ export default function ReferralRewards() {
                     <input required type="checkbox" name="permissionConfirmed" value="Yes" className="mt-1 w-4 h-4 accent-blue-600" />
                     I confirm that this person has given permission to share their contact information with Jay's Web Design Services.
                   </label>
+                  <div className="pt-5 border-t border-gray-200">
+                    <label className="font-bold text-black block mb-3">How should the reward be issued?</label>
+                    <select
+                      name="rewardPreference"
+                      value={formData.rewardPreference}
+                      onChange={(e) => setFormData({ ...formData, rewardPreference: e.target.value })}
+                      className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+                    >
+                      <option value="Full reward to me">Full reward to me</option>
+                      <option value="Split reward">Split the reward with another person</option>
+                    </select>
+                    {formData.rewardPreference === "Split reward" && (
+                      <div className="grid md:grid-cols-2 gap-4 mt-4">
+                        <input
+                          required
+                          name="splitWithName"
+                          placeholder="Other recipient's name"
+                          value={formData.splitWithName}
+                          onChange={(e) => setFormData({ ...formData, splitWithName: e.target.value })}
+                          className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+                        />
+                        <input
+                          required
+                          name="splitWithContact"
+                          placeholder="Other recipient's email or phone"
+                          value={formData.splitWithContact}
+                          onChange={(e) => setFormData({ ...formData, splitWithContact: e.target.value })}
+                          className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+                        />
+                      </div>
+                    )}
+                  </div>
                   <ValidationError prefix="Form" errors={state.errors} className="text-red-600 text-sm" />
                   <button disabled={state.submitting} type="submit" className="w-full btn-primary btn-glow py-4 rounded-xl font-bold flex items-center justify-center gap-2">
                     {state.submitting ? <Loader2 className="animate-spin" /> : <><Send size={19} /> Submit Referral</>}
