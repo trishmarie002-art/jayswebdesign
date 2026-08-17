@@ -1,0 +1,28 @@
+{
+  "rewrites": [
+    {
+      "source": "/referral-rewards",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/service-areas",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/affordable-web-design-in-:state",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/index.html"
+    }
+  ]
+}
