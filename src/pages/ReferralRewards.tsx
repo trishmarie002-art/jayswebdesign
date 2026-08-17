@@ -53,15 +53,27 @@ export default function ReferralRewards() {
   };
 
   return (
-    <div className="pt-24 min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50">
       <Helmet>
         <title>Referral Rewards | Jay's Web Design Services</title>
         <meta name="description" content="Refer a new website or logo-design customer to Jay's Web Design Services and earn a Visa gift card after their qualifying package is paid in full." />
+        <meta property="og:image" content="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=85&w=2400&auto=format&fit=crop" />
         <link rel="canonical" href="https://jayswebdesignservices.com/referral-rewards" />
       </Helmet>
 
-      <section className="bg-black text-white py-20 md:py-28 text-center">
-        <div className="container mx-auto px-4 md:px-6 max-w-5xl">
+      <section className="relative bg-black text-white pt-40 pb-24 md:pt-48 md:pb-32 text-center overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=85&w=2400&auto=format&fit=crop"
+            alt="Business professionals participating in the Jay's Web Design referral rewards program"
+            width={2400}
+            height={1350}
+            className="w-full h-full object-cover opacity-45"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/70 to-black" />
+        </div>
+        <div className="container mx-auto px-4 md:px-6 max-w-5xl relative z-10">
           <div className="w-20 h-20 mx-auto rounded-3xl bg-blue-600 flex items-center justify-center mb-7 shadow-xl shadow-blue-600/20">
             <Gift size={40} />
           </div>
