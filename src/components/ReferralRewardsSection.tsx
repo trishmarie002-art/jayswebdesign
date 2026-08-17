@@ -29,6 +29,9 @@ export default function ReferralRewardsSection() {
             <p className="text-gray-500 text-sm mt-4">
               Website rewards stay the same whether the customer selects the package with or without SEO.
             </p>
+            <p className="text-gray-400 text-sm mt-3">
+              Anyone can participate, self-referrals are accepted, rewards may be split, and there is no limit to how many qualifying customers you can refer.
+            </p>
             <Link
               to="/referral-rewards"
               className="inline-flex items-center gap-2 btn-primary btn-glow px-8 py-4 rounded-xl font-bold mt-8"
