@@ -40,8 +40,9 @@ export default function ReferralRewards() {
       `Split with: ${formData.rewardPreference === "Split reward" ? `${formData.splitWithName} (${formData.splitWithContact})` : "Not applicable"}`,
     ].join(" | ");
 
-    try {
-      await saveLead({
+    const formspreeSubmission = handleFormspreeSubmit(event);
+
+    void saveLead({
         name: formData.referredName,
         phone: formData.referredPhone,
         businessName: formData.referredBusiness,
@@ -49,12 +50,11 @@ export default function ReferralRewards() {
         email: formData.referredEmail,
         projectDescription: details,
         source: "referral_form",
-      });
-    } catch (error) {
+      }).catch((error) => {
       console.error("Referral save failed but continuing with Formspree:", error);
-    }
+    });
 
-    await handleFormspreeSubmit(event);
+    await formspreeSubmission;
   };
 
   return (
