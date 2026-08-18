@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
-import { CheckCircle2, Globe2, Loader2, Search, XCircle } from "lucide-react";
+import { useForm } from "@formspree/react";
+import { CheckCircle2, Globe2, Loader2, Search, ShoppingCart, XCircle } from "lucide-react";
 
 function normalizeDomain(value: string) {
   return value
@@ -21,6 +22,8 @@ export default function DomainSearch() {
   const [error, setError] = useState("");
   const [result, setResult] = useState<DomainResult | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showOrder, setShowOrder] = useState(false);
+  const [orderState, submitOrder] = useForm("mqegywzr");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -34,6 +37,7 @@ export default function DomainSearch() {
 
     setError("");
     setResult(null);
+    setShowOrder(false);
     setLoading(true);
 
     try {
@@ -65,7 +69,7 @@ export default function DomainSearch() {
               Is Your Business Domain Available?
             </h2>
             <p className="text-gray-300 text-lg leading-relaxed max-w-xl">
-              Search a domain name before you start your website. Your availability result appears instantly right here without leaving Jay’s Web Design Services.
+              Search a domain name before you start your website. If it is available, you can request us to purchase and register it for you for $40.
             </p>
           </div>
 
@@ -85,6 +89,7 @@ export default function DomainSearch() {
                       setDomain(event.target.value);
                       setError("");
                       setResult(null);
+                      setShowOrder(false);
                     }}
                     placeholder="mybusiness.com"
                     className="w-full border border-gray-200 rounded-xl pl-12 pr-4 py-4 outline-none focus:border-blue-500"
@@ -103,27 +108,26 @@ export default function DomainSearch() {
               {error && <p className="text-sm text-red-600 font-medium">{error}</p>}
 
               {result && (
-                <div
-                  className={`rounded-2xl border p-5 flex items-start gap-3 ${
-                    result.available
-                      ? "bg-green-50 border-green-200 text-green-800"
-                      : "bg-red-50 border-red-200 text-red-800"
-                  }`}
-                >
-                  {result.available ? (
-                    <CheckCircle2 size={24} className="flex-shrink-0 mt-0.5" />
-                  ) : (
-                    <XCircle size={24} className="flex-shrink-0 mt-0.5" />
-                  )}
-                  <div>
-                    <p className="font-extrabold text-lg">
-                      {result.domain} {result.available ? "looks available!" : "is already registered."}
-                    </p>
-                    <p className="text-sm mt-1 opacity-90">
-                      {result.available
-                        ? "Great choice. Domain availability can change quickly, so register it soon if you want it."
-                        : "Try another name or a different extension such as .net, .co, or .us."}
-                    </p>
+                <div className={`rounded-2xl border p-5 ${result.available ? "bg-green-50 border-green-200 text-green-800" : "bg-red-50 border-red-200 text-red-800"}`}>
+                  <div className="flex items-start gap-3">
+                    {result.available ? <CheckCircle2 size={24} className="flex-shrink-0 mt-0.5" /> : <XCircle size={24} className="flex-shrink-0 mt-0.5" />}
+                    <div className="flex-1">
+                      <p className="font-extrabold text-lg">
+                        {result.domain} {result.available ? "looks available!" : "is already registered."}
+                      </p>
+                      <p className="text-sm mt-1 opacity-90">
+                        {result.available ? "You can request Jay’s Web Design Services to purchase and register this domain for you for $40." : "Try another name or a different extension such as .net, .co, or .us."}
+                      </p>
+                      {result.available && !orderState.succeeded && (
+                        <button
+                          type="button"
+                          onClick={() => setShowOrder(true)}
+                          className="mt-4 bg-green-700 text-white px-5 py-3 rounded-xl font-bold inline-flex items-center gap-2 hover:bg-green-800"
+                        >
+                          <ShoppingCart size={18} /> Purchase This Domain — $40
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               )}
@@ -133,14 +137,37 @@ export default function DomainSearch() {
               </p>
             </form>
 
+            {showOrder && result?.available && !orderState.succeeded && (
+              <form onSubmit={submitOrder} className="mt-6 pt-6 border-t border-gray-100 space-y-4">
+                <input type="hidden" name="order_type" value="Domain Purchase Request" />
+                <input type="hidden" name="domain" value={result.domain} />
+                <input type="hidden" name="price" value="$40" />
+                <h3 className="text-xl font-extrabold text-black">Purchase {result.domain} for $40</h3>
+                <p className="text-sm text-gray-500">Enter the registrant information below. We will purchase the domain from a reputable domain registrar after payment is completed.</p>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <input required name="first_name" type="text" placeholder="First name" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-blue-500" />
+                  <input required name="last_name" type="text" placeholder="Last name" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-blue-500" />
+                </div>
+                <input required name="email" type="email" placeholder="Email address" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-blue-500" />
+                <button type="submit" disabled={orderState.submitting} className="w-full btn-primary btn-glow py-4 rounded-xl font-bold flex items-center justify-center gap-2 disabled:opacity-70">
+                  {orderState.submitting ? <Loader2 size={20} className="animate-spin" /> : <ShoppingCart size={20} />}
+                  {orderState.submitting ? "Submitting..." : "Submit $40 Domain Order"}
+                </button>
+                <p className="text-xs text-gray-500">Submitting this form sends the domain order request. Payment is handled separately until secure checkout is connected.</p>
+              </form>
+            )}
+
+            {orderState.succeeded && (
+              <div className="mt-6 bg-green-50 border border-green-200 text-green-800 rounded-2xl p-5">
+                <p className="font-extrabold">Domain order request received!</p>
+                <p className="text-sm mt-1">We’ll contact you at the email provided with the secure $40 payment instructions and confirm availability again before registration.</p>
+              </div>
+            )}
+
             <div className="mt-6 pt-6 border-t border-gray-100">
-              <p className="font-bold text-black">Found the perfect domain?</p>
-              <p className="text-sm text-gray-500 mt-1">
-                Jay’s Web Design Services can help you build the website to go with it.
-              </p>
-              <a href="#estimate" className="inline-flex mt-4 text-blue-600 font-bold hover:text-blue-700">
-                Get a website estimate →
-              </a>
+              <p className="font-bold text-black">Need a website too?</p>
+              <p className="text-sm text-gray-500 mt-1">Jay’s Web Design Services can build the website to go with your new domain.</p>
+              <a href="#estimate" className="inline-flex mt-4 text-blue-600 font-bold hover:text-blue-700">Get a website estimate →</a>
             </div>
           </div>
         </div>
