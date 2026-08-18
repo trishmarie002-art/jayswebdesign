@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { ExternalLink, Globe2, Search } from "lucide-react";
+import { CheckCircle2, Globe2, Loader2, Search, XCircle } from "lucide-react";
 
 function normalizeDomain(value: string) {
   return value
@@ -11,25 +11,45 @@ function normalizeDomain(value: string) {
     .replace(/\s+/g, "");
 }
 
+type DomainResult = {
+  domain: string;
+  available: boolean;
+};
+
 export default function DomainSearch() {
   const [domain, setDomain] = useState("");
   const [error, setError] = useState("");
+  const [result, setResult] = useState<DomainResult | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const cleaned = normalizeDomain(domain);
 
     if (!cleaned || !cleaned.includes(".")) {
+      setResult(null);
       setError("Enter a full domain name, like mybusiness.com");
       return;
     }
 
     setError("");
-    window.open(
-      `https://lookup.icann.org/en/lookup?name=${encodeURIComponent(cleaned)}`,
-      "_blank",
-      "noopener,noreferrer"
-    );
+    setResult(null);
+    setLoading(true);
+
+    try {
+      const response = await fetch(`/api/domain-check?domain=${encodeURIComponent(cleaned)}`);
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data?.error || "We could not check that domain right now.");
+      }
+
+      setResult({ domain: data.domain, available: Boolean(data.available) });
+    } catch (lookupError) {
+      setError(lookupError instanceof Error ? lookupError.message : "We could not check that domain right now.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -45,7 +65,7 @@ export default function DomainSearch() {
               Is Your Business Domain Available?
             </h2>
             <p className="text-gray-300 text-lg leading-relaxed max-w-xl">
-              Search a domain name before you start your website. We’ll open the official ICANN lookup so you can confirm whether the domain is already registered.
+              Search a domain name before you start your website. Your availability result appears instantly right here without leaving Jay’s Web Design Services.
             </p>
           </div>
 
@@ -61,21 +81,55 @@ export default function DomainSearch() {
                     id="domain-name"
                     type="text"
                     value={domain}
-                    onChange={(event) => setDomain(event.target.value)}
+                    onChange={(event) => {
+                      setDomain(event.target.value);
+                      setError("");
+                      setResult(null);
+                    }}
                     placeholder="mybusiness.com"
                     className="w-full border border-gray-200 rounded-xl pl-12 pr-4 py-4 outline-none focus:border-blue-500"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="btn-primary btn-glow px-6 py-4 rounded-xl font-bold flex items-center justify-center gap-2 whitespace-nowrap"
+                  disabled={loading}
+                  className="btn-primary btn-glow px-6 py-4 rounded-xl font-bold flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-70"
                 >
-                  <Search size={19} /> Check Domain
+                  {loading ? <Loader2 size={19} className="animate-spin" /> : <Search size={19} />}
+                  {loading ? "Checking..." : "Check Domain"}
                 </button>
               </div>
+
               {error && <p className="text-sm text-red-600 font-medium">{error}</p>}
-              <p className="text-xs text-gray-500 flex items-center gap-2">
-                <ExternalLink size={14} /> Results open in the official ICANN registration lookup.
+
+              {result && (
+                <div
+                  className={`rounded-2xl border p-5 flex items-start gap-3 ${
+                    result.available
+                      ? "bg-green-50 border-green-200 text-green-800"
+                      : "bg-red-50 border-red-200 text-red-800"
+                  }`}
+                >
+                  {result.available ? (
+                    <CheckCircle2 size={24} className="flex-shrink-0 mt-0.5" />
+                  ) : (
+                    <XCircle size={24} className="flex-shrink-0 mt-0.5" />
+                  )}
+                  <div>
+                    <p className="font-extrabold text-lg">
+                      {result.domain} {result.available ? "looks available!" : "is already registered."}
+                    </p>
+                    <p className="text-sm mt-1 opacity-90">
+                      {result.available
+                        ? "Great choice. Domain availability can change quickly, so register it soon if you want it."
+                        : "Try another name or a different extension such as .net, .co, or .us."}
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              <p className="text-xs text-gray-500">
+                Availability is checked using public domain registration data. Final availability is confirmed when the domain is registered with a registrar.
               </p>
             </form>
 
