@@ -1,4 +1,4 @@
-import { clearStateCookie, getStateCookie, redirectUri, setSessionCookie } from "../../lib/searchConsole";
+import { clearStateCookie, getStateCookie, redirectUri, setSessionCookie } from "../../lib/searchConsole.js";
 
 export default async function handler(req: any, res: any) {
   const { code, state, error } = req.query || {};
