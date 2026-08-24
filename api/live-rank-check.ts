@@ -11,15 +11,41 @@ function normalizeText(input: string) {
   return input.trim().toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
 }
 
+function addCountry(location: string) {
+  return /united states|\busa\b|\bu\.s\.?\b/i.test(location)
+    ? location
+    : `${location}, United States`;
+}
+
+function getResultItems(data: any) {
+  const tasks = Array.isArray(data?.tasks) ? data.tasks : [];
+  const result = tasks?.[0]?.result?.[0];
+  return Array.isArray(result?.items) ? result.items : [];
+}
+
+function getTaskError(data: any) {
+  if (data?.status_code && data.status_code !== 20000) {
+    return data.status_message || "DataForSEO request failed.";
+  }
+  const task = Array.isArray(data?.tasks) ? data.tasks[0] : null;
+  if (task?.status_code && task.status_code !== 20000) {
+    return task.status_message || "DataForSEO task failed.";
+  }
+  return "";
+}
+
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed." });
   }
 
-  const apiKey = process.env.SERPER_API_KEY;
-  if (!apiKey) {
-    return res.status(500).json({ error: "Live rank checker is not configured yet. Add SERPER_API_KEY in Vercel." });
+  const login = process.env.DATAFORSEO_LOGIN;
+  const password = process.env.DATAFORSEO_PASSWORD;
+  if (!login || !password) {
+    return res.status(500).json({
+      error: "Live rank checker is not configured yet. Add DATAFORSEO_LOGIN and DATAFORSEO_PASSWORD in Vercel.",
+    });
   }
 
   const keyword = String(req.body?.keyword || "").trim();
@@ -36,77 +62,84 @@ export default async function handler(req: any, res: any) {
     return res.status(400).json({ error: "Enter a valid website domain." });
   }
 
+  const authorization = `Basic ${Buffer.from(`${login}:${password}`).toString("base64")}`;
   const headers = {
-    "X-API-KEY": apiKey,
+    Authorization: authorization,
     "Content-Type": "application/json",
   };
 
+  const task = [{
+    keyword,
+    location_name: addCountry(location),
+    language_code: "en",
+    depth: 100,
+  }];
+
   try {
-    const [searchResponse, mapsResponse] = await Promise.all([
-      fetch("https://google.serper.dev/search", {
+    const [organicResponse, mapsResponse] = await Promise.all([
+      fetch("https://api.dataforseo.com/v3/serp/google/organic/live/advanced", {
         method: "POST",
         headers,
-        body: JSON.stringify({
-          q: keyword,
-          location,
-          gl: "us",
-          hl: "en",
-          num: 100,
-        }),
+        body: JSON.stringify(task),
       }),
-      fetch("https://google.serper.dev/maps", {
+      fetch("https://api.dataforseo.com/v3/serp/google/maps/live/advanced", {
         method: "POST",
         headers,
-        body: JSON.stringify({
-          q: keyword,
-          location,
-          gl: "us",
-          hl: "en",
-        }),
+        body: JSON.stringify(task),
       }),
     ]);
 
-    const searchData: any = await searchResponse.json();
+    const organicData: any = await organicResponse.json();
     const mapsData: any = await mapsResponse.json();
 
-    if (!searchResponse.ok) {
-      return res.status(searchResponse.status).json({ error: searchData?.message || searchData?.error || "Unable to check Google organic rankings." });
+    if (!organicResponse.ok) {
+      return res.status(organicResponse.status).json({ error: getTaskError(organicData) || "Unable to check Google organic rankings." });
     }
-
     if (!mapsResponse.ok) {
-      return res.status(mapsResponse.status).json({ error: mapsData?.message || mapsData?.error || "Unable to check Google Maps rankings." });
+      return res.status(mapsResponse.status).json({ error: getTaskError(mapsData) || "Unable to check Google Maps rankings." });
     }
 
-    const organicResults = Array.isArray(searchData?.organic) ? searchData.organic : [];
+    const organicError = getTaskError(organicData);
+    const mapsError = getTaskError(mapsData);
+    if (organicError) return res.status(502).json({ error: organicError });
+    if (mapsError) return res.status(502).json({ error: mapsError });
+
+    const organicItems = getResultItems(organicData).filter((item: any) => item?.type === "organic");
+    const organicResults = organicItems.map((item: any, index: number) => ({
+      position: Number(item?.rank_absolute || item?.rank_group || index + 1),
+      title: String(item?.title || ""),
+      link: String(item?.url || ""),
+      domain: normalizeDomain(String(item?.domain || item?.url || "")),
+    }));
+
     const organicMatch = organicResults.find((item: any) => {
-      const resultDomain = normalizeDomain(String(item?.link || ""));
+      const resultDomain = normalizeDomain(item.domain || item.link);
       return resultDomain === domain || resultDomain.endsWith(`.${domain}`);
     });
 
-    const places = Array.isArray(mapsData?.places) ? mapsData.places : [];
+    const mapsItems = getResultItems(mapsData);
+    const places = mapsItems
+      .filter((item: any) => item && (item.type === "maps_search" || item.type === "maps" || item.title || item.address))
+      .map((item: any, index: number) => ({
+        position: Number(item?.rank_absolute || item?.rank_group || index + 1),
+        title: String(item?.title || item?.name || ""),
+        address: String(item?.address || item?.address_info?.address || ""),
+        rating: Number(item?.rating?.value ?? item?.rating ?? 0),
+        ratingCount: Number(item?.rating?.votes_count ?? item?.rating_count ?? item?.reviews_count ?? 0),
+        website: String(item?.url || item?.website || item?.domain || ""),
+      }));
+
     const normalizedBusinessName = normalizeText(businessName);
     const mapsMatch = places.find((place: any) => {
-      const placeDomain = normalizeDomain(String(place?.website || ""));
-      const websiteMatches = placeDomain && (placeDomain === domain || placeDomain.endsWith(`.${domain}`));
-      const nameMatches = normalizedBusinessName && normalizeText(String(place?.title || "")).includes(normalizedBusinessName);
+      const placeDomain = normalizeDomain(place.website || "");
+      const websiteMatches = Boolean(placeDomain && (placeDomain === domain || placeDomain.endsWith(`.${domain}`)));
+      const normalizedPlaceName = normalizeText(place.title || "");
+      const nameMatches = Boolean(
+        normalizedBusinessName &&
+        (normalizedPlaceName.includes(normalizedBusinessName) || normalizedBusinessName.includes(normalizedPlaceName))
+      );
       return websiteMatches || nameMatches;
     });
-
-    const topOrganic = organicResults.slice(0, 10).map((item: any) => ({
-      position: Number(item.position || 0),
-      title: String(item.title || ""),
-      link: String(item.link || ""),
-      domain: normalizeDomain(String(item.link || "")),
-    }));
-
-    const topMaps = places.slice(0, 10).map((place: any) => ({
-      position: Number(place.position || 0),
-      title: String(place.title || ""),
-      address: String(place.address || ""),
-      rating: Number(place.rating || 0),
-      ratingCount: Number(place.ratingCount || 0),
-      website: String(place.website || ""),
-    }));
 
     return res.status(200).json({
       keyword,
@@ -116,24 +149,24 @@ export default async function handler(req: any, res: any) {
       organic: organicMatch
         ? {
             found: true,
-            position: Number(organicMatch.position || 0),
-            title: String(organicMatch.title || ""),
-            link: String(organicMatch.link || ""),
+            position: organicMatch.position,
+            title: organicMatch.title,
+            link: organicMatch.link,
           }
         : { found: false, position: null },
       maps: mapsMatch
         ? {
             found: true,
-            position: Number(mapsMatch.position || 0),
-            title: String(mapsMatch.title || ""),
-            address: String(mapsMatch.address || ""),
-            rating: Number(mapsMatch.rating || 0),
-            ratingCount: Number(mapsMatch.ratingCount || 0),
-            website: String(mapsMatch.website || ""),
+            position: mapsMatch.position,
+            title: mapsMatch.title,
+            address: mapsMatch.address,
+            rating: mapsMatch.rating,
+            ratingCount: mapsMatch.ratingCount,
+            website: mapsMatch.website,
           }
         : { found: false, position: null },
-      topOrganic,
-      topMaps,
+      topOrganic: organicResults.slice(0, 10),
+      topMaps: places.slice(0, 10),
     });
   } catch (error: any) {
     return res.status(500).json({ error: error?.message || "Unable to complete the live Google rank check." });
