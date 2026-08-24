@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { redirectUri, setStateCookie } from "../../lib/searchConsole";
+import { redirectUri, setStateCookie } from "../../lib/searchConsole.js";
 
 export default function handler(req: any, res: any) {
   if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET || !process.env.SEARCH_CONSOLE_SESSION_SECRET) {
