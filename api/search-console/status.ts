@@ -1,4 +1,4 @@
-import { readSession } from "../../lib/searchConsole";
+import { readSession } from "../../lib/searchConsole.js";
 
 export default function handler(req: any, res: any) {
   const session = readSession(req);
