@@ -1,4 +1,4 @@
-import { getAccessToken } from "../../lib/searchConsole";
+import { getAccessToken } from "../../lib/searchConsole.js";
 
 export default async function handler(req: any, res: any) {
   const token = await getAccessToken(req, res);
