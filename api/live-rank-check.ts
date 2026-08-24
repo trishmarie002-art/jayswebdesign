@@ -23,6 +23,10 @@ const US_STATES: Record<string, string> = {
   wv: "west virginia", wi: "wisconsin", wy: "wyoming", dc: "district of columbia",
 };
 
+const BRAND_STOP_WORDS = new Set([
+  "texas", "tx", "usa", "us", "company", "services", "service", "llc", "inc", "co", "the", "and"
+]);
+
 function normalizeLocationInput(input: string) {
   const parts = input
     .split(",")
@@ -35,6 +39,13 @@ function normalizeLocationInput(input: string) {
   }
 
   return normalizeText(parts.join(" "));
+}
+
+function getBrandTokens(domain: string, businessName: string) {
+  const source = businessName.trim() || domain.split(".")[0].replace(/[-_]+/g, " ");
+  return normalizeText(source)
+    .split(" ")
+    .filter((token) => token.length >= 4 && !BRAND_STOP_WORDS.has(token));
 }
 
 function getResultItems(data: any) {
@@ -71,7 +82,6 @@ async function resolveLocationCode(authorization: string, input: string) {
   const locations = Array.isArray(data?.tasks?.[0]?.result) ? data.tasks[0].result : [];
   const wanted = normalizeLocationInput(input);
   const wantedTokens = wanted.split(" ").filter(Boolean);
-
   const usLocations = locations.filter((item: any) => item?.country_iso_code === "US");
 
   const ranked = usLocations
@@ -171,7 +181,8 @@ export default async function handler(req: any, res: any) {
 
     const organicItems = getResultItems(organicData).filter((item: any) => item?.type === "organic");
     const organicResults = organicItems.map((item: any, index: number) => ({
-      position: Number(item?.rank_absolute || item?.rank_group || index + 1),
+      position: Number(item?.rank_group || index + 1),
+      absolutePosition: Number(item?.rank_absolute || 0),
       title: String(item?.title || ""),
       link: String(item?.url || ""),
       domain: normalizeDomain(String(item?.domain || item?.url || "")),
@@ -184,26 +195,32 @@ export default async function handler(req: any, res: any) {
 
     const mapsItems = getResultItems(mapsData);
     const places = mapsItems
-      .filter((item: any) => item && (item.type === "maps_search" || item.type === "maps" || item.title || item.address))
+      .filter((item: any) => item && (item.type === "maps_search" || item.type === "maps_paid_item"))
       .map((item: any, index: number) => ({
-        position: Number(item?.rank_absolute || item?.rank_group || index + 1),
-        title: String(item?.title || item?.name || ""),
-        address: String(item?.address || item?.address_info?.address || ""),
-        rating: Number(item?.rating?.value ?? item?.rating ?? 0),
-        ratingCount: Number(item?.rating?.votes_count ?? item?.rating_count ?? item?.reviews_count ?? 0),
-        website: String(item?.url || item?.website || item?.domain || ""),
+        position: Number(item?.rank_group || index + 1),
+        absolutePosition: Number(item?.rank_absolute || 0),
+        title: String(item?.title || item?.original_title || ""),
+        address: String(item?.address || item?.snippet || item?.address_info?.address || ""),
+        rating: Number(item?.rating?.value ?? 0),
+        ratingCount: Number(item?.rating?.votes_count ?? 0),
+        website: String(item?.domain || item?.url || ""),
+        domain: normalizeDomain(String(item?.domain || "")),
       }));
 
     const normalizedBusinessName = normalizeText(businessName);
+    const brandTokens = getBrandTokens(domain, businessName);
+
     const mapsMatch = places.find((place: any) => {
-      const placeDomain = normalizeDomain(place.website || "");
+      const placeDomain = normalizeDomain(place.domain || place.website || "");
       const websiteMatches = Boolean(placeDomain && (placeDomain === domain || placeDomain.endsWith(`.${domain}`)));
       const normalizedPlaceName = normalizeText(place.title || "");
-      const nameMatches = Boolean(
+      const explicitNameMatches = Boolean(
         normalizedBusinessName &&
         (normalizedPlaceName.includes(normalizedBusinessName) || normalizedBusinessName.includes(normalizedPlaceName))
       );
-      return websiteMatches || nameMatches;
+      const tokenMatches = brandTokens.filter((token) => normalizedPlaceName.includes(token));
+      const inferredBrandMatches = brandTokens.length > 0 && tokenMatches.length >= Math.min(2, brandTokens.length);
+      return websiteMatches || explicitNameMatches || inferredBrandMatches;
     });
 
     return res.status(200).json({
@@ -218,7 +235,7 @@ export default async function handler(req: any, res: any) {
             title: organicMatch.title,
             link: organicMatch.link,
           }
-        : { found: false, position: null },
+        : { found: false, position: null, checkedDepth: 100 },
       maps: mapsMatch
         ? {
             found: true,
@@ -229,7 +246,11 @@ export default async function handler(req: any, res: any) {
             ratingCount: mapsMatch.ratingCount,
             website: mapsMatch.website,
           }
-        : { found: false, position: null },
+        : {
+            found: false,
+            position: null,
+            identificationLimited: !businessName,
+          },
       topOrganic: organicResults.slice(0, 10),
       topMaps: places.slice(0, 10),
     });
