@@ -11,10 +11,30 @@ function normalizeText(input: string) {
   return input.trim().toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
 }
 
-function addCountry(location: string) {
-  return /united states|\busa\b|\bu\.s\.?\b/i.test(location)
-    ? location
-    : `${location}, United States`;
+const US_STATES: Record<string, string> = {
+  al: "alabama", ak: "alaska", az: "arizona", ar: "arkansas", ca: "california", co: "colorado",
+  ct: "connecticut", de: "delaware", fl: "florida", ga: "georgia", hi: "hawaii", id: "idaho",
+  il: "illinois", in: "indiana", ia: "iowa", ks: "kansas", ky: "kentucky", la: "louisiana",
+  me: "maine", md: "maryland", ma: "massachusetts", mi: "michigan", mn: "minnesota", ms: "mississippi",
+  mo: "missouri", mt: "montana", ne: "nebraska", nv: "nevada", nh: "new hampshire", nj: "new jersey",
+  nm: "new mexico", ny: "new york", nc: "north carolina", nd: "north dakota", oh: "ohio", ok: "oklahoma",
+  or: "oregon", pa: "pennsylvania", ri: "rhode island", sc: "south carolina", sd: "south dakota",
+  tn: "tennessee", tx: "texas", ut: "utah", vt: "vermont", va: "virginia", wa: "washington",
+  wv: "west virginia", wi: "wisconsin", wy: "wyoming", dc: "district of columbia",
+};
+
+function normalizeLocationInput(input: string) {
+  const parts = input
+    .split(",")
+    .map((part) => part.trim())
+    .filter(Boolean);
+
+  if (parts.length >= 2) {
+    const stateKey = normalizeText(parts[1]);
+    if (US_STATES[stateKey]) parts[1] = US_STATES[stateKey];
+  }
+
+  return normalizeText(parts.join(" "));
 }
 
 function getResultItems(data: any) {
@@ -32,6 +52,50 @@ function getTaskError(data: any) {
     return task.status_message || "DataForSEO task failed.";
   }
   return "";
+}
+
+async function resolveLocationCode(authorization: string, input: string) {
+  if (/^\d{5}$/.test(input.trim())) {
+    throw new Error("Please enter a city and state, such as San Antonio, TX. ZIP-only searches are not supported yet.");
+  }
+
+  const response = await fetch("https://api.dataforseo.com/v3/serp/google/locations", {
+    headers: { Authorization: authorization },
+  });
+  const data: any = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data?.status_message || "Unable to load DataForSEO locations.");
+  }
+
+  const locations = Array.isArray(data?.tasks?.[0]?.result) ? data.tasks[0].result : [];
+  const wanted = normalizeLocationInput(input);
+  const wantedTokens = wanted.split(" ").filter(Boolean);
+
+  const usLocations = locations.filter((item: any) => item?.country_iso_code === "US");
+
+  const ranked = usLocations
+    .map((item: any) => {
+      const name = normalizeText(String(item?.location_name || ""));
+      const tokensMatched = wantedTokens.filter((token) => name.includes(token)).length;
+      let score = tokensMatched;
+      if (name.startsWith(wanted)) score += 20;
+      if (name === `${wanted} united states`) score += 30;
+      if (String(item?.location_type || "").toLowerCase() === "city") score += 5;
+      return { item, score };
+    })
+    .filter((entry: any) => entry.score >= wantedTokens.length)
+    .sort((a: any, b: any) => b.score - a.score);
+
+  const best = ranked[0]?.item;
+  if (!best?.location_code) {
+    throw new Error(`We couldn't match "${input}" to a Google location. Try City, State, for example: San Antonio, TX.`);
+  }
+
+  return {
+    code: Number(best.location_code),
+    name: String(best.location_name || input),
+  };
 }
 
 export default async function handler(req: any, res: any) {
@@ -68,14 +132,15 @@ export default async function handler(req: any, res: any) {
     "Content-Type": "application/json",
   };
 
-  const task = [{
-    keyword,
-    location_name: addCountry(location),
-    language_code: "en",
-    depth: 100,
-  }];
-
   try {
+    const resolvedLocation = await resolveLocationCode(authorization, location);
+    const task = [{
+      keyword,
+      location_code: resolvedLocation.code,
+      language_code: "en",
+      depth: 100,
+    }];
+
     const [organicResponse, mapsResponse] = await Promise.all([
       fetch("https://api.dataforseo.com/v3/serp/google/organic/live/advanced", {
         method: "POST",
@@ -144,7 +209,7 @@ export default async function handler(req: any, res: any) {
     return res.status(200).json({
       keyword,
       website: domain,
-      location,
+      location: resolvedLocation.name,
       checkedAt: new Date().toISOString(),
       organic: organicMatch
         ? {
