@@ -10,6 +10,7 @@ const navLinks = [
   { name: "About", href: "/#about" },
   { name: "Industries", href: "/#industries" },
   { name: "Portfolio", href: "/#portfolio" },
+  { name: "Free Rank Tracker", href: "/google-rank-tracker" },
   { name: "FAQ", href: "/#faq" },
   { name: "Contact", href: "/#contact" },
 ];
@@ -25,14 +26,13 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setIsOpen(false);
   }, [location]);
 
   const isLinkActive = (href: string) => {
     if (href === "/") return location.pathname === "/";
-    return false;
+    return location.pathname === href;
   };
 
   return (
@@ -50,8 +50,7 @@ export default function Header() {
             <Logo light size="md" className="scale-105 md:scale-110 origin-left" />
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -72,7 +71,6 @@ export default function Header() {
             </a>
           </nav>
 
-          {/* Mobile Menu Button */}
           <button
             className="md:hidden text-white p-2"
             onClick={() => setIsOpen(!isOpen)}
@@ -82,7 +80,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Nav */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
