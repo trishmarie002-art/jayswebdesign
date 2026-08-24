@@ -1,4 +1,4 @@
-import { getAccessToken } from "../../lib/searchConsole";
+import { getAccessToken } from "../../lib/searchConsole.js";
 
 function isoDate(date: Date) {
   return date.toISOString().slice(0, 10);
