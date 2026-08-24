@@ -10,7 +10,7 @@ const navLinks = [
   { name: "About", href: "/#about" },
   { name: "Industries", href: "/#industries" },
   { name: "Portfolio", href: "/#portfolio" },
-  { name: "Free Rank Tracker", href: "/google-rank-tracker" },
+  { name: "Live Rank Checker", href: "/google-rank-tracker" },
   { name: "FAQ", href: "/#faq" },
   { name: "Contact", href: "/#contact" },
 ];
