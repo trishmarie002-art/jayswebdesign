@@ -28,6 +28,7 @@ type RankData = {
     position: number | null;
     title?: string;
     link?: string;
+    checkedDepth?: number;
   };
   maps: {
     found: boolean;
@@ -37,6 +38,7 @@ type RankData = {
     rating?: number;
     ratingCount?: number;
     website?: string;
+    identificationLimited?: boolean;
   };
   topOrganic: OrganicResult[];
   topMaps: MapResult[];
@@ -95,7 +97,7 @@ export default function GoogleRankTracker() {
               See Where You Rank <span className="text-blue-400">Right Now</span>
             </h1>
             <p className="text-lg text-slate-300 leading-relaxed">
-              Enter your website, keyword and target location. We check current Google search results and local Maps results so you can see where you appear and who is ahead of you.
+              Enter your website, keyword and target location. We check current Google organic results and Google Maps results for that location.
             </p>
           </div>
 
@@ -117,14 +119,14 @@ export default function GoogleRankTracker() {
                 <input
                   value={keyword}
                   onChange={(e) => setKeyword(e.target.value)}
-                  placeholder="plumber in san antonio tx"
+                  placeholder="plumber near me"
                   required
                   className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3.5 outline-none focus:border-blue-500"
                 />
               </label>
 
               <label>
-                <span className="block text-sm text-slate-300 mb-2">City, State or ZIP</span>
+                <span className="block text-sm text-slate-300 mb-2">City, State</span>
                 <input
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
@@ -135,11 +137,11 @@ export default function GoogleRankTracker() {
               </label>
 
               <label>
-                <span className="block text-sm text-slate-300 mb-2">Business name <span className="text-slate-500">(helps match Maps)</span></span>
+                <span className="block text-sm text-slate-300 mb-2">Business name <span className="text-blue-400">(recommended for Maps)</span></span>
                 <input
                   value={businessName}
                   onChange={(e) => setBusinessName(e.target.value)}
-                  placeholder="Your Business Name"
+                  placeholder="Plumbdaddy Plumbing + Drain"
                   className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3.5 outline-none focus:border-blue-500"
                 />
               </label>
@@ -153,7 +155,7 @@ export default function GoogleRankTracker() {
               {loading ? <Loader2 size={20} className="animate-spin" /> : <Search size={20} />}
               {loading ? "Checking Google..." : "Check Live Rankings"}
             </button>
-            <p className="text-xs text-slate-500 mt-4">Results are location-specific, non-personalized live SERP data and can change throughout the day.</p>
+            <p className="text-xs text-slate-500 mt-4">This is a live, location-specific SERP check. Results can differ from a personalized Google search and can change throughout the day.</p>
           </form>
 
           {error && (
@@ -170,14 +172,21 @@ export default function GoogleRankTracker() {
                   label="Google Organic Rank"
                   rank={data.organic.position}
                   found={data.organic.found}
-                  detail={data.organic.link || `Not found in checked organic results for ${data.keyword}`}
+                  missingLabel="Not detected"
+                  detail={data.organic.link || `Domain was not detected in the first ${data.organic.checkedDepth || 100} organic results returned for this check.`}
                 />
                 <RankCard
                   icon={<MapPin size={24} />}
                   label="Google Maps Rank"
                   rank={data.maps.position}
                   found={data.maps.found}
-                  detail={data.maps.address || "Business listing not found in checked Maps results"}
+                  missingLabel={data.maps.identificationLimited ? "Could not identify" : "Not detected"}
+                  detail={
+                    data.maps.address ||
+                    (data.maps.identificationLimited
+                      ? "The provider did not attach enough website data to identify the listing confidently. Enter the exact Google Business Profile name and run it again."
+                      : "Business listing was not detected in the Maps results returned for this check.")
+                  }
                 />
               </div>
 
@@ -228,12 +237,12 @@ export default function GoogleRankTracker() {
   );
 }
 
-function RankCard({ icon, label, rank, found, detail }: { icon: React.ReactNode; label: string; rank: number | null; found: boolean; detail: string }) {
+function RankCard({ icon, label, rank, found, detail, missingLabel }: { icon: React.ReactNode; label: string; rank: number | null; found: boolean; detail: string; missingLabel: string }) {
   return (
     <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8">
       <div className="text-blue-400 mb-4">{icon}</div>
       <div className="text-sm uppercase tracking-[0.18em] text-slate-400 font-bold">{label}</div>
-      <div className="text-5xl md:text-6xl font-black mt-2 mb-3">{found && rank ? `#${rank}` : "Not found"}</div>
+      <div className="text-5xl md:text-6xl font-black mt-2 mb-3">{found && rank ? `#${rank}` : missingLabel}</div>
       <div className="text-sm text-slate-400 break-all">{detail}</div>
     </div>
   );
