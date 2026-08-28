@@ -14,7 +14,6 @@ import Resources from "./components/Resources";
 import LeadMagnet from "./components/LeadMagnet";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
-import ChatWidget from "./components/ChatWidget";
 import PriceEstimator from "./components/PriceEstimator";
 import MobileContactBar from "./components/MobileContactBar";
 import ReferralRewardsSection from "./components/ReferralRewardsSection";
@@ -147,7 +146,6 @@ export default function App() {
             </Routes>
           </main>
           <Footer />
-          <ChatWidget />
           <MobileContactBar />
         </div>
       </Router>
