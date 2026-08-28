@@ -1,6 +1,3 @@
-import { db } from "../lib/firebase";
-import { collection, addDoc } from "firebase/firestore";
-
 export async function saveLead(leadData: {
   name: string;
   phone: string;
@@ -12,17 +9,25 @@ export async function saveLead(leadData: {
   website?: string;
 }) {
   try {
-    const docRef = await addDoc(collection(db, "leads"), {
-      ...leadData,
-      email: leadData.email || "",
-      projectDescription: leadData.projectDescription || "",
-      website: leadData.website || "",
-      timestamp: new Date().toISOString(),
+    const response = await fetch("/api/leads", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...leadData,
+        email: leadData.email || "",
+        projectDescription: leadData.projectDescription || "",
+        website: leadData.website || "",
+      }),
     });
-    
-    return docRef.id;
+
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || !result.ok) {
+      throw new Error(result.error || `Lead API returned ${response.status}`);
+    }
+
+    return result.id as string | undefined;
   } catch (error: any) {
-    console.error("Firestore Lead Save Error:", error);
+    console.error("Lead Save Error:", error);
     throw new Error(`Failed to save lead: ${error.message || String(error)}`);
   }
 }
