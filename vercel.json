@@ -1,10 +1,6 @@
 {
   "rewrites": [
     {
-      "source": "/google-rank-tracker",
-      "destination": "/index.html"
-    },
-    {
       "source": "/referral-rewards",
       "destination": "/index.html"
     },
