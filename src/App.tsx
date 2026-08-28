@@ -26,7 +26,6 @@ import Admin from "./pages/Admin";
 import StateArea from "./pages/StateArea";
 import ServiceAreas from "./pages/ServiceAreas";
 import ReferralRewards from "./pages/ReferralRewards";
-import GoogleRankTracker from "./pages/GoogleRankTracker";
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -140,7 +139,6 @@ export default function App() {
               <Route path="/blog/:id" element={<BlogPost />} />
               <Route path="/service-areas" element={<ServiceAreas />} />
               <Route path="/referral-rewards" element={<ReferralRewards />} />
-              <Route path="/google-rank-tracker" element={<GoogleRankTracker />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="/:slug" element={<StateArea />} />
             </Routes>
