@@ -18,10 +18,11 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    // Save to Firestore first
-    try {
-      await saveLead({
+
+    // Start both delivery paths immediately. The API stores the lead for the
+    // admin panel, while Formspree sends the email notification backup.
+    const formspreeRequest = handleFormspreeSubmit(e);
+    const leadRequest = saveLead({
         name: formData.name,
         phone: formData.phone,
         businessName: formData.businessName,
@@ -31,12 +32,14 @@ export default function ContactForm() {
         projectDescription: formData.message,
         source: "contact_form"
       });
-    } catch (err) {
-      console.error("Firestore save failed but continuing with Formspree:", err);
-    }
 
-    // Then submit to Formspree
-    handleFormspreeSubmit(e);
+    const [leadResult, emailResult] = await Promise.allSettled([leadRequest, formspreeRequest]);
+    if (leadResult.status === "rejected") {
+      console.error("Admin lead capture failed:", leadResult.reason);
+    }
+    if (emailResult.status === "rejected") {
+      console.error("Contact email delivery failed:", emailResult.reason);
+    }
   };
 
   // Handle local state for input values while using Formspree's handleSubmit
