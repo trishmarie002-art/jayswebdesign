@@ -26,6 +26,7 @@ import Admin from "./pages/Admin";
 import StateArea from "./pages/StateArea";
 import ServiceAreas from "./pages/ServiceAreas";
 import ReferralRewards from "./pages/ReferralRewards";
+import PortfolioPage from "./pages/PortfolioPage";
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -135,6 +136,7 @@ export default function App() {
           <main>
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/portfolio" element={<PortfolioPage />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:id" element={<BlogPost />} />
               <Route path="/service-areas" element={<ServiceAreas />} />
