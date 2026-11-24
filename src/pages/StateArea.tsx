@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { CheckCircle2, MapPin, Phone, ArrowRight } from "lucide-react";
@@ -9,6 +10,11 @@ export default function StateArea() {
   const { slug } = useParams<{ slug: string }>();
   const area = stateAreas.find((item) => item.slug === slug);
 
+  const pageTitle = area ? `Cheap & Affordable Web Design in ${area.state}` : "";
+  useEffect(() => {
+    if (pageTitle) document.title = pageTitle;
+  }, [pageTitle]);
+
   if (!area) {
     return <Navigate to="/service-areas" replace />;
   }
@@ -19,12 +25,14 @@ export default function StateArea() {
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
-        <title>{`Cheap & Affordable Web Design in ${area.state}`}</title>
+        <title>{pageTitle}</title>
         <meta name="description" content={area.metaDescription} />
-        <meta property="og:title" content={area.title} />
+        <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={area.metaDescription} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={canonical} />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={area.metaDescription} />
         <meta name="twitter:card" content="summary_large_image" />
         <link rel="canonical" href={canonical} />
         <script type="application/ld+json">
