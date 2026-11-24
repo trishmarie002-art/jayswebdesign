@@ -115,9 +115,7 @@ export default function Footer() {
             </Link>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Link to="/" className="bg-gray-900 hover:bg-blue-600 border border-white/10 text-gray-300 hover:text-white px-4 py-2.5 rounded-xl text-sm font-bold transition-all">
-              Texas
-            </Link>
+            
             {stateAreas.map((area) => (
               <Link
                 key={area.slug}
