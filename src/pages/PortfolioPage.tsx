@@ -1,3 +1,4 @@
+import { mergeMockups } from "../data/portfolioMockups";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { ExternalLink, Loader2 } from "lucide-react";
@@ -13,6 +14,7 @@ interface Project {
   category: string;
   alt: string;
   order?: number;
+  staticMockup?: boolean;
 }
 
 export default function PortfolioPage() {
@@ -40,6 +42,8 @@ export default function PortfolioPage() {
     return () => unsubscribe();
   }, []);
 
+  const displayedProjects = mergeMockups(projects);
+
   return (
     <>
       <Helmet>
@@ -59,7 +63,7 @@ export default function PortfolioPage() {
               Full Portfolio
             </h1>
             <p className="text-gray-400 text-base md:text-lg">
-              Browse all of the websites currently featured in our portfolio. Click any project to visit the live site.
+              Browse all of the websites currently featured in our portfolio. Click a project to view its website or design preview.
             </p>
           </div>
 
@@ -67,9 +71,9 @@ export default function PortfolioPage() {
             <div className="py-24 flex justify-center">
               <Loader2 className="animate-spin text-blue-500 w-12 h-12" />
             </div>
-          ) : projects.length > 0 ? (
+          ) : displayedProjects.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
-              {projects.map((project, index) => (
+              {displayedProjects.map((project, index) => (
                 <motion.a
                   key={project.id}
                   href={project.url}
@@ -88,9 +92,9 @@ export default function PortfolioPage() {
                       width={800}
                       height={450}
                       loading="lazy"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      className={`w-full h-full ${project.staticMockup ? "object-contain p-2" : "object-cover group-hover:scale-105"} transition-transform duration-700`}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                    {!project.staticMockup && <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />}
                     <div className="absolute top-4 right-4 bg-blue-600 p-2 rounded-full translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 shadow-lg">
                       <ExternalLink size={18} />
                     </div>
@@ -102,7 +106,7 @@ export default function PortfolioPage() {
                     <h2 className="text-xl font-bold mt-2 mb-2 group-hover:text-blue-400 transition-colors">
                       {project.name}
                     </h2>
-                    <p className="text-gray-400 text-sm">View live website</p>
+                    <p className="text-gray-400 text-sm">{project.url === project.image ? "View project image" : "View live website"}</p>
                   </div>
                 </motion.a>
               ))}

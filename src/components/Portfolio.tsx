@@ -1,3 +1,4 @@
+import { mergeMockups } from "../data/portfolioMockups";
 import { motion } from "motion/react";
 import { ExternalLink, Loader2, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -14,6 +15,7 @@ interface Project {
   alt: string;
   order?: number;
   featured?: boolean;
+  staticMockup?: boolean;
 }
 
 const FALLBACK_PROJECTS: Project[] = [
@@ -118,7 +120,7 @@ export default function Portfolio() {
   }
 
   const explicitlyFeatured = projects.filter((project) => project.featured === true);
-  const featuredProjects = (explicitlyFeatured.length > 0 ? explicitlyFeatured : projects).slice(0, 6);
+  const featuredProjects = mergeMockups(explicitlyFeatured.length > 0 ? explicitlyFeatured : projects);
 
   return (
     <section id="portfolio" className="py-20 md:py-24 bg-black">
@@ -161,9 +163,9 @@ export default function Portfolio() {
                     width={800}
                     height={450}
                     loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    className={`w-full h-full ${project.staticMockup ? "object-contain p-2" : "object-cover group-hover:scale-105"} transition-transform duration-700`}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                  {!project.staticMockup && <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />}
                   <div className="absolute top-4 right-4 bg-blue-600 p-2 rounded-full translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 shadow-lg">
                     <ExternalLink size={18} className="text-white" />
                   </div>
@@ -175,7 +177,7 @@ export default function Portfolio() {
                   <h3 className="text-xl font-bold text-white mt-2 mb-2 group-hover:text-blue-400 transition-colors">
                     {project.name}
                   </h3>
-                  <div className="text-gray-400 text-sm">View live website</div>
+                  <div className="text-gray-400 text-sm">{project.url === project.image ? "View project image" : "View live website"}</div>
                 </div>
               </motion.a>
             ))}
