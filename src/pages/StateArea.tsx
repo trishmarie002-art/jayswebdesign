@@ -19,7 +19,7 @@ export default function StateArea() {
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
-        <title>{area.title} | Jay's Web Design</title>
+        <title>{`Cheap & Affordable Web Design in ${area.state}`}</title>
         <meta name="description" content={area.metaDescription} />
         <meta property="og:title" content={area.title} />
         <meta property="og:description" content={area.metaDescription} />
