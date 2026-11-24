@@ -205,7 +205,7 @@ export default function StateArea() {
           <div className="mt-12 pt-8 border-t border-blue-400/40">
             <p className="text-sm font-bold uppercase tracking-widest text-blue-100 text-center mb-5">Explore other service areas</p>
             <div className="flex flex-wrap justify-center gap-3">
-              <Link to="/" className="bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded-lg text-sm font-medium">Texas</Link>
+
               {relatedAreas.map((item) => (
                 <Link key={item.slug} to={`/${item.slug}`} className="bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded-lg text-sm font-medium">
                   {item.state}
